@@ -310,9 +310,9 @@ const CollegeTable = () => {
     }
   };
 
-  const handleBack = () => {
-    setStep(step - 1);
-  };
+  // const handleBack = () => {
+  //   setStep(step - 1);
+  // };
 
   const renderFormStep = () => {
     switch (step) {

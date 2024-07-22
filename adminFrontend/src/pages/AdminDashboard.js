@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   ThemeProvider,
   createTheme,
-  AppBar,
-  Toolbar,
   Grid,
   Avatar,
   Paper,
@@ -12,8 +10,8 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { experimentalStyled as styled } from '@mui/material/styles';
-import { pink } from '@mui/material/colors';
-import MenuIcon from '@mui/icons-material/Menu';
+// import { pink } from '@mui/material/colors';
+// import MenuIcon from '@mui/icons-material/Menu';
 import { useLocation } from 'react-router-dom';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
