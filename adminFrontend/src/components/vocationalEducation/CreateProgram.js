@@ -91,7 +91,7 @@ const CreateProgram = () => {
     }
 
     try {
-      await axios.post('http://localhost:8080/api/v1/vocationalEducation/create-vocational-education', formData, {
+      await axios.post('https://api.thelearnskills.com/api/v1/vocationalEducation/create-vocational-education', formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',

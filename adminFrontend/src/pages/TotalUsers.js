@@ -38,7 +38,7 @@ const UserTable = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
 console.log(token)
-    fetch('http://localhost:8080/api/v1/auth/users', {
+    fetch('https://api.thelearnskills.com/api/v1/auth/users', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`

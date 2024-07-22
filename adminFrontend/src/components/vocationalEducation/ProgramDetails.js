@@ -15,7 +15,7 @@ const ProgramDetailPage = () => {
   useEffect(() => {
     const fetchProgram = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/v1/vocationalEducation/vocational-education/${_id}`, {
+        const response = await axios.get(`https://api.thelearnskills.com/api/v1/vocationalEducation/vocational-education/${_id}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

@@ -15,7 +15,7 @@ const CourseTable = () => {
     const token = localStorage.getItem('token');
 
     // Fetch data from backend
-    fetch('http://localhost:8080/api/v1/longTermcourse/long-term-courses', {
+    fetch('https://api.thelearnskills.com/api/v1/longTermcourse/long-term-courses', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}` // Add your token if required

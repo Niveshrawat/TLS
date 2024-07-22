@@ -50,7 +50,7 @@ const CollegeTable = () => {
     const fetchColleges = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:8080/api/v1/college/colleges', {
+        const response = await fetch('https://api.thelearnskills.com/api/v1/college/colleges', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -194,7 +194,7 @@ const CollegeTable = () => {
   const handleDelete = async (collegeId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.delete(`http://localhost:8080/api/v1/college/colleges/${collegeId}`, {
+      const response = await axios.delete(`https://api.thelearnskills.com/api/v1/college/colleges/${collegeId}`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -232,7 +232,7 @@ const CollegeTable = () => {
       if(!editMode){
         switch (step) {
           case 1:
-   const createCollegeResponse = await axios.post('http://localhost:8080/api/v1/college/create-colleges', formDataToSend, {
+   const createCollegeResponse = await axios.post('https://api.thelearnskills.com/api/v1/college/create-colleges', formDataToSend, {
             ...config,
             headers: {
               ...config.headers,
@@ -248,18 +248,18 @@ const CollegeTable = () => {
               alert("All fields are required and courses should be an array with at least one entry");
               return;
             }
-            await axios.post('http://localhost:8080/api/v1/college/create-coursesAndFees', { ...formData, collegeId }, config); // Pass collegeId from state
+            await axios.post('https://api.thelearnskills.com/api/v1/college/create-coursesAndFees', { ...formData, collegeId }, config); // Pass collegeId from state
             setStep(step + 1);
             break;
           case 3:
-            await axios.post('http://localhost:8080/api/v1/college/create-admissions', { ...formData, collegeId: selectedCollegeId }, config);
+            await axios.post('https://api.thelearnskills.com/api/v1/college/create-admissions', { ...formData, collegeId: selectedCollegeId }, config);
             break;
           case 4:
-            await axios.post('http://localhost:8080/api/v1/college/create-placements', { ...formData, collegeId: selectedCollegeId }, config);
+            await axios.post('https://api.thelearnskills.com/api/v1/college/create-placements', { ...formData, collegeId: selectedCollegeId }, config);
             
             break;
           case 5:
-            await axios.post('http://localhost:8080/api/v1/college/create-rankingHighlights', { ...formData, collegeId: selectedCollegeId }, config);
+            await axios.post('https://api.thelearnskills.com/api/v1/college/create-rankingHighlights', { ...formData, collegeId: selectedCollegeId }, config);
             handleClose();
             break;
           default:
@@ -269,7 +269,7 @@ const CollegeTable = () => {
         switch (step) {
           case 1:
             console.log(collegeId,'3333333')
-   const createCollegeResponse = await axios.put(`http://localhost:8080/api/v1/college/colleges/${collegeUrl}`, formDataToSend, {
+   const createCollegeResponse = await axios.put(`https://api.thelearnskills.com/api/v1/college/colleges/${collegeUrl}`, formDataToSend, {
             ...config,
             headers: {
               ...config.headers,
@@ -286,18 +286,18 @@ const CollegeTable = () => {
               alert("All fields are required and courses should be an array with at least one entry");
               return;
             }
-            await axios.put(`http://localhost:8080/api/v1/college/courseAndFee/${collegeUrl}`, { ...formData, collegeId }, config); // Pass collegeId from state
+            await axios.put(`https://api.thelearnskills.com/api/v1/college/courseAndFee/${collegeUrl}`, { ...formData, collegeId }, config); // Pass collegeId from state
             setStep(step + 1);
             break;
           case 3:
-            await axios.put(`http://localhost:8080/api/v1/college/admission/${collegeUrl}`, { ...formData, collegeId: selectedCollegeId }, config);
+            await axios.put(`https://api.thelearnskills.com/api/v1/college/admission/${collegeUrl}`, { ...formData, collegeId: selectedCollegeId }, config);
             break;
           case 4:
-            await axios.put(`http://localhost:8080/api/v1/college/placement/${collegeUrl}`, { ...formData, collegeId: selectedCollegeId }, config);
+            await axios.put(`https://api.thelearnskills.com/api/v1/college/placement/${collegeUrl}`, { ...formData, collegeId: selectedCollegeId }, config);
             
             break;
           case 5:
-            await axios.put(`http://localhost:8080/api/v1/college/rankingHighlight/${collegeUrl}`, { ...formData, collegeId: selectedCollegeId }, config);
+            await axios.put(`https://api.thelearnskills.com/api/v1/college/rankingHighlight/${collegeUrl}`, { ...formData, collegeId: selectedCollegeId }, config);
             handleClose();
             break;
           default:

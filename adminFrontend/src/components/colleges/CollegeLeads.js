@@ -51,7 +51,7 @@ const TableComponent = () => {
     const token = localStorage.getItem('token');
 
     // Fetch data from backend
-    fetch('http://localhost:8080/api/v1/ug/undergraduates', {
+    fetch('https://api.thelearnskills.com/api/v1/ug/undergraduates', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}` // Add your token if required
