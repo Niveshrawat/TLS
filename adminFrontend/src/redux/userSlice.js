@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const login = createAsyncThunk('user/login', async ({ email, password }) => {
   try {
-    const response = await axios.post('http://localhost:8080/api/v1/auth/login', { email, password });
+    const response = await axios.post('https://api.thelearnskills.com/api/v1/auth/login', { email, password });
     return response.data;
   } catch (error) {
     throw Error(error.response.data.message || error.message);

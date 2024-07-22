@@ -46,7 +46,7 @@ const AddCollegeForm = () => {
 
   const handleSubmit = () => {
     const token = localStorage.getItem('token');
-    fetch('http://localhost:8080/api/v1/college/create-colleges', {
+    fetch('https://api.thelearnskills.com/api/v1/college/create-colleges', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

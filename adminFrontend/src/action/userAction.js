@@ -7,7 +7,7 @@ export const fetchRegisteredUsersCount = (token) => async (dispatch) => {
   dispatch({ type: FETCH_REGISTERED_USERS_COUNT_REQUEST });
 
   try {
-    const response = await fetch('http://localhost:8080/api/v1/auth/users/count', {
+    const response = await fetch('https://api.thelearnskills.com/api/v1/auth/users/count', {
       headers: {
         'Authorization': `Bearer ${token}`
       }

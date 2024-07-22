@@ -32,7 +32,7 @@ const IndustrialWorkshopTable = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    fetch('http://localhost:8080/api/v1/university/university-partnerships', {
+    fetch('https://api.thelearnskills.com/api/v1/university/university-partnerships', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`

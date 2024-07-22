@@ -29,7 +29,7 @@ const CourseTable = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
 
-    fetch('http://localhost:8080/api/v1/shortTermcourse/short-term-courses', {
+    fetch('https://api.thelearnskills.com/api/v1/shortTermcourse/short-term-courses', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
@@ -57,10 +57,10 @@ const CourseTable = () => {
     let method = '';
   
     if (isEdit) {
-      url = `http://localhost:8080/api/v1/shortTermcourse/short-term-courses/${editCourseId}`;
+      url = `https://api.thelearnskills.com/api/v1/shortTermcourse/short-term-courses/${editCourseId}`;
       method = 'PUT';
     } else {
-      url = 'http://localhost:8080/api/v1/shortTermcourse/create-short-term-course';
+      url = 'https://api.thelearnskills.com/api/v1/shortTermcourse/create-short-term-course';
       method = 'POST';
     }
   
@@ -101,7 +101,7 @@ const CourseTable = () => {
   const handleDelete = (id) => {
     const token = localStorage.getItem('token');
 
-    fetch(`http://localhost:8080/api/v1/shortTermcourse/short-term-courses/${id}`, {
+    fetch(`https://api.thelearnskills.com/api/v1/shortTermcourse/short-term-courses/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -187,7 +187,7 @@ const CourseTable = () => {
               <TableCell sx={{ border: 'none' }}>{course.description}</TableCell>
               <TableCell sx={{ border: 'none' }}>
                 {course.images && course.images.map((image, idx) => (
-                  <img key={idx} src={`http://localhost:8080/${image}`} alt={`course-${idx}`} width="50" />
+                  <img key={idx} src={`https://api.thelearnskills.com/api/v1/${image}`} alt={`course-${idx}`} width="50" />
                 ))}
               </TableCell>
               <TableCell sx={{ border: 'none' }}>{course.highlights}</TableCell>

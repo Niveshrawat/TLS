@@ -30,7 +30,7 @@ const CourseTable = () => {
   const fetchCourses = () => {
     const token = localStorage.getItem('token');
 
-    fetch('http://localhost:8080/api/v1/longTermcourse/long-term-courses', {
+    fetch('https://api.thelearnskills.com/api/v1/longTermcourse/long-term-courses', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
@@ -60,10 +60,10 @@ const CourseTable = () => {
     let method = '';
 
     if (isEdit) { 
-      url = `http://localhost:8080/api/v1/longTermcourse/long-term-courses/${editCourseId}`;
+      url = `https://api.thelearnskills.com/api/v1/longTermcourse/long-term-courses/${editCourseId}`;
       method = 'PUT';
     } else {
-      url = 'http://localhost:8080/api/v1/longTermcourse/create-long-term-course';
+      url = 'https://api.thelearnskills.com/api/v1/longTermcourse/create-long-term-course';
       method = 'POST';
     }
 
@@ -109,7 +109,7 @@ const CourseTable = () => {
   const handleDelete = (id) => {
     const token = localStorage.getItem('token');
 
-    fetch(`http://localhost:8080/api/v1/longTermcourse/long-term-courses/${id}`, {
+    fetch(`https://api.thelearnskills.com/api/v1/longTermcourse/long-term-courses/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
