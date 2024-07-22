@@ -3,7 +3,7 @@ import axios from 'axios';
 // Function to handle user login
 export const loginUser = async (credentials) => {
   try {
-    const response = await axios.post('http://api.thelearnskills.com/api/v1', credentials);
+    const response = await axios.post('https://api.thelearnskills.com/api/v1', credentials);
     const { token } = response.data;
 
     // Save the token in localStorage

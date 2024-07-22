@@ -3,7 +3,7 @@ import axios from 'axios';
 const submitForm = async (formData, token) => {
   try {
     const response = await axios.post(
-      'http://api.thelearnskills.com/api/v1/university/submit-university-partnership',
+      'https://api.thelearnskills.com/api/v1/university/submit-university-partnership',
       formData,
       {
         headers: {
