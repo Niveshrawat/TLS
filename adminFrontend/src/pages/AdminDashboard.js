@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   ThemeProvider,
   createTheme,
-  AppBar,
-  Toolbar,
   Grid,
   Avatar,
   Paper,
@@ -12,8 +10,7 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { experimentalStyled as styled } from '@mui/material/styles';
-import { pink } from '@mui/material/colors';
-import MenuIcon from '@mui/icons-material/Menu';
+
 import { useLocation } from 'react-router-dom';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
@@ -100,11 +97,11 @@ const AdminDashboard = () => {
   const [open, setOpen] = useState(isDesktop);
   const location = useLocation();
 
-  const handleDrawerToggle = () => {
-    if (!isDesktop) {
-      setOpen(!open);
-    }
-  };
+  // const handleDrawerToggle = () => {
+  //   if (!isDesktop) {
+  //     setOpen(!open);
+  //   }
+  // };
 
   useEffect(() => {
     if (!isDesktop) {

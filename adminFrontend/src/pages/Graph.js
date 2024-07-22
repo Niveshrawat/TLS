@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { pink } from "@mui/material/colors";
-import Chart from 'chart.js/auto';
+
 
 
 const HorizontalChart = () => {

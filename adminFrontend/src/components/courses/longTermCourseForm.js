@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Button, Grid, Typography, Paper } from '@mui/material';
+import { TextField, Grid, Typography, Paper } from '@mui/material';
 
 const CourseForm = ({ formData, handleChange, handleImageChange, handleSubmit }) => {
   return (

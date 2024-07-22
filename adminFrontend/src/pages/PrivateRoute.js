@@ -13,7 +13,7 @@ const PrivateRoute = ({ roleRequired }) => {
    
   }
 
-  if (roleRequired && isAuthenticated && role != roleRequired) {
+  if (roleRequired && isAuthenticated && role !== roleRequired) {
     
     return <Navigate to="/admin/login" />;
     
@@ -27,7 +27,7 @@ const PrivateRoute2 =({ roleRequired }) => {
   
 
 
-  if (isAuthenticated && role== roleRequired) {
+  if (isAuthenticated && role=== roleRequired) {
    
     return <Navigate to="/admin/dashboard" />;
    
