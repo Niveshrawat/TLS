@@ -24,11 +24,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 const IndustrialWorkshopTable = () => {
   const [workshops, setWorkshops] = useState([]);
   const [filteredWorkshops, setFilteredWorkshops] = useState([]);
-  // const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm] = useState('');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  // const [startDate, setStartDate] = useState('');
-  // const [endDate, setEndDate] = useState('');
+  const [startDate] = useState('');
+  const [endDate] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
