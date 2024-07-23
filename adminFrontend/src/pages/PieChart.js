@@ -1,5 +1,14 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  Title,
+} from 'chart.js';
+
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 const PieChart = () => {
   const data = {
@@ -33,13 +42,13 @@ const PieChart = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: 'right', // Display the legend on the right sideR
+        position: 'right',
         labels: {
           generateLabels: function (chart) {
             const data = chart.data.datasets[0].data;
             const labels = chart.data.labels;
             return labels.map((label, index) => ({
-              text: `${label}: ${data[index]}`, // Display label and data value
+              text: `${label}: ${data[index]}`,
               fillStyle: chart.data.datasets[0].backgroundColor[index],
               strokeStyle: chart.data.datasets[0].borderColor[index],
               lineWidth: chart.data.datasets[0].borderWidth,
