@@ -30,7 +30,7 @@ const ProgramTable = () => {
   const handleDelete = async (_id) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:8080/api/v1/vocationalEducation/vocational-education/${_id}`, {
+      await axios.delete(`https://api.thelearnskills.com/api/v1/vocationalEducation/vocational-education/${_id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

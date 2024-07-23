@@ -187,7 +187,7 @@ const CourseTable = () => {
               <TableCell sx={{ border: 'none' }}>{course.description}</TableCell>
               <TableCell sx={{ border: 'none' }}>
                 {course.images.map((image, index) => (
-                  <img key={index} src={`http://localhost:8080/uploads/${image}`} alt={`Course Image ${index + 1}`} width="100" height="100" />
+                  <img key={index} src={`https://api.thelearnskills.com/api/v1/uploads/${image}`} alt={`Course Image ${index + 1}`} width="100" height="100" />
                 ))}
               </TableCell>
               <TableCell sx={{ border: 'none' }}>{course.highlights}</TableCell>

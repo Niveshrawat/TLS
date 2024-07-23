@@ -56,7 +56,7 @@ const ProgramDetailPage = () => {
     }
   
     try {
-      await axios.put(`http://localhost:8080/api/v1/vocationalEducation/vocational-education/${_id}`, formData, {
+      await axios.put(`https://api.thelearnskills.com/api/v1/vocationalEducation/vocational-education/${_id}`, formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
