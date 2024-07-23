@@ -29,7 +29,6 @@ export const registerController = async (req, res) => {
     if (!answer) {
       return res.send({ message: "Answer is Required" });
     }
-
     if (!isValidPhoneNumber(phone)) {
       return res.send({ message: "Invalid phone number" });
     }
@@ -37,12 +36,9 @@ export const registerController = async (req, res) => {
     const existingUser = await userModel.findOne({ email });
     // Existing user
     if (existingUser) {
-      console.log(existingUser,'66666')
-
       return res.status(200).send({
         success: false,
         message: "Already registered, please login",
-        error,
       });
     }
     // Register user
@@ -66,7 +62,7 @@ export const registerController = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Already registered, please login",
+      message: "Error in registration",
       error,
     });
   }
@@ -165,42 +161,61 @@ export const forgotPasswordController = async (req, res) => {
 };
 
 // Update Profile
-export const updateProfileController = async (req, res) => {
+export const updateProfileController= async (req, res) => {
+  const userId = req.user._id; // Assuming you have a middleware that sets req.user
+  const {
+    name,
+    email,
+    password,
+    address,
+    phone,
+    dob,
+    socialCategory,
+    gender,
+    maritalStatus,
+    physicallyChallenged,
+    city,
+    state,
+    class10,
+    class12,
+    graduation
+  } = req.body;
+
   try {
-    const { name, email, password, address, phone } = req.body;
-    const user = await userModel.findById(req.user._id);
-    // Password
-    if (password && password.length < 6) {
-      return res.json({ error: "Password is required and should be at least 6 characters long" });
+    const updateData = {};
+
+    if (name) updateData.name = name;
+    if (email) updateData.email = email;
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      updateData.password = hashedPassword;
     }
-    if (phone && !isValidPhoneNumber(phone)) {
-      return res.status(400).send({ message: "Invalid phone number" });
+    if (address) updateData.address = address;
+    if (phone) updateData.phone = phone;
+    if (dob) updateData.dob = dob;
+    if (socialCategory) updateData.socialCategory = socialCategory;
+    if (gender) updateData.gender = gender;
+    if (maritalStatus) updateData.maritalStatus = maritalStatus;
+    if (physicallyChallenged !== undefined) updateData.physicallyChallenged = physicallyChallenged;
+    if (city) updateData.city = city;
+    if (state) updateData.state = state;
+    if (class10) updateData.class10 = class10;
+    if (class12) updateData.class12 = class12;
+    if (graduation) updateData.graduation = graduation;
+
+    const updatedUser = await userModel.findByIdAndUpdate(userId, updateData, { new: true });
+
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, message: 'User not found' });
     }
-    const hashedPassword = password ? await hashPassword(password) : undefined;
-    const updatedUser = await userModel.findByIdAndUpdate(
-      req.user._id,
-      {
-        name: name || user.name,
-        password: hashedPassword || user.password,
-        phone: phone || user.phone,
-        address: address || user.address,
-      },
-      { new: true }
-    );
-    res.status(200).send({
-      success: true,
-      message: "Profile Updated Successfully",
-      updatedUser,
-    });
+
+    res.json({ success: true, message: "Profile updated successfully", data: updatedUser });
   } catch (error) {
-    console.log(error);
-    res.status(400).send({
-      success: false,
-      message: "Error while updating profile",
-      error,
-    });
+    res.status(400).json({ success: false, message: `Error updating profile: ${error.message}` });
   }
 };
+
 
 // Get All Users Controller
 export const getAllUsersController = async (req, res) => {

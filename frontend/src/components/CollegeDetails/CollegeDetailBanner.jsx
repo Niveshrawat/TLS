@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import { Box, Typography, Button, Grid, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import CollegeForm from '../forms/UnderGraduateForm';
 
 const CollegeDetailsBanner = ({ college }) => {
   const [open, setOpen] = useState(false);
+  const isLoggedIn = useSelector((state) => state.user.user); // Check if user is logged in
+  const navigate = useNavigate(); // To navigate to the login page
 
   const handleClickOpen = () => {
-    setOpen(true);
+    if (isLoggedIn) {
+      setOpen(true);
+    } else {
+      navigate('/login'); // Redirect to the login page if not logged in
+    }
   };
 
   const handleClose = () => {
@@ -49,9 +57,18 @@ const CollegeDetailsBanner = ({ college }) => {
               <Button variant="contained" color="primary" fullWidth onClick={handleClickOpen}>
                 Apply Now
               </Button>
-              <Button variant="contained" color="primary" fullWidth  sx={{  marginTop:"1rem", backgroundColor:'orangered','&:hover': {
-      backgroundColor: 'lightcoral' // or any lighter shade of orangered
-    }}}>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                sx={{
+                  marginTop: '1rem',
+                  backgroundColor: 'orangered',
+                  '&:hover': {
+                    backgroundColor: 'lightcoral', // or any lighter shade of orangered
+                  },
+                }}
+              >
                 Download Brochure
               </Button>
             </Grid>

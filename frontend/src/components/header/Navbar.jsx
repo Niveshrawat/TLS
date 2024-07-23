@@ -55,7 +55,10 @@ const handleLogout = () => {
   dispatch(logoutUser());
   handleCloseMenu();
 };
-
+const handleMenuItemClick = (path) => {
+  navigate(path);
+  handleCloseMenu();
+};
   const drawer = (
     <div>
       <List>
@@ -73,20 +76,20 @@ const handleLogout = () => {
         <ListItem button component={Link} to="/online-certification" onClick={handleDrawerToggle}>
           <ListItemText primary="Online Certification" />
         </ListItem>
-        <List component="div" disablePadding>
+        {/* <List component="div" disablePadding>
           <ListItem button component={Link} to="/all-courses" onClick={handleDrawerToggle}>
             <ListItemIcon>
               <ArrowRightIcon />
             </ListItemIcon>
             <ListItemText primary="Short Term Cert." />
-          </ListItem>
-          <ListItem button component={Link} to="/long-term-courses" onClick={handleDrawerToggle}>
+          </ListItem> */}
+          {/* <ListItem button component={Link} to="/long-term-courses" onClick={handleDrawerToggle}>
             <ListItemIcon>
               <ArrowRightIcon />
             </ListItemIcon>
             <ListItemText primary="Long Term Cert." />
-          </ListItem>
-        </List>
+          </ListItem> */}
+        {/* </List> */}
         <ListItem button component={Link} to="/internship" onClick={handleDrawerToggle}>
           <ListItemText primary="Internship/Industrial" />
         </ListItem>
@@ -112,7 +115,15 @@ const handleLogout = () => {
   const { user } = useSelector((state) => state.user); // Get user data from Redux store
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: backgroundColor || '#003285', color: color || 'white' }}>
+    <AppBar 
+    position="sticky"
+  sx={{
+    backgroundColor: backgroundColor || '#003285',
+    color: color || 'white',
+    boxShadow: 'none', // Remove any shadow
+    borderBottom: 'none' // Remove any border
+  
+      }}>
       <Toolbar>
         {(isMobile || isTablet) ? (
           <>
@@ -143,6 +154,7 @@ const handleLogout = () => {
                  horizontal: 'right',
                }}
              >
+               <MenuItem onClick={() => handleMenuItemClick('/profile')}>My Profile</MenuItem>
                <MenuItem onClick={handleLogout}>Logout</MenuItem>
                {/* You can add more menu items for other actions */}
              </Menu>
@@ -213,9 +225,9 @@ const handleLogout = () => {
                 <MenuItem onClick={handleClose} component={Link} to="/underGraduate">
                   University Admission
                 </MenuItem>
-                <MenuItem onMouseEnter={handleSubClick} onMouseLeave={handleClose}>
+                <MenuItem onMouseEnter={handleSubClick} onMouseLeave={handleClose}component={Link} to="/all-courses">
                   Online Certification
-                  <ListItemIcon>
+                  {/* <ListItemIcon>
                     <ArrowRightIcon fontSize="small" />
                   </ListItemIcon>
                   <Menu
@@ -228,7 +240,7 @@ const handleLogout = () => {
                   >
                     <MenuItem onClick={handleClose} component={Link} to="/all-courses">Short Term Cert.</MenuItem>
                     <MenuItem onClick={handleClose} component={Link} to="/long-term-courses">Long Term Cert.</MenuItem>
-                  </Menu>
+                  </Menu> */}
                 </MenuItem>
                 <MenuItem onClick={handleClose} component={Link} to="/internship">Internship/Industrial Workshop</MenuItem>
                 <MenuItem onClick={handleClose} component={Link} to="/">MDP/FDC</MenuItem>
@@ -259,6 +271,7 @@ const handleLogout = () => {
                 horizontal: 'right',
               }}
             >
+               <MenuItem onClick={() => handleMenuItemClick('/profile')}>My Profile</MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </>

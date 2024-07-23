@@ -1,13 +1,19 @@
-// src/components/CourseCard.js
-import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Button } from '@mui/material';
+import React, { useState } from 'react';
+import { Card, CardContent, CardMedia, Typography, Button, Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const CourseCard = ({ course }) => {
+  const [readMore, setReadMore] = useState(false);
+
+  const handleReadMore = () => {
+    setReadMore(!readMore);
+  };
+
   return (
-    <Card style={{ maxWidth: 345, margin: '16px' }}>
+    <Card style={{ maxWidth: 400, margin: '16px' }}>
       <CardMedia
         component="img"
-        height="140"
+        height="200"
         image={course.image}
         alt={course.title}
       />
@@ -16,13 +22,16 @@ const CourseCard = ({ course }) => {
           {course.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {course.description}
+          {readMore ? course.description : `${course.description.substring(0, 100)}...`}
+          <Button onClick={handleReadMore}>
+            {readMore ? 'Read Less' : 'Read More'}
+          </Button>
         </Typography>
-        <Typography variant="h6" color="text.primary">
-          ₹{course.price}
+        <Typography variant="body2" color="text.secondary">
+          Duration: {course.duration}
         </Typography>
-        <Button variant="contained" color="primary" style={{ marginTop: '8px' }}>
-          Apply
+        <Button variant="contained" color="primary" style={{ marginTop: '8px' }} component={Link} to={`/courses/${course.id}`}>
+          View Details
         </Button>
       </CardContent>
     </Card>

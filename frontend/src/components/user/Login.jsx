@@ -76,11 +76,16 @@ const LoginPage = () => {
               {status === 'failed' && <Typography color="error" sx={{ mt: 2 }}>{error}</Typography>}
             </form>
             <Typography sx={{ mt: 2 }}>
-              Don't have an account?{' '}
-              <Link href="/register" underline="hover">
-                Register
-              </Link>
-            </Typography>
+            <Link href="/forgot-password" underline="hover">
+              Forgot Password?
+            </Link>
+          </Typography>
+          <Typography sx={{ mt: 2 }}>
+            Don't have an account?{' '}
+            <Link href="/register" underline="hover">
+              Register
+            </Link>
+          </Typography>
           </CardContent>
         </Card>
   

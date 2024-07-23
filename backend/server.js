@@ -19,7 +19,9 @@ import jobSupportProgramRoutes from './routes/jobSupportProgramRoutes.js';
 import shortTermCourseRoutes from './routes/shortTermCourseRoutes.js';
 import longTermCourseRoutes from './routes/longTermCourseRoutes.js';
 import collegeRoutes from './routes/collegeRoutes.js';
-import cors from 'cors'
+import adminauthRoutes from './routes/adminauthRoutes.js';
+import cors from 'cors';
+import vocationalEducationRoutes from './routes/vocationalEducationRoutes.js';
 
 
 //configure env
@@ -66,6 +68,12 @@ app.use('/api/v1/longTermcourse', longTermCourseRoutes);
 
 // CRUD operations for Courses
 app.use('/api/v1/college', collegeRoutes);
+
+// CRUD operations for Courses
+app.use('/api/v1/vocationalEducation', vocationalEducationRoutes);
+
+// Admin Routes
+app.use('/api/v1/auth/admin', adminauthRoutes);
 
 
 app.get('/',(req,res)=>{

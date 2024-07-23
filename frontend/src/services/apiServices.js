@@ -36,7 +36,7 @@ export const loginUserApi = async (credentials) => {
     const { token } = response.data;
     localStorage.setItem('token', token); // Save token to localStorage
     
-console.log('Token:', token);
+    console.log('Token:', token);
 
     return response.data;
   } catch (error) {
@@ -44,5 +44,11 @@ console.log('Token:', token);
   }
 };
 
-
-
+export const requestPasswordResetApi = async (email, answer, newPassword) => {
+  try {
+    const response = await api.post('/auth/forgot-password', { email, answer, newPassword });
+    return response.data; // Assuming API returns a success message or confirmation
+  } catch (error) {
+    handleApiError(error);
+  }
+};

@@ -21,12 +21,17 @@ const longTermCertificateSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['Tech', 'Non-Tech'],
+    enum: ['tech', 'non-tech'],
   },
-  courseName: {
+  status: {
     type: String,
-    required: true,
-  }
+    enum: ['connected', 'pending', 'follow-up', 'not interested'],
+    default: 'pending',
+  },
+  assignedTo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Admin',
+  },
 });
 
 export default mongoose.model('LongTermCertificate', longTermCertificateSchema);

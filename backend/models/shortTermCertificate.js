@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const shortTermCertificateSchema = new mongoose.Schema({
   name: {
@@ -12,7 +12,7 @@ const shortTermCertificateSchema = new mongoose.Schema({
   emailId: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   location: {
     type: String,
@@ -21,12 +21,26 @@ const shortTermCertificateSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['Tech', 'Non-Tech'],
+    enum: ['tech', 'non-tech'],
   },
   courseName: {
     type: String,
     required: true,
-  }
+  },
+  status: {
+    type: String,
+    enum: ['connected', 'pending', 'follow-up', 'not interested'],
+    default: 'pending',
+  },
+  assignedTo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Admin',
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
 });
 
 export default mongoose.model('ShortTermCertificate', shortTermCertificateSchema);
