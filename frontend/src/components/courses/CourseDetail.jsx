@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Typography, Container, Box, Card, CardContent, Button, Grid, Tab, Tabs, Avatar } from '@mui/material';
+import { Typography, Container, Box, Card, CardContent, Button, Grid, Tab, Tabs,Avatar } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import PersonIcon from '@mui/icons-material/Person';
 import Navbar from '../header/Navbar';
 import Footer from '../footer/Footer';
 import InquiryForm from '../forms/ShortCoursesForm';
+
 
 function getCourseDetails(id) {
   const courses = {
@@ -28,7 +28,15 @@ function getCourseDetails(id) {
 
 function CourseDetails() {
   const { id } = useParams();
-  const course = getCourseDetails(id);
+  const [course, setCourse] = useState({});
+
+  useEffect(() => {
+    console.log("Course ID from params:", id); // Log the course ID for debugging
+    const courseDetails = getCourseDetails(id);
+    setCourse(courseDetails);
+    console.log("Course Details after fetching:", courseDetails); // Log the course details for debugging
+  }, [id]);
+
   const [tabValue, setTabValue] = React.useState(0);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -45,32 +53,35 @@ function CourseDetails() {
   };
 
   return (
-    <Box>
+    <Box sx={{width:'100%', overflow:'hidden'}}>
       <Navbar />
       <Container>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={8}>
+              <Typography variant="h6" fontWeight="bold" marginTop="1rem" gutterBottom>{course.title}</Typography>
             <Box display="flex" alignItems="center">
               {course.image && (
                 <img src={course.image} alt={course.title} style={{ width: '400px', height: '300px', marginRight: '1rem', marginTop: '2rem' }} />
               )}
               <Box>
-                <Typography variant="h4" gutterBottom>{course.title}</Typography>
-                <Typography variant="subtitle1" gutterBottom>By The Learn Skill</Typography>
+                
+                
+                <Typography variant="subtitle1" gutterBottom >By The Learn Skill</Typography>
                 <Typography variant="body2" color="text.secondary" display="flex" alignItems="center">
                   <StarIcon color="primary" />
                   {course.rating}
                 </Typography>
+               
               </Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Card sx={{ marginTop: "5rem" }}>
+            <Card sx={{ marginTop: "5rem", boxShadow:'0px 4px 12px navy' }}>
               <CardContent>
-                <Typography variant="h6" gutterBottom>Start Your Course</Typography>
+                <Typography variant="h6" fontWeight="bold" gutterBottom>Start Your Course</Typography>
                 <Typography variant="body2" color="text.secondary" display="flex" alignItems="center" gutterBottom>
-                  <AccessTimeIcon />
-                  {course.duration}
+                  
+                🕝 {course.duration}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" gutterBottom>
                   Learn from Industry Experts
@@ -88,7 +99,7 @@ function CourseDetails() {
             </Card>
           </Grid>
         </Grid>
-
+        
         <Box mt={4}>
           <Tabs value={tabValue} onChange={handleTabChange} indicatorColor="primary" textColor="primary" centered>
             <Tab label="Overview" />
@@ -97,15 +108,16 @@ function CourseDetails() {
           </Tabs>
           <TabPanel value={tabValue} index={0}>
             <Typography variant="body1" paragraph>
-              Overview content goes here...
+            A course covering a comprehensive stack like the MERN (MongoDB, Express.js, React, Node.js) stack typically offers a thorough exploration of each technology's fundamentals and their integration for full-stack web development. Starting with MongoDB, learners delve into NoSQL database concepts, schema design, and data manipulation through CRUD operations. Express.js instruction follows, focusing on setting up servers, routing, middleware, and interfacing with MongoDB via libraries like Mongoose. React.js is then introduced for building dynamic user interfaces, covering components, state management, event handling, and integration with backend APIs. Node.js serves as the foundation throughout, emphasizing its event-driven architecture, asynchronous programming capabilities, and server-side JavaScript execution.
+
             </Typography>
           </TabPanel>
           <TabPanel value={tabValue} index={1}>
             <Grid container spacing={2}>
-              {["Highlight 1", "Highlight 2", "Highlight 3", "Highlight 4", "Highlight 5"].map((highlight, index) => (
+            {["Comprehensive Full-Stack Development", "MongoDB and NoSQL Fundamentals", "Express.js and API Development", "React.js for Dynamic UIs", "Node.js Server-Side Development"].map((highlight, index) => (
                 <Grid item xs={12} sm={4} key={index}>
                   <Box display="flex" alignItems="center">
-                    <Avatar>{index + 1}</Avatar>
+                    <Avatar sx={{backgroundColor:'navy', color:'white'}}>{index + 1}</Avatar>
                     <Typography variant="body1" ml={2}>{highlight}</Typography>
                   </Box>
                 </Grid>
@@ -113,14 +125,19 @@ function CourseDetails() {
             </Grid>
           </TabPanel>
           <TabPanel value={tabValue} index={2}>
+
             <Typography variant="body1" paragraph>
-              Eligibility Criteria content goes here...
-            </Typography>
+            Basic Programming<br></br>
+             HTML/CSS<br></br>
+              JavaScript Proficiency<br></br>
+               Database Understanding<br></br>
+                Node.js Fundamentals<br></br>
+                 Git & Version Control<br></br>
+                  Text Editor/IDE Proficiency            </Typography>
           </TabPanel>
         </Box>
       </Container>
       <Footer />
-
       <InquiryForm open={modalOpen} handleClose={handleCloseModal} />
     </Box>
   );

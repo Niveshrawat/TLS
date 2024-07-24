@@ -65,7 +65,7 @@ function Filters({ priceRange, setPriceRange, durationRange, setDurationRange, t
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <AccessTimeIcon style={{ marginRight: '8px' }} />
-          <Typography variant="h6">Filter by Duration</Typography>
+          <Typography variant="h6">Filterr by Duration</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <FormControl component="fieldset">

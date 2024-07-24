@@ -73,7 +73,7 @@ const handleMenuItemClick = (path) => {
             <ListItemText primary="University Admission" />
           </ListItem>
         </List>
-        <ListItem button component={Link} to="/online-certification" onClick={handleDrawerToggle}>
+        <ListItem button component={Link} to="/all-courses" onClick={handleDrawerToggle}>
           <ListItemText primary="Online Certification" />
         </ListItem>
         {/* <List component="div" disablePadding>
@@ -121,8 +121,8 @@ const handleMenuItemClick = (path) => {
     backgroundColor: backgroundColor || '#003285',
     color: color || 'white',
     boxShadow: 'none', // Remove any shadow
-    borderBottom: 'none' // Remove any border
-  
+    borderBottom: 'none', // Remove any border
+   height:'8rem'
       }}>
       <Toolbar>
         {(isMobile || isTablet) ? (
@@ -131,7 +131,14 @@ const handleMenuItemClick = (path) => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>LOGO</Link>
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+      <img
+        src="../public/images/TLS_20240723_132205_0000.png"
+        alt="Logo"
+        style={{ textDecoration: 'none', color: 'inherit', height:'7rem', marginLeft:'5rem'  }}
+      />
+    </Link>
+              
             </Typography>
             {user ? (
               <>
@@ -209,7 +216,13 @@ const handleMenuItemClick = (path) => {
         ) : (
           <>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>LOGO</Link>
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+      <img
+        src="../public/images/TLS_20240723_132205_0000.png"
+        alt="Logo"
+        style={{ height: '10rem', marginTop: '2rem' }}
+      />
+    </Link>
             </Typography>
             <div>
               <Button color="inherit" onClick={handleClick}>Education</Button>

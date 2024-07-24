@@ -48,7 +48,7 @@ const UnderGraduate = () => {
   };
 
   return (
-    <Box>
+    <Box sx={{ width: '100%', overflowX: 'hidden' }}>
       <Navbar />
       <Box
         sx={{
@@ -70,7 +70,9 @@ const UnderGraduate = () => {
           sx={{
             color: 'white',
             fontWeight: 'bold',
+            fontSize: { xs: '1.5rem', sm: '2rem' },
             textAlign: { xs: 'center', sm: 'left' },
+            marginRight:{sm:'0',xs:'2rem' },
             marginBottom: { xs: 2, sm: 0 },
           }}
         >
@@ -85,7 +87,7 @@ const UnderGraduate = () => {
           autoplay
         ></dotlottie-player>
       </Box>
-      <Container>
+      <Container sx={{ maxWidth: '100%' }}>
         {isMobile && (
           <IconButton onClick={handleDrawerToggle} sx={{ mb: 2 }}>
             <FilterListIcon />
@@ -94,12 +96,12 @@ const UnderGraduate = () => {
         <Box sx={{ display: 'flex', marginTop: 3, flexDirection: { xs: 'column', sm: 'row' } }}>
           {!isMobile && <FilterSidebar filters={filters} handleFilterChange={handleFilterChange} />}
           <Drawer anchor="left" open={mobileOpen} onClose={handleDrawerToggle}>
-            <Box sx={{ width: 250, p: 2 }}>
+        
               <FilterSidebar filters={filters} handleFilterChange={handleFilterChange} />
-            </Box>
+            
           </Drawer>
-          <Box sx={{ flexGrow: 1, marginLeft: { xs: 0, sm: 3 } }}>
-            <Grid container spacing={3}>
+          <Box sx={{ flexGrow: 1, marginLeft: { xs: '3rem', sm: '3' } }}>
+            <Grid container spacing={3} justifyContent={isMobile ? 'center' : 'flex-start'}>
               {filteredColleges.map((college) => (
                 <Grid item xs={12} sm={6} md={4} key={college.id}>
                   <Link to={`/underGraduate/${college.id}`} style={{ textDecoration: 'none' }}>

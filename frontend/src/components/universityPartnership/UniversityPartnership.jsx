@@ -32,22 +32,48 @@ const UniversityPartnerships = () => {
   const handleClose = () => setOpen(false);
 
   return (
-    <Box>
+    <Box sx={{width: '100%', overflowX: 'hidden'}}>
         <Navbar/>
         <Banner>
-        <Typography variant="h3" fontWeight="bold">University Partnerships</Typography>
-        <Typography variant="h5">"Embark on Your Career Journey: Where Opportunities and Ambitions Collide!"</Typography>
+        <Typography variant="h3" fontWeight="bold" sx={{ 
+          color: 'white',
+          fontWeight: 'bold',
+          textAlign: { xs: 'center', sm: 'center' },
+          fontSize: { xs: '1.8rem', sm: '2rem' },
+          
+          
+          marginBottom: { xs: 2, sm: 0 },
+         }}>University Partnerships</Typography>
+        <Typography variant="h6" 
+        sx={{ 
+          color: 'white',
+          
+          textAlign: { xs: 'center', sm: 'center' },
+          fontSize: { xs: '1.2rem', sm: '1.5rem' },
+          
+         
+          
+         }}
+        >"Embark on Your Career Journey: Where Opportunities and Ambitions Collide!"</Typography>
         {/* <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} onClick={handleExploreClick}>
           Explore Internships
         </Button> */}
       </Banner>
 
     <Container sx={{marginTop:'2rem'}}>
-      <Typography variant="h2" align="center" fontWeight='bold' gutterBottom>
+      <Typography variant="h2" align="center" fontWeight='bold' gutterBottom sx={{ 
+          color: 'white',
+          
+          textAlign: { xs: 'center', sm: 'center' },
+          fontSize: { xs: '1.8rem', sm: '2rem' },
+          
+         
+          
+         }}>
         <span style={{ color: 'black' }}>University </span>
         <span style={{ color: 'green' }}>Partnerships</span>
       </Typography>
-      <Typography variant="body1" align="center" gutterBottom sx={{color:'grey', fontWeight:'bold'}}>
+      <Typography variant="body1" align="center" gutterBottom sx={{color:'grey', fontWeight:'bold',fontSize: { xs: '1rem', sm: '1rem' }, }}>
       Global Experiences is committed to providing life-changing experiences for college students and young professionals. Our international internship programs are designed to complement students’ education and further them along their career. We are the trusted partner to a growing portfolio of more than 70 universities and academic institutions. We provide each individual student and university partner a high-quality program with a strengths-based approach to career readiness and a high level of accountability.      </Typography>
       <Grid container spacing={2} justifyContent="center" marginTop='5rem'>
         {universities.map((university, index) => (

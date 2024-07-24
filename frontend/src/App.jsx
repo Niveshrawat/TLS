@@ -52,7 +52,7 @@ function App() {
             {/* <Route path="/postGraduate" element={<PostGraduate />} /> */}
             <Route path="/all-courses" element={<ShortCourses type="short" />} />
             <Route path="/long-term-courses" element={<CoursesPage type="long" />} />
-            <Route path="/course/:courseId" element={<CourseDetails />} />
+            <Route path="/course/:id" element={<CourseDetails />} />
             <Route path="/internship" element={<Internship />} />
             <Route path="/industrial-workshop" element={<IndustrialWorkshops />} />
             <Route path="/management" element={<ManagementCourse />} />

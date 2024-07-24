@@ -123,18 +123,36 @@ const InternshipPage = () => {
   };
 
   return (
-    <Box>
+    <Box sx={{width: '100%', overflowX: 'hidden'}}>
       <Navbar />
       <Banner>
-        <Typography variant="h3" fontWeight="bold">Internship and Industrial Program</Typography>
-        <Typography variant="h5">"Embark on Your Career Journey: Where Opportunities and Ambitions Collide!"</Typography>
+        <Typography variant="h3" 
+        sx={{ 
+          color: 'white',
+          fontWeight: 'bold',
+          textAlign: { xs: 'center', sm: 'center' },
+          fontSize: { xs: '1.5rem', sm: '2rem' },
+          
+          marginRight:{sm:'0',xs:'2rem' },
+          marginBottom: { xs: 2, sm: 0 },
+         }}>
+        Internship and Industrial Program</Typography>
+        <Typography variant="h5" sx={{ 
+          color: 'white',
+          
+          textAlign: { xs: 'center', sm: 'center' },
+          fontSize: { xs: '1.2rem', sm: '1.5rem' },
+          
+         
+          
+         }}>"Embark on Your Career Journey: Where Opportunities and Ambitions Collide!"</Typography>
         <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} onClick={handleExploreClick}>
           Explore Opportunity
         </Button>
       </Banner>
 
       <Benefits>
-        <Typography variant="h4" align="center" fontWeight="bold" marginTop="2rem" gutterBottom>Benefits of Joining us</Typography>
+        <Typography variant="h5" align="center" fontWeight="bold" marginTop="2rem" gutterBottom>Benefits of Joining us</Typography>
         <Grid container spacing={2} justifyContent="center" marginTop="2rem">
           {benefits.map((benefit, index) => (
             <Grid item xs={12} sm={6} md={2} lg={2} key={index} display="flex" justifyContent="center">
@@ -148,7 +166,7 @@ const InternshipPage = () => {
       </Benefits>
 
       <FormContainer ref={formRef} marginTop="10rem">
-            <Typography variant="h4" align="center" fontWeight="bold" marginTop="2rem" marginBottom="3rem">Apply for Internship/Workshop</Typography>
+            <Typography variant="h5" align="center" fontWeight="bold" marginTop="2rem" marginBottom="3rem">Apply for Internship/Workshop</Typography>
         <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} md={6}>
             <form noValidate autoComplete="off" onSubmit={handleSubmit}>

@@ -8,16 +8,16 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 
 const Footer = () => {
   return (
-    <footer style={{ backgroundColor: '#EEF7FF', padding: '100px 0', marginTop: '40px' }}>
+    <footer style={{ backgroundColor: '#003285', padding: '30px 0',marginTop:'1rem',color:'white' }}>
       <Container maxWidth="lg">
         <Grid container spacing={5}>
           <Grid item xs={12} sm={6} md={3}>
             <Box mb={2}>
-              <img src="" alt="Logo" style={{ maxWidth: '100px' }} />
-              <Typography variant='h4'>Logo</Typography>
-              <Typography variant="body2">Aut cum mollitia reprehenderit. Eos cumque dicta adipisci amet architecto culpa.</Typography>
+              <img src="../public/images/TLS_20240723_132205_0000.png" alt="Logo" style={{ maxWidth: '100px' }} />
+              
+              <Typography variant="body2">Follow us on social media for regular updates, tips, and insights that can help you achieve your career goals! </Typography>
             </Box>
-            <Box display="flex" justifyContent="center">
+            <Box display="flex" justifyContent="center" marginRight="6rem">
               <IconButton href="https://www.instagram.com" target="_blank" aria-label="Instagram" sx={{ color: '#E4405F' }}>
                 <InstagramIcon />
               </IconButton>
@@ -57,9 +57,11 @@ const Footer = () => {
             <Typography variant="body2">Cookie Policy</Typography>
           </Grid>
         </Grid>
-
-        <Typography variant="body2" color="textSecondary" align="center" style={{ position:'fixed', marginTop: '20rem' }}>
-          &copy; {new Date().getFullYear()} Your Company. All rights reserved.
+        <Typography variant="body2" color="textSecondary" align="center" style={{ marginTop:'2rem',  color:"white" }}>
+         Copyright &copy; {new Date().getFullYear()} The Learn Skills. All rights reserved.
+        </Typography>
+        <Typography variant="body2" color="textSecondary" align="center" style={{marginTop:'10px', fontSize:'10px',  color:"white" }}>
+          Created By OVS Innovation
         </Typography>
       </Container>
     </footer>

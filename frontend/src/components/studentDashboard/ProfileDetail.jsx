@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Grid, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, Paper, TextField, Typography, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import axios from 'axios';
 
 const ProfileDetails = () => {
@@ -153,16 +153,54 @@ const ProfileDetails = () => {
               <Grid container spacing={2} >
                 {Object.entries(basicDetails).map(([key, value]) => (
                   <Grid item xs={12} sm={4} key={key}>
-                    <TextField
-                      name={key}
-                      label={key.replace(/([A-Z])/g, ' $1').trim()}
-                      value={value}
-                      onChange={(e) => handleInputChange(e, 'basicDetails')}
-                      fullWidth
-                      InputProps={{
-                        readOnly: !isEditing,
-                      }}
-                    />
+                    {key === 'socialCategory' || key === 'gender' || key === 'maritalStatus' ? (
+                      <FormControl fullWidth>
+                        <InputLabel>{key.replace(/([A-Z])/g, ' $1').trim()}</InputLabel>
+                        <Select
+                          name={key}
+                          value={value}
+                          onChange={(e) => handleInputChange(e, 'basicDetails')}
+                          label={key.replace(/([A-Z])/g, ' $1').trim()}
+                          inputProps={{
+                            readOnly: !isEditing,
+                          }}
+                        >
+                          {key === 'socialCategory' && (
+                            <>
+                              <MenuItem value="general">General</MenuItem>
+                              <MenuItem value="obc">OBC</MenuItem>
+                              <MenuItem value="sc">SC</MenuItem>
+                              <MenuItem value="st">ST</MenuItem>
+                              <MenuItem value="other">Other</MenuItem>
+                            </>
+                          )}
+                          {key === 'gender' && (
+                            <>
+                              <MenuItem value="male">Male</MenuItem>
+                              <MenuItem value="female">Female</MenuItem>
+                              <MenuItem value="other">Other</MenuItem>
+                            </>
+                          )}
+                          {key === 'maritalStatus' && (
+                            <>
+                              <MenuItem value="married">Married</MenuItem>
+                              <MenuItem value="unmarried">Unmarried</MenuItem>
+                            </>
+                          )}
+                        </Select>
+                      </FormControl>
+                    ) : (
+                      <TextField
+                        name={key}
+                        label={key.replace(/([A-Z])/g, ' $1').trim()}
+                        value={value}
+                        onChange={(e) => handleInputChange(e, 'basicDetails')}
+                        fullWidth
+                        InputProps={{
+                          readOnly: !isEditing,
+                        }}
+                      />
+                    )}
                   </Grid>
                 ))}
               </Grid>

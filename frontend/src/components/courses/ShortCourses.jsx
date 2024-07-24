@@ -67,7 +67,7 @@ function CoursesPage({ type }) {
   }, [priceRange, durationRange, courses]);
 
   return (
-    <Box>
+    <Box sx={{width: '100%', overflowX: 'hidden'}}>
       <Navbar />
       <Box
         sx={{
@@ -88,6 +88,9 @@ function CoursesPage({ type }) {
             color: 'white',
             fontWeight: 'bold',
             textAlign: { xs: 'center', sm: 'center' },
+            fontSize: { xs: '1.5rem', sm: '2rem' },
+            
+            marginRight:{sm:'0',xs:'2rem' },
             marginBottom: { xs: 2, sm: 0 },
            }}>
           "Unlock Your Potential with Our Expert-Led Courses"

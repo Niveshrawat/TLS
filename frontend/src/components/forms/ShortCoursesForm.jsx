@@ -1,7 +1,7 @@
 // src/components/InquiryForm.js
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal, Box, Typography, TextField, Button, MenuItem } from '@mui/material';
+import { Modal, Box, Typography, TextField, Button, MenuItem, useMediaQuery } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
 import { submitForm } from '../../redux/slice/shortSlice';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,11 +18,11 @@ const InquiryForm = ({ open, handleClose }) => {
 
   const domains = ['Tech', 'Non-Tech'];
 
-  
-
   const dispatch = useDispatch();
   const formState = useSelector((state) => state.short);
   const { loading } = formState;
+
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const handleChange = (e) => {
     setFormData({
@@ -50,7 +50,6 @@ const InquiryForm = ({ open, handleClose }) => {
     }
   };
 
-
   return (
     <>
       <Modal open={open} onClose={handleClose}>
@@ -60,11 +59,11 @@ const InquiryForm = ({ open, handleClose }) => {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 400,
+            width: isMobile ? '90%' : 400,
             bgcolor: 'background.paper',
             border: '2px solid #000',
             boxShadow: 24,
-            p: 4,
+            p: isMobile ? 2 : 4,
           }}
         >
           <Typography variant="h6" component="h2" gutterBottom fontWeight="bold">
@@ -104,17 +103,13 @@ const InquiryForm = ({ open, handleClose }) => {
               onChange={handleChange}
             />
             <TextField
-            fullWidth
-            
-            label="Course Name"
-            margin="normal"
-            variant="outlined"
-            name="courseName"
-            value={formData.courseName}
-            onChange={handleChange}
-            >
-
-            </TextField>
+              label="Course Name"
+              name="courseName"
+              fullWidth
+              margin="normal"
+              value={formData.courseName}
+              onChange={handleChange}
+            />
             <TextField
               fullWidth
               select
