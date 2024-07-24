@@ -133,7 +133,7 @@ const handleMenuItemClick = (path) => {
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
             <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
       <img
-        src="../public/images/TLS_20240723_132205_0000.png"
+        src="/images/TLS_20240723_132205_0000.png"
         alt="Logo"
         style={{ textDecoration: 'none', color: 'inherit', height:'7rem', marginLeft:'5rem'  }}
       />
@@ -218,7 +218,7 @@ const handleMenuItemClick = (path) => {
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
             <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
       <img
-        src="../public/images/TLS_20240723_132205_0000.png"
+        src="/images/TLS_20240723_132205_0000.png"
         alt="Logo"
         style={{ height: '10rem', marginTop: '2rem' }}
       />
