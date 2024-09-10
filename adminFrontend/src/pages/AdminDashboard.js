@@ -16,7 +16,7 @@ import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import TotalUsers from './TotalUsers';
-import Chart from './Chart';
+
 
 const drawerWidth = 240;
 
