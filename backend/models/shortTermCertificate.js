@@ -21,7 +21,7 @@ const shortTermCertificateSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['tech', 'non-tech'],
+    enum: ['Tech', 'Non-Tech'],
   },
   courseName: {
     type: String,
@@ -29,8 +29,16 @@ const shortTermCertificateSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['connected', 'pending', 'follow-up', 'not interested'],
-    default: 'pending',
+    enum: [ 'Enquiry',
+    'Enc',
+    'Cold',
+    'Dead',
+    'Connected',
+    'Warm',
+    'Hot',
+    'Register',
+    'Enroll', 'Pending'],
+    default: 'Pending',
   },
   assignedTo: {
     type: mongoose.Schema.Types.ObjectId,

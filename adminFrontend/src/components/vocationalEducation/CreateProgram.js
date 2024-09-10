@@ -93,9 +93,9 @@ const CreateProgram = () => {
     try {
       await axios.post('https://api.thelearnskills.com/api/v1/vocationalEducation/create-vocational-education', formData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
       });
       navigate('/vocational-education');
     } catch (error) {
@@ -220,21 +220,22 @@ const CreateProgram = () => {
         fullWidth
         style={{ marginBottom: '10px' }}
       />
-      <input
-        type="file"
-        name="photo"
-        onChange={handleFileChange}
-        style={{ marginBottom: '10px' }}
-      />
-      {photoPreview && (
-        <img
-          src={photoPreview}
-          alt="Program"
-          width="100"
-          height="100"
-          style={{ marginBottom: '10px' }}
-        />
-      )}
+     <input
+  type="file"
+  name="photo"
+  onChange={handleFileChange}
+  style={{ marginBottom: '10px' }}
+/>
+
+{program.photos && program.photos.map((photo, idx) => (
+  <img
+    key={idx}
+    src={`https://api.thelearnskills.com/${photo}`}
+    alt={`Course ${program.programName}`}
+    style={{ width: '100px', height: '100px', marginRight: '5px' }}
+  />
+))}
+
       <Button variant="contained" color="primary" onClick={handleSaveClick} style={{ marginRight: '10px' }}>
         Save
       </Button>

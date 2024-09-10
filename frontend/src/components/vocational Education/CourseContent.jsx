@@ -24,9 +24,10 @@ const courses = [
     jobRoles: ['Warehouse Executive', 'Land Transport Executive', 'Documentation Process Executive', 'E Commerce Operation== Executive'],
     totalPrice: 12999,
     gst: 1800,
+    time: '10:00 AM to 1:00 PM',
     totalPriceWithGst: 11800,
-    applicationDeadlineDate: '18th May, 2024',
-    programStartDate: '18th May, 2024',
+    minAgeLimit: '20 Years',
+    maxAgeLimit: '28 Years',
     programEndDate: '31st May, 2024'
   },
   // Add more courses as needed...

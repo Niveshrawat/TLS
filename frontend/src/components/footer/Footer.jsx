@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, Grid, Typography, IconButton, Box } from '@mui/material';
+import { Container, Grid, Typography, IconButton, Box} from '@mui/material';
+import { Link } from 'react-router-dom';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -13,7 +14,7 @@ const Footer = () => {
         <Grid container spacing={5}>
           <Grid item xs={12} sm={6} md={3}>
             <Box mb={2}>
-              <img src="../public/images/TLS_20240723_132205_0000.png" alt="Logo" style={{ maxWidth: '100px' }} />
+              <img src="/images/TLS_20240723_132205_0000.png" alt="Logo" style={{ maxWidth: '150px' }} />
               
               <Typography variant="body2">Follow us on social media for regular updates, tips, and insights that can help you achieve your career goals! </Typography>
             </Box>
@@ -31,12 +32,17 @@ const Footer = () => {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
+            <Box>
             <Typography variant="h6" gutterBottom>
               Company
-            </Typography>
-            <Typography variant="body2">About Us</Typography>
-            <Typography variant="body2">Careers</Typography>
-            <Typography variant="body2">Press</Typography>
+<Typography component={Link} to="/about" variant="body2" color="white" sx={{ textDecoration: 'none', display: 'block' }}>
+  About Us
+</Typography>
+            <Typography variant="body2" component={Link} to="/contact" color="white" sx={{ textDecoration: 'none', display: 'block' }}>Contact</Typography>            </Typography>
+            
+
+            <Typography variant="body2" >Press</Typography>
+            </Box> 
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
@@ -52,7 +58,7 @@ const Footer = () => {
             <Typography variant="h6" gutterBottom>
               Legal
             </Typography>
-            <Typography variant="body2">Privacy Policy</Typography>
+            <Typography variant="body2" >Privacy Policy</Typography>
             <Typography variant="body2">Terms of Service</Typography>
             <Typography variant="body2">Cookie Policy</Typography>
           </Grid>
@@ -60,9 +66,13 @@ const Footer = () => {
         <Typography variant="body2" color="textSecondary" align="center" style={{ marginTop:'2rem',  color:"white" }}>
          Copyright &copy; {new Date().getFullYear()} The Learn Skills. All rights reserved.
         </Typography>
-        <Typography variant="body2" color="textSecondary" align="center" style={{marginTop:'10px', fontSize:'10px',  color:"white" }}>
-          Created By OVS Innovation
-        </Typography>
+        <Typography variant="body1" color="textSecondary" align="center" style={{ marginTop: '10px', color: "white" }}>
+  Created By{' '}
+  <a href="https://ovsinnovation.in" target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: 'none' }}>
+    OVS Innovation
+  </a>
+</Typography>
+
       </Container>
     </footer>
   );

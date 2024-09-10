@@ -16,7 +16,7 @@ const ProfileDetails = () => {
     mobileNumber: '',
     email: '',
     city: '',
-    state: '',
+    state: '', 
   });
   const [educationDetails, setEducationDetails] = useState({
     class10: { board: '', schoolName: '', passingYear: '', percentage: '' },
@@ -133,11 +133,9 @@ const ProfileDetails = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      // Optionally, show a success message or handle further logic
       alert('Profile updated successfully!');
     } catch (error) {
       console.error('Error updating profile:', error);
-      // Optionally, show an error message
       alert('Failed to update profile.');
     }
   };
@@ -148,60 +146,52 @@ const ProfileDetails = () => {
       <Grid container spacing={2} mt={2}>
         <Grid item xs={12}>
           <Paper>
-            <Box p={2} marginBottom='1rem'>
+            <Box p={2} marginBottom='1rem' sx={{border: "1px solid #ddd"}}>
               <Typography variant="h6" marginBottom="2rem">Basic Details</Typography>
               <Grid container spacing={2} >
                 {Object.entries(basicDetails).map(([key, value]) => (
-                  <Grid item xs={12} sm={4} key={key}>
-                    {key === 'socialCategory' || key === 'gender' || key === 'maritalStatus' ? (
-                      <FormControl fullWidth>
-                        <InputLabel>{key.replace(/([A-Z])/g, ' $1').trim()}</InputLabel>
-                        <Select
-                          name={key}
-                          value={value}
-                          onChange={(e) => handleInputChange(e, 'basicDetails')}
-                          label={key.replace(/([A-Z])/g, ' $1').trim()}
-                          inputProps={{
-                            readOnly: !isEditing,
-                          }}
-                        >
-                          {key === 'socialCategory' && (
-                            <>
-                              <MenuItem value="general">General</MenuItem>
-                              <MenuItem value="obc">OBC</MenuItem>
-                              <MenuItem value="sc">SC</MenuItem>
-                              <MenuItem value="st">ST</MenuItem>
-                              <MenuItem value="other">Other</MenuItem>
-                            </>
-                          )}
-                          {key === 'gender' && (
-                            <>
-                              <MenuItem value="male">Male</MenuItem>
-                              <MenuItem value="female">Female</MenuItem>
-                              <MenuItem value="other">Other</MenuItem>
-                            </>
-                          )}
-                          {key === 'maritalStatus' && (
-                            <>
-                              <MenuItem value="married">Married</MenuItem>
-                              <MenuItem value="unmarried">Unmarried</MenuItem>
-                            </>
-                          )}
-                        </Select>
-                      </FormControl>
-                    ) : (
-                      <TextField
-                        name={key}
-                        label={key.replace(/([A-Z])/g, ' $1').trim()}
-                        value={value}
-                        onChange={(e) => handleInputChange(e, 'basicDetails')}
-                        fullWidth
-                        InputProps={{
-                          readOnly: !isEditing,
-                        }}
-                      />
-                    )}
-                  </Grid>
+                 <Grid item xs={12} sm={4} key={key}>
+                 {key === 'socialCategory' || key === 'gender' || key === 'maritalStatus' ? (
+                   <FormControl fullWidth>
+                     <InputLabel>{key.replace(/([A-Z])/g, ' $1').trim()}</InputLabel>
+                     <Select
+                       name={key}
+                       value={value} // Ensure this value matches one of the available options
+                       onChange={(e) => handleInputChange(e, 'basicDetails')}
+                       label={key.replace(/([A-Z])/g, ' $1').trim()}
+                     >
+                       {key === 'socialCategory' && [
+                         <MenuItem key="general" value="general">General</MenuItem>,
+                         <MenuItem key="obc" value="obc">OBC</MenuItem>,
+                         <MenuItem key="sc" value="sc">SC</MenuItem>,
+                         <MenuItem key="st" value="st">ST</MenuItem>,
+                         <MenuItem key="other" value="other">Other</MenuItem>,
+                       ]}
+                       {key === 'gender' && [
+                         <MenuItem key="male" value="male">Male</MenuItem>,
+                         <MenuItem key="female" value="female">Female</MenuItem>,
+                         <MenuItem key="other" value="other">Other</MenuItem>,
+                       ]}
+                       {key === 'maritalStatus' && [
+                         <MenuItem key="married" value="married">Married</MenuItem>,
+                         <MenuItem key="unmarried" value="unmarried">Unmarried</MenuItem>,
+                       ]}
+                     </Select>
+                   </FormControl>
+                 ) : (
+                   <TextField
+                     name={key}
+                     label={key.replace(/([A-Z])/g, ' $1').trim()}
+                     value={value}
+                     onChange={(e) => handleInputChange(e, 'basicDetails')}
+                     fullWidth
+                     InputProps={{
+                       readOnly: !isEditing,
+                     }}
+                   />
+                 )}
+               </Grid>
+               
                 ))}
               </Grid>
               <Button variant="contained" color="primary" onClick={handleEditToggle} sx={{ mt: 2 }}>
@@ -212,7 +202,7 @@ const ProfileDetails = () => {
         </Grid>
         <Grid item xs={12}>
           <Paper>
-            <Box p={2} marginBottom='1rem'>
+            <Box p={2} marginBottom='1rem' sx={{border: "1px solid #ddd"}}>
               <Typography variant="h6" marginBottom="2rem">Contact Details</Typography>
               <Grid container spacing={2}>
                 {Object.entries(contactDetails).map(([key, value]) => (
@@ -238,17 +228,17 @@ const ProfileDetails = () => {
         </Grid>
         <Grid item xs={12}>
           <Paper>
-            <Box p={2} marginBottom='1rem'>
+            <Box p={2} marginBottom='1rem' sx={{border: "1px solid #ddd"}}>
               <Typography variant="h6" marginBottom="2rem">Education Details</Typography>
               <Grid container spacing={2}>
-                {Object.entries(educationDetails).map(([educationLevel, details]) => (
-                  Object.entries(details).map(([field, value]) => (
-                    <Grid item xs={12} sm={4} key={`${educationLevel}.${field}`}>
+                {Object.entries(educationDetails).map(([educationLevel, fields]) =>
+                  Object.entries(fields).map(([key, value]) => (
+                    <Grid item xs={12} sm={4} key={`${educationLevel}.${key}`}>
                       <TextField
-                        name={field}
-                        label={`${educationLevel.replace(/([A-Z])/g, ' $1').trim()} ${field.replace(/([A-Z])/g, ' $1').trim()}`}
+                        name={key}
+                        label={`${educationLevel.replace(/([A-Z])/g, ' $1').trim()} - ${key.replace(/([A-Z])/g, ' $1').trim()}`}
                         value={value}
-                        onChange={(e) => handleInputChange(e, 'educationDetails', `${educationLevel}.${field}`)}
+                        onChange={(e) => handleInputChange(e, 'educationDetails', `${educationLevel}.${key}`)}
                         fullWidth
                         InputProps={{
                           readOnly: !isEditing,
@@ -256,7 +246,7 @@ const ProfileDetails = () => {
                       />
                     </Grid>
                   ))
-                ))}
+                )}
               </Grid>
               <Button variant="contained" color="primary" onClick={handleEditToggle} sx={{ mt: 2 }}>
                 {isEditing ? 'Save' : 'Edit'}

@@ -1,4 +1,3 @@
-// src/components/StudentDashboard.js
 import React, { useState, useEffect } from 'react';
 import { Avatar, Box, Grid, Typography, List, ListItem, ListItemText, ListItemIcon, IconButton, Drawer, Divider } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -9,34 +8,24 @@ import BookIcon from '@mui/icons-material/Book';
 import PaymentIcon from '@mui/icons-material/Payment';
 import ProfileDetails from './ProfileDetail';
 import Navbar from '../header/Navbar';
+import { useSelector } from 'react-redux';
 import Courses from './Courses';
 import PaymentHistory from './PaymentHistory';
 import Universities from './Universities';
+import StudentApplication from './StudentApplication';
+import Ticket from './Ticket'
+import MeetingsCalendar from './MeetingCalender';
+import TodoList from './TodoList';
+import EmailIcon from '@mui/icons-material/Email';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 
 const StudentDashboard = () => {
   const [selectedSection, setSelectedSection] = useState('Dashboard');
-  const [userName, setUserName] = useState('Arjun');
   const [drawerOpen, setDrawerOpen] = useState(false);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch('https://api.thelearnskills.com/api/v1/auth/profile', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          }
-        });
-        const data = await response.json();
-        setUserName(data.name || ''); // Update userName with fetched data
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
+  const { user } = useSelector((state) => state.user); // Get user data from Redux store
+  const userName = user?.name || ''; // Ensure userName is correctly set
 
   const handleSectionClick = (section) => {
     setSelectedSection(section);
@@ -60,6 +49,14 @@ const StudentDashboard = () => {
         return <Courses />;
       case 'Payment History':
         return <PaymentHistory />;
+      case 'Job Application':
+        return <StudentApplication />;
+        case 'Ticket':
+          return <Ticket/>;
+          case 'Meeting Calender':
+            return <MeetingsCalendar/>;
+            case 'To Do List':
+            return <TodoList/>;
       default:
         return null;
     }
@@ -97,7 +94,7 @@ const StudentDashboard = () => {
                 <Box p={2}>
                   <Box mb={3} textAlign="center">
                     <Avatar
-                      sx={{ width: 100, height: 100, fontSize:'2rem', margin: 'auto', bgcolor: '#003285', color: 'white' }}
+                      sx={{ width: 100, height: 100, fontSize: '2rem', margin: 'auto', bgcolor: '#003285', color: 'white' }}
                     >
                       {userName.charAt(0).toUpperCase()}
                     </Avatar>
@@ -121,14 +118,30 @@ const StudentDashboard = () => {
                       <ListItemIcon><PaymentIcon /></ListItemIcon>
                       <ListItemText primary="Payment History" />
                     </ListItem>
+                    <ListItem button selected={selectedSection === 'Job Application'} onClick={() => handleSectionClick('Job Application')}>
+                      <ListItemIcon><EmailIcon /></ListItemIcon>
+                      <ListItemText primary="Job Application" />
+                    </ListItem>
+                    <ListItem button selected={selectedSection === 'Ticket'} onClick={() => handleSectionClick('Ticket')}>
+                      <ListItemIcon><LocalActivityIcon /></ListItemIcon>
+                      <ListItemText primary="Ticket" />
+                    </ListItem>
+                    <ListItem button selected={selectedSection === 'Meeting Calender'} onClick={() => handleSectionClick('Meeting Calender')}>
+                      <ListItemIcon><CalendarMonthIcon /></ListItemIcon>
+                      <ListItemText primary="Meeting Calender" />
+                    </ListItem>
+                    <ListItem button selected={selectedSection === 'To Do List'} onClick={() => handleSectionClick('To Do List')}>
+                      <ListItemIcon><FormatListNumberedIcon /></ListItemIcon>
+                      <ListItemText primary="To Do List" />
+                    </ListItem>
                   </List>
                 </Box>
               </Drawer>
 
-              <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+              <Box sx={{ display: { xs: 'none', md: 'block' } , boxShadow: 3, borderRadius: 2, p: 3, width: '300px', height: 'auto', backgroundColor:'#EEF7FF', position:'fixed' }}>
                 <Box mb={3} textAlign="center">
                   <Avatar
-                    sx={{ width: 100, height: 100, fontSize:'2rem', margin: 'auto', bgcolor: '#003285', color: 'white' }}
+                    sx={{ width: 100, height: 100, fontSize: '2rem', margin: 'auto', bgcolor: '#003285', color: 'white' }}
                   >
                     {userName.charAt(0).toUpperCase()}
                   </Avatar>
@@ -151,6 +164,22 @@ const StudentDashboard = () => {
                     <ListItemIcon><PaymentIcon /></ListItemIcon>
                     <ListItemText primary="Payment History" />
                   </ListItem>
+                  <ListItem button selected={selectedSection === 'Job Application'} onClick={() => handleSectionClick('Job Application')}>
+                    <ListItemIcon><EmailIcon /></ListItemIcon>
+                    <ListItemText primary="Job Application" />
+                  </ListItem>
+                  <ListItem button selected={selectedSection === 'Ticket'} onClick={() => handleSectionClick('Ticket')}>
+                    <ListItemIcon><LocalActivityIcon /></ListItemIcon>
+                    <ListItemText primary="Ticket" />
+                  </ListItem>
+                  <ListItem button selected={selectedSection === 'Meeting Calender'} onClick={() => handleSectionClick('Meeting Calender')}>
+                      <ListItemIcon><CalendarMonthIcon /></ListItemIcon>
+                      <ListItemText primary="Meeting Calender" />
+                    </ListItem>
+                    <ListItem button selected={selectedSection === 'To Do List'} onClick={() => handleSectionClick('To Do List')}>
+                      <ListItemIcon><FormatListNumberedIcon /></ListItemIcon>
+                      <ListItemText primary="To Do List" />
+                    </ListItem>
                 </List>
               </Box>
             </Box>

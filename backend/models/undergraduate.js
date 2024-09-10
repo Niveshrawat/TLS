@@ -29,7 +29,29 @@ const undergraduateSchema = new mongoose.Schema({
   courseName: {
     type: String,
     required: true,
-  }
+  },
+  status: {
+    type: String,
+    enum: [ 'Enquiry',
+    'Enc',
+    'Cold',
+    'Dead',
+    'Connected',
+    'Warm',
+    'Hot',
+    'Register',
+    'Enroll','pending'],
+    default: 'pending',
+  },
+  assignedTo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Admin',
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
 });
 
 export default mongoose.model('Undergraduate', undergraduateSchema);

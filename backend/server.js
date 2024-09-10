@@ -22,8 +22,15 @@ import collegeRoutes from './routes/collegeRoutes.js';
 import adminauthRoutes from './routes/adminauthRoutes.js';
 import cors from 'cors';
 import vocationalEducationRoutes from './routes/vocationalEducationRoutes.js';
-
-
+import jobPosterRoutes from './routes/jobPosterRoutes.js';
+import jobPostingRoutes from './routes/jobPostingRoutes.js';
+import jobApplicationRoutes from './routes/jobApplicationRoutes.js';
+import passport from 'passport';
+import './passport.js';  
+import ticketRoutes from './routes/ticketRoutes.js';
+import vcRoutes from './routes/vcFormRoutes.js';
+import meetingRoutes from './routes/meetingRoutes.js';
+import todoRoutes from './routes/todoRoutes.js';
 //configure env
 dotenv.config()
 
@@ -44,6 +51,9 @@ var corsOptions = {
 
 app.use(express.json())
 app.use(morgan('dev'))
+app.use(session({ secret: 'mySecret', resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //All routes
@@ -75,6 +85,25 @@ app.use('/api/v1/vocationalEducation', vocationalEducationRoutes);
 // Admin Routes
 app.use('/api/v1/auth/admin', adminauthRoutes);
 
+// Job Poster Routes
+app.use('/api/v1/auth/job', jobPosterRoutes);
+// Job Posting Routes
+app.use('/api/v1/job-postings', jobPostingRoutes);
+// Job application routes
+app.use('/api/v1/job-applications', jobApplicationRoutes);
+// Tickets routes if some user face the problem
+app.use('/api/v1/tickets', ticketRoutes);
+// Vocational Education form routes
+app.use('/api/v1/vcForm', vcRoutes);
+// Class Meeting form routes
+app.use('/api/v1/meeting', meetingRoutes);
+// To-DO list form routes
+app.use('/api/v1/todo', todoRoutes);
+
+
+
+
+app.use('/uploads', express.static('uploads'));
 
 app.get('/',(req,res)=>{
     res.send({

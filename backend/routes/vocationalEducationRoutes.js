@@ -6,7 +6,7 @@ import {
   updateVocationalEducation,
   deleteVocationalEducation
 } from '../controllers/vocationalEducationController.js';
-import { requireSignIn, isAdmin } from '../middlewares/authMiddleware.js';
+import { requireSignIn, isAdmin } from '../middlewares/adminauthMiddleware.js';
 
 const router = express.Router();
 

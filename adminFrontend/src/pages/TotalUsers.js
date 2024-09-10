@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
   Table, TableHead, Typography, TableBody, TableCell, TableRow,
-  TableContainer, Paper, Box, TablePagination, Avatar, TextField, Button
+  TableContainer, Paper, Box, TablePagination, Avatar, TextField, Button, ButtonGroup, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle
 } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { useNavigate } from 'react-router-dom';
 
 // Function to generate a hash code from a string
 const hashCode = (str) => {
@@ -29,15 +30,21 @@ const getColorFromHash = (hash) => {
 const UserTable = () => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
-
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false); // Dialog state for bulk deletion
+
+  const navigate = useNavigate();
+
+  const handleRowClick = (userId) => {
+    navigate(`/user/${userId}`);
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-console.log(token)
+    console.log(token)
     fetch('https://api.thelearnskills.com/api/v1/auth/users', {
       headers: {
         'Content-Type': 'application/json',
@@ -84,6 +91,69 @@ console.log(token)
     }
   };
 
+  // Function to delete a single user
+  const handleDeleteUser = (userId) => {
+    const token = localStorage.getItem('token');
+    fetch(`https://api.thelearnskills.com/api/v1/auth/user/${userId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.success) {
+          setUsers(users.filter(user => user._id !== userId));
+          setFilteredUsers(filteredUsers.filter(user => user._id !== userId));
+        } else {
+          console.error('Failed to delete user:', data);
+        }
+      })
+      .catch(error => console.error('Error deleting user:', error));
+  };
+
+  // Function to delete all users
+  const handleDeleteAllUsers = () => {
+    const token = localStorage.getItem('token');
+    fetch('https://api.thelearnskills.com/api/v1/auth/users', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.success) {
+          setUsers([]);
+          setFilteredUsers([]);
+          setOpenDialog(false); // Close the dialog
+        } else {
+          console.error('Failed to delete all users:', data);
+        }
+      })
+      .catch(error => console.error('Error deleting all users:', error));
+  };
+
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
   return (
     <Box sx={{ width: '95%', marginBottom: '5rem', marginTop:'3rem' }}>
       <Typography variant="h4" fontWeight="bold" marginBottom="2rem">All Users</Typography>
@@ -104,6 +174,7 @@ console.log(token)
           />
         </LocalizationProvider>
         <Button variant="contained" onClick={handleFilter}>Filter</Button>
+        <Button variant="contained" color="secondary" onClick={handleOpenDialog}>Delete All Users</Button>
       </Box>
 
       <TableContainer component={Paper}>
@@ -115,11 +186,12 @@ console.log(token)
               <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none' }}>Email</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none' }}>Phone Number</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none' }}>Address</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none' }}>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody sx={{marginBottom:'2rem'}}>
             {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user, index) => (
-              <TableRow key={index} >
+              <TableRow key={index} onClick={() => handleRowClick(user._id)}>
                 <TableCell sx={{ border: 'none' }}>{page * rowsPerPage + index + 1}</TableCell>
                 <TableCell sx={{ border: 'none' }}>
                   <Box display="flex" alignItems="center">
@@ -132,20 +204,19 @@ console.log(token)
                 <TableCell sx={{ border: 'none' }}>{user.email}</TableCell>
                 <TableCell sx={{ border: 'none' }}>{user.phone}</TableCell>
                 <TableCell sx={{ border: 'none' }}>{user.address}</TableCell>
+                <TableCell sx={{ border: 'none' }}>
+                  <ButtonGroup>
+                    <Button onClick={(e) => { e.stopPropagation(); handleDeleteUser(user._id); }} color="error">
+                      <Typography color="error" fontWeight="bold">Delete</Typography>
+                    </Button>
+                  </ButtonGroup>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
         <TablePagination
-          sx={{
-            '& .MuiTablePagination-selectLabel, & .MuiTablePagination-input, & .MuiTablePagination-caption': {
-              fontWeight: 'bold',
-            },
-            '& .MuiTablePagination-select, & .MuiTablePagination-actions': {
-              fontWeight: 'bold',
-            }
-          }}
-          rowsPerPageOptions={[5, 10, 25, 30, 35, 40, 45]}
+          rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={filteredUsers.length}
           rowsPerPage={rowsPerPage}
@@ -154,6 +225,23 @@ console.log(token)
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </TableContainer>
+
+      {/* Dialog for confirming bulk deletion */}
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+      >
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete all users? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">Cancel</Button>
+          <Button onClick={handleDeleteAllUsers} color="secondary">Delete All</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

@@ -1,13 +1,16 @@
-import React, { useState,useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
-import { Card, CardContent, Typography, TextField, Button, Box, Link } from '@mui/material';
+import { Card, CardContent, Typography, TextField, Button, Box, Link, InputAdornment, IconButton  } from '@mui/material';
 import { registerUser } from '../../redux/slice/userSlice';
-import { useSpring, animated } from '@react-spring/web';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSpring, animated } from '@react-spring/web';
 
+import GoogleAuth from './GoogleAuth';
 
 const StyledCard = styled(Card)({
   maxWidth: 400,
@@ -31,20 +34,15 @@ const Register = () => {
     password: '',
     phone: '',
     address: '',
-    answer: '',
   });
-
-  
-  
-  // const { isLoading, error } = useSelector(state => state.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userStatus = useSelector((state) => state.user.status);
-  console.log(userStatus)
   const userError = useSelector((state) => state.user.error);
-  const isRegistered = useSelector((state) => state.user.isRegistered);
-  // const { isLoading, error, isRegistered } = useSelector(state => state.user);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
 
 
   useEffect(() => {
@@ -64,11 +62,12 @@ const Register = () => {
   };
 
   const validateForm = () => {
-    const { name, email, password, phone, address, answer } = formData;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const { name, email, password, phone, address } = formData;
     const phoneRegex = /^\d{10}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!name || !email || !password || !phone || !address || !answer) {
+    if (!name || !email || !password || !phone || !address) {
+      toast.error('Please fill in all fields.');
       return false;
     }
     if (!emailRegex.test(email)) {
@@ -82,25 +81,13 @@ const Register = () => {
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      dispatch(registerUser(formData)).then((action) => {
-        if (action.meta.requestStatus === 'fulfilled') {
-          toast.success('Registration successful!');
-          navigate('/login');
-        } else {
-          toast.error(action.payload || 'Registration failed');
-        }
-      });
-    } else {
-      toast.error('Please fill in all fields correctly.');
+      dispatch(registerUser(formData));
     }
   };
 
-  
-
-  
   const floatingAnimation1 = useSpring({
     loop: true,
     from: { transform: 'translateY(0px)' },
@@ -112,7 +99,6 @@ const Register = () => {
     ],
     config: { duration: 1000 },
   });
-
   const floatingAnimation2 = useSpring({
     loop: true,
     from: { transform: 'translateY(0px)' },
@@ -164,70 +150,85 @@ const Register = () => {
     <Box style={{ position: 'relative', overflowY: 'hidden', backgroundColor: "#EEF7FF", minHeight: '100vh' }}>
       <StyledCard>
         <CardContent>
-          <Typography variant="h5" align="center" gutterBottom>
-            Logo
-          </Typography>
-          <Typography variant="h6" align="center" gutterBottom>
-            Welcome, create your account
+          <img
+            src="/images/TLS_20240723_132205_0000.png"
+            alt="Logo"
+            style={{ height: '10rem', display: 'block', margin: 'auto', marginBottom: '-2rem', marginTop:'-3rem' }}
+          />
+          <Typography variant="h5" component="div" gutterBottom style={{ color: '#0d47a1', textAlign: 'center' }}>
+            Welcome, Create your Account
           </Typography>
           <StyledForm onSubmit={handleSubmit}>
             <TextField
-              name="name"
-              type="text"
               label="Name"
-              variant="outlined"
+              name="name"
+              value={formData.name}
               onChange={handleChange}
+              variant="outlined"
+              fullWidth
+              required
             />
-             <TextField
+            <TextField
+              label="Email"
               name="email"
-              type="email"
-              label="Email ID"
-              variant="outlined"
+              value={formData.email}
               onChange={handleChange}
+              variant="outlined"
+              fullWidth
+              required
             />
-             <TextField
-              name="password"
-              type="password"
+            <TextField
               label="Password"
-              variant="outlined"
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              value={formData.password}
               onChange={handleChange}
+              variant="outlined"
+              fullWidth
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleClickShowPassword}>
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              required
             />
             <TextField
+              label="Phone"
               name="phone"
-              type="text"
-              label="Phone Number"
-              variant="outlined"
+              value={formData.phone}
               onChange={handleChange}
+              variant="outlined"
+              fullWidth
+              required
             />
-           
             <TextField
-              name="address"
-              type="text"
               label="Address"
-              variant="outlined"
+              name="address"
+              value={formData.address}
               onChange={handleChange}
-            />
-           
-             <TextField
-              name="answer"
-              type="answer"
-              label="Answer"
               variant="outlined"
-              onChange={handleChange}
+              fullWidth
+              required
             />
-            <Button variant="contained" color="primary" type="submit">
+            <Button type="submit" variant="contained" color="primary" fullWidth>
               Register
             </Button>
           </StyledForm>
-          {userStatus === 'loading' && <Typography variant="body2" color="textSecondary" align="center">Registering...</Typography>}
-          {userError && <Typography variant="body2" color="error" align="center">{userError}</Typography>}
-          <Typography variant="body2" color="textSecondary" style={{ marginTop: '2rem' }}>
-            Already have an account? <Link href="/login">Login</Link>
+          <Typography variant="body2" color="textSecondary" align="center" style={{ marginTop: '1rem' }}>
+            Already have an account?{' '}
+            <Link href="/login" underline="hover">
+              Login
+            </Link>
           </Typography>
+          <GoogleAuth />
         </CardContent>
       </StyledCard>
-       
-          <animated.div
+      <ToastContainer />
+      <animated.div
         style={{
           position: 'absolute',
           top: '15%',
@@ -263,6 +264,8 @@ const Register = () => {
           ...floatingAnimation3,
         }}
       />
+      
+      
       <animated.div
         style={{
           position: 'absolute',
@@ -286,9 +289,7 @@ const Register = () => {
           backgroundSize: 'cover',
           ...floatingAnimation5,
         }}
-      />
-
-        
+        />
     </Box>
   );
 };

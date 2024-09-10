@@ -34,7 +34,7 @@ const InquiryForm = ({ open, handleClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await dispatch(submitForm(formData));
+      await dispatch(submitForm(formData)).unwrap(); // Use unwrap() to handle fulfilled/rejected directly
       toast.success('Form submitted successfully');
       setFormData({
         name: '',
@@ -42,13 +42,14 @@ const InquiryForm = ({ open, handleClose }) => {
         emailId: '',
         location: '',
         category: '',
-        courseName:'',
+        courseName: '',
       });
       handleClose();
     } catch (error) {
-      toast.error(`Error submitting form: ${error.message}`);
+      toast.error(`Error submitting form: ${error}`);
     }
   };
+  
 
   return (
     <>

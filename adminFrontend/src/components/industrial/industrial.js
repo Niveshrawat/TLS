@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, IconButton, TableContainer, TableHead, TableRow, Paper, TablePagination } from '@mui/material';
+import { Table, TableBody, TableCell, IconButton, TableContainer, TableHead, TableRow, Paper, TablePagination, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -58,36 +58,38 @@ const IndustrialWorkshopTable = () => {
 
   return (
     <Paper>
-      <TableContainer sx={{marginTop:'3rem'}}>
-        <Table aria-label="Industrial Workshop Table">
+            <Typography variant="h5" fontWeight="bold">INTERNSHIPS/INDUSTRIAL WORSKSHOPS</Typography>
+
+      <TableContainer sx={{ boxShadow: 3 , marginTop:'2rem'}}>
+        <Table aria-label="Industrial Workshop Table" sx={{ minWidth: 650, border: 'none' }}>
           <TableHead>
-            <TableRow>
-              <TableCell>Sr. No</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Email ID</TableCell>
-              <TableCell>Phone Number</TableCell>
-              <TableCell>Current City</TableCell>
-              <TableCell>Organization</TableCell>
-              <TableCell>Designation</TableCell>
-              <TableCell>Workshop Type</TableCell>
-              <TableCell>Workshop Date</TableCell>
-              <TableCell>Comments</TableCell>
-              <TableCell>Actions</TableCell>
+            <TableRow style={{ backgroundColor: 'gray' }}>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Sr. No</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Name</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Email ID</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Phone Number</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Current City</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Organization</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Designation</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Workshop Type</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Workshop Date</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Comments</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {workshops.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((workshop, index) => (
               <TableRow key={index}>
-                <TableCell>{page * rowsPerPage + index + 1}</TableCell>
-                <TableCell>{workshop.name}</TableCell>
-                <TableCell>{workshop.emailId}</TableCell>
-                <TableCell>{workshop.phoneNumber}</TableCell>
-                <TableCell>{workshop.currentCity}</TableCell>
-                <TableCell>{workshop.organization}</TableCell>
-                <TableCell>{workshop.designation}</TableCell>
-                <TableCell>{workshop.workshopType}</TableCell>
-                <TableCell>{workshop.workshopDate}</TableCell> {/* Display formatted date */}
-                <TableCell>{workshop.comments}</TableCell>
+                <TableCell sx={{ fontWeight: 'bold', border: 'none' }}>{page * rowsPerPage + index + 1}</TableCell>
+                <TableCell sx={{ textTransform: 'uppercase', border: 'none',  color: 'blue' }}>{workshop.name}</TableCell>
+                <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.emailId}</TableCell>
+                <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.phoneNumber}</TableCell>
+                <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.currentCity}</TableCell>
+                <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.organization}</TableCell>
+                <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.designation}</TableCell>
+                <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.workshopType}</TableCell>
+                <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.workshopDate}</TableCell> {/* Display formatted date */}
+                <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.comments}</TableCell>
                 <TableCell>
                   <IconButton onClick={() => handleEdit(workshop._id)} sx={{ color: 'blue' }}>
                     <EditIcon />
@@ -100,7 +102,6 @@ const IndustrialWorkshopTable = () => {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
       <TablePagination
         sx={{
           '& .MuiTablePagination-selectLabel, & .MuiTablePagination-input, & .MuiTablePagination-caption': {
@@ -118,6 +119,7 @@ const IndustrialWorkshopTable = () => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      </TableContainer>
     </Paper>
   );
 };

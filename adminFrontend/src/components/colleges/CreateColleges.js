@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog,
-  DialogActions, DialogContent, DialogTitle, TextField, IconButton, Grid, FormControl, Select, MenuItem
+  DialogActions, DialogContent, DialogTitle, TextField, IconButton, Grid, FormControl, Select, MenuItem, TablePagination
 } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 import axios from 'axios';
@@ -16,6 +16,8 @@ const CollegeTable = () => {
   // const [file, setFile] = useState();
   const [photos, setPhotos] = useState([]);
   const[collegeUrl, setCollegeUrl] =useState();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   
   
@@ -108,7 +110,12 @@ const CollegeTable = () => {
     console.log(photos); // Log the photos state
   }, [photos]);
   
-  
+  const handleChangePage = (event, newPage) => setPage(newPage);
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   
 
   const handleClose = () => {
@@ -662,7 +669,7 @@ const CollegeTable = () => {
   };
 
   return (
-    <div>
+    <div style={{marginTop:'4rem'}}>
       <Button variant="contained" color="primary" onClick={handleClickOpen}>
         Create College
       </Button>
@@ -691,34 +698,46 @@ const CollegeTable = () => {
           )}
         </DialogActions>
       </Dialog>
-      <TableContainer component={Paper} sx={{marginTop:'2rem'}}>
+      <TableContainer component={Paper} sx={{ mt: 3, boxShadow: 3 }}>
         <Table>
           <TableHead>
-            <TableRow>
-              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none' }}>Sr No.</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none' }}>College Name</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none' }}>Location</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none' }}>Rating</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none' }}>NIRF Rank</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none' }}>Actions</TableCell>
+            <TableRow sx={{ backgroundColor: 'gray' }}>
+              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none', textTransform: 'uppercase' }}>Sr No.</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none',  textTransform: 'uppercase' }}>College Name</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none',  textTransform: 'uppercase' }}>Location</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none',  textTransform: 'uppercase' }}>Rating</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none',  textTransform: 'uppercase' }}>NIRF Rank</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none',  textTransform: 'uppercase' }}>Photos</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none',  textTransform: 'uppercase' }}>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {colleges.map((college,index) => (
               <TableRow key={college._id}>
                 <TableCell sx={{ fontWeight: 'bold'}}>{index + 1}</TableCell>
-                <TableCell>{college.name}</TableCell>
-                <TableCell>{college.location}</TableCell>
-                <TableCell>{college.rating}</TableCell>
-                <TableCell>{college.nirfRank}</TableCell>
-                <TableCell>
+                <TableCell sx={{ textTransform: 'uppercase',  color: 'blue'}}>{college.name}</TableCell>
+                <TableCell sx={{ textTransform: 'uppercase'}}>{college.location}</TableCell>
+                <TableCell sx={{ textTransform: 'uppercase'}}>{college.rating}</TableCell>
+                <TableCell sx={{ textTransform: 'uppercase'}}>{college.nirfRank}</TableCell>
+                <TableCell sx={{ border: 'none' }}>
+  {college.photos && college.photos.map((photo, idx) => (
+    <img
+      key={idx}
+      src={`https://api.thelearnskills.com/${photo}`}
+      alt={`College ${college.name}`}
+      style={{ width: '100px', height: '100px', marginRight: '5px' }}
+    />
+  ))}
+</TableCell>
+
+                       <TableCell sx={{ textTransform: 'uppercase'}}>
                   <IconButton aria-label="edit" onClick={() => {
                     handleEdit(college)
                     setCollegeUrl(college._id)
                     } } sx={{color:'blue'}}>
                     <Edit />
                   </IconButton>
-                  <IconButton aria-label="delete" onClick={() => handleDelete(college.id)} sx={{color:'red'}}>
+                  <IconButton aria-label="delete" onClick={() => handleDelete(college._id)} sx={{color:'red'}}>
                     <Delete />
                   </IconButton>
                 </TableCell>
@@ -726,6 +745,15 @@ const CollegeTable = () => {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+        rowsPerPageOptions={[10, 25, 50]}
+        component="div"
+        count={colleges.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
       </TableContainer>
     </div>
   );

@@ -10,6 +10,7 @@ import {
   IconButton,
   Avatar,
   TablePagination,
+  Typography
 } from '@mui/material';
 
 import EditIcon from '@mui/icons-material/Edit';
@@ -20,7 +21,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 
-const IndustrialWorkshopTable = () => {
+const UniversityPartnershipTable = () => {
   const [workshops, setWorkshops] = useState([]);
   const [filteredWorkshops, setFilteredWorkshops] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -90,7 +91,9 @@ const IndustrialWorkshopTable = () => {
   };
 
   return (
-    <>
+    
+<div>
+<Typography variant="h5" fontWeight="bold">UNIVERSITY PARTNERSHIPS</Typography>
 
 {/* <div className={classes.searchContainer}>
         <SearchIcon />
@@ -126,43 +129,41 @@ const IndustrialWorkshopTable = () => {
           className={classes.dateField}
         />
       </div> */}
-    <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ mt: 3, boxShadow: 3 }}>
       {/* <Button variant="contained" color="primary" style={{ margin: '1rem' }}>
         Create
       </Button> */}
       <Table aria-label="Industrial Workshop Table">
         <TableHead>
-          <TableRow>
-            <TableCell>Sr. No</TableCell>
-            <TableCell>companyName</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Email ID</TableCell>
-            <TableCell>Phone Number</TableCell>
-            <TableCell>Comme</TableCell>
-            <TableCell>Organization</TableCell>
-            <TableCell>Designation</TableCell>
+          <TableRow sx={{ backgroundColor: 'gray' }}>
+            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Sr. No</TableCell>
+            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>companyName</TableCell>
+            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Name</TableCell>
+            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Email ID</TableCell>
+            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Phone Number</TableCell>
+            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Comme</TableCell>
+            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Organization</TableCell>
+            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Designation</TableCell>
             
-            <TableCell>Comments</TableCell>
-            <TableCell>Actions</TableCell>
+            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Comments</TableCell>
+            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {workshops.map((workshop, index) => (
             <TableRow key={index}>
-              <TableCell>{index + 1}</TableCell>
-              <TableCell>{workshop.companyName}</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', border: 'none' }}>{index + 1}</TableCell>
+              <TableCell sx={{ textTransform: 'uppercase', border: 'none',  color: 'blue' }}>{workshop.companyName}</TableCell>
               <TableCell>
-                  <Avatar style={{ backgroundColor: `#${Math.floor(Math.random()*16777215).toString(16)}` }}>
-                    {workshop.name[0]}
-                  </Avatar>
+                  
                   {workshop.name}
                 </TableCell>
-              <TableCell>{workshop.emailId}</TableCell>
-              <TableCell>{workshop.phoneNumber}</TableCell>
-              <TableCell>{workshop.comments}</TableCell>
-              <TableCell>{workshop.location}</TableCell>
-              <TableCell>{workshop.organization}</TableCell>
-              <TableCell>{workshop.designation}</TableCell>
+              <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.emailId}</TableCell>
+              <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.phoneNumber}</TableCell>
+              <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.comments}</TableCell>
+              <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.location}</TableCell>
+              <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.organization}</TableCell>
+              <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.designation}</TableCell>
              
 
               <TableCell>
@@ -187,8 +188,9 @@ const IndustrialWorkshopTable = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
     </TableContainer>
-    </>
+    </div>
+    
   );
 };
 
-export default IndustrialWorkshopTable;
+export default UniversityPartnershipTable;

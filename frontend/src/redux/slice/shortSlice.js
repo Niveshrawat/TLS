@@ -6,9 +6,11 @@ export const submitForm = createAsyncThunk('short/submit-short-term-certificate'
     const response = await submitFormApi(formData);
     return response;
   } catch (error) {
-    return rejectWithValue(error);
+    const errorMessage = error.response && error.response.data ? error.response.data.message : error.message;
+    return rejectWithValue(errorMessage);
   }
 });
+
 
 const shortSlice = createSlice({
   name: 'short',

@@ -4,6 +4,7 @@ import CourseCard from './VocationCard';
 import Navbar from '../header/Navbar';
 import Filters from './VocationalFilter'; // Import the Filters component
 import { styled } from '@mui/system';
+import Footer from '../footer/Footer'
 
 const Banner = styled(Box)(({ theme }) => ({
   background: '#003285',
@@ -44,17 +45,15 @@ const VocationalEducation = () => {
   return (
     <Box>
       <Navbar />
-      <Banner>
-        <Typography variant="h3" fontWeight="bold">Vocational Training and Programs</Typography>
-        <Typography variant="h4" fontWeight="bold">"Empowering Careers through industry-relevant Training Programs"</Typography>
+      <Banner marginBottom ="3rem">
+        <Typography variant="h4" fontWeight="bold">Vocational Training and Programs</Typography>
+        <Typography variant="h5" fontWeight="bold">"Empowering Careers through industry-relevant Training Programs"</Typography>
       </Banner>
-      <Container>
-        <Typography variant="h3" component="h1" fontWeight="bold" gutterBottom>
-          Vocational Education
-        </Typography>
+      <Container >
+        
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4} md={3} >
-            <Filters filters={filters} setFilters={setFilters}  /> {/* Sidebar for filters */}
+            <Filters filters={filters} setFilters={setFilters} marginTop="12rem" /> {/* Sidebar for filters */}
           </Grid>
           <Grid item xs={12} sm={8} md={9}>
             <Grid container spacing={3}>
@@ -67,6 +66,7 @@ const VocationalEducation = () => {
           </Grid>
         </Grid>
       </Container>
+      <Footer/>
     </Box>
   );
 };

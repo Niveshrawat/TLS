@@ -9,6 +9,7 @@ import AdmissionProcess from './AdmissionProcess';
 import PlacementTable from './PlacementProcess';
 import CollegeRankingPage from './CollegeRanking'; // Import CollegeRankingPage
 import Navbar from '../header/Navbar';
+import Footer from '../footer/Footer';
 
 // Sample data for demonstration purposes
 const sampleCollegesData = [
@@ -134,7 +135,7 @@ const CollegeDetailsPage = () => {
     <Box>
       <Navbar />
       <Container>
-        <CollegeDetailsBanner college={college} />
+        <CollegeDetailsBanner college={college}  />
         <AppBar position="static" sx={{ backgroundColor: 'navy' }}>
           <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto" textColor="inherit">
             <Tab label="College Info" />
@@ -166,6 +167,7 @@ const CollegeDetailsPage = () => {
           </div>
         </Box>
       </Container>
+      <Footer/>
     </Box>
   );
 };

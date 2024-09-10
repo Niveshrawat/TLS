@@ -13,6 +13,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
 
   const { user, status, error } = useSelector((state) => state.user);
+  console.log(user)
 
   const floatingAnimation1 = useSpring({
     loop: true,
@@ -25,6 +26,54 @@ const LoginPage = () => {
     ],
     config: { duration: 1000 },
   });
+  const floatingAnimation2 = useSpring({
+    loop: true,
+    from: { transform: 'translateY(0px)' },
+    to: [
+      { transform: 'translateY(10px)' },
+      { transform: 'translateY(0px)' },
+      { transform: 'translateY(-10px)' },
+      { transform: 'translateY(0px)' },
+    ],
+    config: { duration: 1000 },
+  });
+
+  const floatingAnimation3 = useSpring({
+    loop: true,
+    from: { transform: 'translateY(0px)' },
+    to: [
+      { transform: 'translateY(-15px)' },
+      { transform: 'translateY(0px)' },
+      { transform: 'translateY(15px)' },
+      { transform: 'translateY(0px)' },
+    ],
+    config: { duration: 1000 },
+  });
+
+  const floatingAnimation4 = useSpring({
+    loop: true,
+    from: { transform: 'translateY(0px)' },
+    to: [
+      { transform: 'translateY(20px)' },
+      { transform: 'translateY(0px)' },
+      { transform: 'translateY(-20px)' },
+      { transform: 'translateY(0px)' },
+    ],
+    config: { duration: 1000 },
+  });
+
+  const floatingAnimation5 = useSpring({
+    loop: true,
+    from: { transform: 'translateY(0px)' },
+    to: [
+      { transform: 'translateY(-25px)' },
+      { transform: 'translateY(0px)' },
+      { transform: 'translateY(25px)' },
+      { transform: 'translateY(0px)' },
+    ],
+    config: { duration: 1000 },
+  });
+
 
   // Handle form submission
   const saveToken = (token) => {
@@ -37,6 +86,7 @@ const LoginPage = () => {
     dispatch(loginUser({ email, password })).then((result) => {
       if (result.type === 'user/loginUser/fulfilled') {
         const { token } = result.payload; // Assuming the JWT token is returned in the response payload
+        console.log('Token:', token)
         saveToken(token); // Save token to local storage
         navigate('/'); // Redirect to the main page
       }
@@ -49,7 +99,12 @@ const LoginPage = () => {
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: "#EEF7FF" }}>
         <Card sx={{ maxWidth: 400, padding: 2 }}>
           <CardContent>
-            <Typography variant="h4" component="div" gutterBottom>
+          <img
+                  src="/images/TLS_20240723_132205_0000.png"
+                  alt="Logo"
+                  style={{ height: '10rem', align:'center', marginLeft:'6rem', marginTop:'-3rem' }}
+                />
+            <Typography variant="h4" component="div" align='center' gutterBottom>
               Login
             </Typography>
             <form onSubmit={handleLogin}>
@@ -102,6 +157,56 @@ const LoginPage = () => {
           ...floatingAnimation1,
         }}
       />
+      <animated.div
+        style={{
+          position: 'absolute',
+          top: '20%',
+          right: '5%',
+          width: '50px',
+          height: '50px',
+          backgroundImage: 'url(https://data.themeim.com/html/tutorgo/assets/img/icons/role-shape.png)',
+          backgroundSize: 'cover',
+          ...floatingAnimation2,
+        }}
+      />
+      <animated.div
+        style={{
+          position: 'absolute',
+          top: '70%',
+          left: '97%',
+          width: '50px',
+          height: '50px',
+          backgroundImage: 'url(https://data.themeim.com/html/tutorgo/assets/img/icons/lines-shape.png)',
+          backgroundSize: 'cover',
+          ...floatingAnimation3,
+        }}
+      />
+      
+      
+      <animated.div
+        style={{
+          position: 'absolute',
+          top: '5%',
+          left: '50%',
+          width: '60px',
+          height: '60px',
+          backgroundImage: 'url(https://data.themeim.com/html/tutorgo/assets/img/icons/book-shape.png)',
+          backgroundSize: 'cover',
+          ...floatingAnimation4,
+        }}
+      />
+      <animated.div
+        style={{
+          position: 'absolute',
+          top: '60%',
+          right: '95%',
+          width: '50px',
+          height: '50px',
+          backgroundImage: 'url(https://data.themeim.com/html/tutorgo/assets/img/icons/circle-shape.png)',
+          backgroundSize: 'cover',
+          ...floatingAnimation5,
+        }}
+        />
       {/* Other animated elements */}
     </Box>
   );

@@ -1,17 +1,18 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { registerUserApi, loginUserApi, requestPasswordResetApi } from '../../services/apiServices';
+import { registerUserApi, loginUserApi, requestPasswordResetApi, resetPasswordApi } from '../../services/apiServices';
 
 // Async thunk for registering a user
+// userSlice.js
+
 export const registerUser = createAsyncThunk('user/registerUser', async (formData, thunkAPI) => {
   try {
     const data = await registerUserApi(formData);
-    localStorage.setItem('user', JSON.stringify(data.user));
-    localStorage.setItem('token', data.token);
     return data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+    return thunkAPI.rejectWithValue(error.message); // Pass error message to payload
   }
 });
+
 
 // Async thunk for logging in a user
 export const loginUser = createAsyncThunk('user/loginUser', async (credentials, thunkAPI) => {
@@ -21,17 +22,26 @@ export const loginUser = createAsyncThunk('user/loginUser', async (credentials, 
     localStorage.setItem('token', data.token);
     return data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+    return thunkAPI.rejectWithValue(error.message || error);
   }
 });
 
 // Async thunk for requesting a password reset
 export const requestPasswordReset = createAsyncThunk('user/requestPasswordReset', async ({ email, answer, newPassword }, thunkAPI) => {
   try {
-    const response = await requestPasswordResetApi(email, answer, newPassword);
-    return response.data; // Assuming API returns a success message
+    const response = await requestPasswordResetApi(email);
+    return response; // Assuming API returns a success message
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+    return thunkAPI.rejectWithValue(error.message || error);
+  }
+});
+
+export const resetPassword = createAsyncThunk('user/resetPassword', async ({ token, newPassword }, thunkAPI) => {
+  try {
+    const response = await resetPasswordApi(token, newPassword);
+    return response; // Assuming API returns a success message
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message || error);
   }
 });
 
@@ -75,14 +85,15 @@ const userSlice = createSlice({
       .addCase(registerUser.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(registerUser.fulfilled, (state) => {
+      .addCase(registerUser.fulfilled, (state, action) => {
         state.status = 'succeeded';
+        state.user = action.payload.user;
         state.isRegistered = true;
         state.error = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload ? action.payload.message : action.error.message;
+        state.error = action.payload || action.error.message;
       })
       .addCase(loginUser.pending, (state) => {
         state.status = 'loading';
@@ -94,18 +105,28 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload ? action.payload.message : action.error.message;
+        state.error = action.payload || action.error.message;
       })
       .addCase(requestPasswordReset.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(requestPasswordReset.fulfilled, (state) => {
+      .addCase(requestPasswordReset.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.error = null;
       })
       .addCase(requestPasswordReset.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload ? action.payload.message : action.error.message;
+        state.error = action.payload || action.error.message;
+      })
+      .addCase(resetPassword.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(resetPassword.fulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
       });
   },
 });

@@ -36,7 +36,7 @@ import {
 } from '../controllers/rankingHighlightsController.js';
 
 
-import { isAdmin, requireSignIn } from '../middlewares/authMiddleware.js';
+import { isAdmin, requireSignIn } from '../middlewares/adminauthMiddleware.js';
 import upload from '../middlewares/uploadMiddleware.js';
 
 const router = express.Router();

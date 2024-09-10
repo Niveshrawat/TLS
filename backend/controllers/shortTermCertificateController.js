@@ -127,3 +127,22 @@ export const getLeadsForCaller = async (req, res) => {
     res.status(500).send(`Error retrieving leads: ${error.message}`);
   }
 };
+
+//Get all callers
+export const getAllCallers = async (req, res) => {
+  try {
+    const callers = await Admin.find({ role: "caller" }, "name _id");
+    res.status(200).json({
+      success: true,
+      message: "Callers retrieved successfully",
+      callers,
+    });
+  } catch (error) {
+    console.error("Error retrieving callers:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error retrieving callers",
+      error,
+    });
+  }
+};

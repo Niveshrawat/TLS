@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestPasswordReset } from '../../redux/slice/userSlice';
-import { Box, Card, CardContent, Typography, TextField, Button, Link } from '@mui/material';
+import { Box, Card, CardContent, Typography, TextField, Button} from '@mui/material';
 import { useSpring, animated } from '@react-spring/web';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
-  const [answer, setAnswer] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-
+  
   const { status, error } = useSelector((state) => state.user);
 
   const floatingAnimation1 = useSpring({
@@ -26,8 +26,16 @@ const ForgotPasswordPage = () => {
 
   const handlePasswordReset = (e) => {
     e.preventDefault();
-    dispatch(requestPasswordReset({ email, answer, newPassword }));
+    dispatch(requestPasswordReset({ email }));
   };
+
+  useEffect(() => {
+    if (status === 'succeeded') {
+      toast.success('Password reset email sent successfully!');
+    } else if (status === 'failed' && error) {
+      toast.error(error);
+    }
+  }, [status, error]);
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: "#EEF7FF" }}>
@@ -45,35 +53,13 @@ const ForgotPasswordPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <TextField
-              label="Answer"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              value={answer}
-              onChange={(e) => setAnswer(e.target.value)}
-            />
-            <TextField
-              label="New Password"
-              variant="outlined"
-              type="password"
-              fullWidth
-              margin="normal"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
             <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} type="submit">
               Submit
             </Button>
+            {/* Optional: Error and success messages */}
             {status === 'failed' && <Typography color="error" sx={{ mt: 2 }}>{error}</Typography>}
-            {status === 'succeeded' && <Typography color="primary" sx={{ mt: 2 }}>Password reset successfully</Typography>}
           </form>
-          <Typography sx={{ mt: 2 }}>
-            Remembered your password?{' '}
-            <Link href="/login" underline="hover">
-              Login
-            </Link>
-          </Typography>
+          
         </CardContent>
       </Card>
 
@@ -90,6 +76,8 @@ const ForgotPasswordPage = () => {
         }}
       />
       {/* Other animated elements */}
+      
+      <ToastContainer /> {/* Add ToastContainer here */}
     </Box>
   );
 };

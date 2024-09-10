@@ -17,6 +17,7 @@ const ProgramDetailPage = () => {
       try {
         const response = await axios.get(`https://api.thelearnskills.com/api/v1/vocationalEducation/vocational-education/${_id}`, {
           headers: {
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           }
         });
@@ -205,21 +206,22 @@ const ProgramDetailPage = () => {
             fullWidth
             style={{ marginBottom: '10px' }}
           />
-          <input
-            type="file"
-            name="photo"
-            onChange={handleFileChange}
-            style={{ marginBottom: '10px' }}
-          />
-          {photoPreview && (
-            <img
-              src={photoPreview}
-              alt="Program"
-              width="100"
-              height="100"
-              style={{ marginBottom: '10px' }}
-            />
-          )}
+         <input
+  type="file"
+  name="photo"
+  onChange={handleFileChange}
+  style={{ marginBottom: '10px' }}
+/>
+
+{editedProgram.photos && editedProgram.photos.map((photo, idx) => (
+  <img
+    key={idx}
+    src={`https://api.thelearnskills.com/${photo}`}  // Correct path should be used here
+    alt={`Course ${editedProgram.programName}`}
+    style={{ width: '100px', height: '100px', marginRight: '5px' }}
+  />
+))}
+
 
           <Button variant="contained" color="primary" onClick={handleSaveClick} style={{ marginRight: '10px' }}>
             Save
@@ -253,7 +255,7 @@ const ProgramDetailPage = () => {
           <p><strong>Minimum Age:</strong> {program.minAgeLimit}</p>
           <p><strong>Maximum Age:</strong> {program.maxAgeLimit}</p>
           <p><strong>Attendance Criteria:</strong> {program.attendanceCriteria}</p>
-          <img src={`http://localhost:8080/${program.photo}`} alt="Program" width="100" height="100" />
+          <img src={`https://api.thelearnskills.com/${program.photo}`} alt="Program" width="100" height="100" />
 
 <div marginTop="2rem">
           <Button variant="outlined" onClick={handleEditClick} >

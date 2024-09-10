@@ -10,7 +10,7 @@ const CourseCard = ({ course }) => {
   };
 
   return (
-    <Card style={{ maxWidth: 400, margin: '16px' }}>
+    <Card style={{ maxWidth: 400, margin: '16px', marginBottom:'2rem' }}>
       <CardMedia
         component="img"
         height="200"
@@ -18,19 +18,19 @@ const CourseCard = ({ course }) => {
         alt={course.title}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography gutterBottom variant="h5" fontWeight="bold" component="div">
           {course.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {readMore ? course.description : `${course.description.substring(0, 100)}...`}
+          {readMore ? course.description : `${course.description.substring(0, 60)}......`}
           <Button onClick={handleReadMore}>
-            {readMore ? 'Read Less' : 'Read More'}
+            {readMore ? '' : ''}
           </Button>
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Duration: {course.duration}
         </Typography>
-        <Button variant="contained" color="primary" style={{ marginTop: '8px' }} component={Link} to={`/courses/${course.id}`}>
+        <Button variant="contained" color="primary" style={{ marginTop: '20px' }} component={Link} to={`/courses/${course.id}`}>
           View Details
         </Button>
       </CardContent>

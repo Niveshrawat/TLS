@@ -7,7 +7,7 @@ export const submitUniversityPartnershipForm = createAsyncThunk(
   async ({ formData, token }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/v1/university/submit-university-partnership',
+        'https://api.thelearnskills.com/api/v1/university/submit-university-partnership',
         formData,
         {
           headers: {

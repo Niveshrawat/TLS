@@ -1,6 +1,6 @@
 import express from 'express';
 import { submitUniversityPartnershipForm, getUniversityPartnerships } from '../controllers/universityPartnershipController.js';
-import { isAdmin, requireSignIn } from '../middlewares/authMiddleware.js';
+import { isAdmin, requireSignIn } from '../middlewares/adminauthMiddleware.js';
 
 const router = express.Router();
 

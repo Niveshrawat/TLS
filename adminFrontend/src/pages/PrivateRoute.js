@@ -3,42 +3,28 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const PrivateRoute = ({ roleRequired }) => {
-  const { isAuthenticated, role } = useSelector(state => state.admin || {});
-  
-
+  const { isAuthenticated, role } = useSelector(state => state.user || {});
 
   if (!isAuthenticated) {
-   
     return <Navigate to="/admin/login" />;
-   
   }
 
-  if (roleRequired && isAuthenticated && role !==roleRequired) {
-    
+  if (roleRequired && isAuthenticated && role !== roleRequired) {
     return <Navigate to="/admin/login" />;
-    
   }
 
   return <Outlet />;
 };
 
-const PrivateRoute2 =({ roleRequired }) => {
-  const { isAuthenticated, role } = useSelector(state => state.admin || {});
-  
+const PrivateRoute2 = ({ roleRequired }) => {
+  const { isAuthenticated, role } = useSelector(state => state.user || {});
 
-
-  if (isAuthenticated && role===roleRequired) {
-   
+  if (isAuthenticated && role === roleRequired) {
     return <Navigate to="/admin/dashboard" />;
-   
   }
-
-  
 
   return <Outlet />;
 };
-
-
 
 export default PrivateRoute;
 export { PrivateRoute2 };
