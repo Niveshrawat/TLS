@@ -69,6 +69,46 @@ const MyCalendar = () => {
     }
   };
 
+  const handleUpdateMeeting = async (updatedEvent) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error('No token found');
+
+      await axios.put(`https://api.thelearnskills.com/api/v1/meeting/${updatedEvent.id}`, updatedEvent, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      fetchMeetings(); // Refresh the calendar after update
+    } catch (error) {
+      console.error('Error updating meeting:', error);
+    }
+  };
+
+  const handleDeleteMeeting = async (eventId) => {
+    const confirmed = window.confirm('Are you sure you want to delete this meeting?');
+    if (confirmed) {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) throw new Error('No token found');
+
+        await axios.delete(`https://api.thelearnskills.com/api/v1/meeting/${eventId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        fetchMeetings(); // Refresh the calendar after deletion
+        setModalOpen(false);
+      } catch (error) {
+        console.error('Error deleting meeting:', error);
+      }
+    }
+  };
+
   return (
     <div style={{ marginTop: '4rem' }}>
       <Button
@@ -93,9 +133,10 @@ const MyCalendar = () => {
           onClose={() => setModalOpen(false)}
           event={selectedEvent}
           onSave={updatedEvent => {
-            setEvents(events.map(ev => ev.id === selectedEvent.id ? updatedEvent : ev));
+            handleUpdateMeeting(updatedEvent);
             setModalOpen(false);
           }}
+          onDelete={() => handleDeleteMeeting(selectedEvent.id)}
         />
       )}
       <CreateMeetingModal
@@ -107,56 +148,21 @@ const MyCalendar = () => {
   );
 };
 
-const TaskModal = ({ open, onClose, event, onSave }) => {
+const TaskModal = ({ open, onClose, event, onSave, onDelete }) => {
   const [title, setTitle] = useState(event.title);
   const [description, setDescription] = useState(event.description);
   const [meetingLink, setMeetingLink] = useState(event.meetingLink);
   const [date, setDate] = useState(moment(event.start));
 
-  const handleSave = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) throw new Error('No token found');
-
-      const updatedEvent = {
-        title,
-        description,
-        meetingLink,
-        date: date.toISOString(),
-      };
-
-      await axios.put(`https://api.thelearnskills.com/api/v1/meeting/${event.id}`, updatedEvent, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      onSave({ ...event, ...updatedEvent });
-    } catch (error) {
-      console.error('Error updating meeting:', error);
-    }
-  };
-
-  const handleDelete = async () => {
-    const confirmed = window.confirm('Are you sure you want to delete this meeting?');
-    if (confirmed) {
-      try {
-        const token = localStorage.getItem('token');
-        if (!token) throw new Error('No token found');
-
-        await axios.delete(`https://api.thelearnskills.com/api/v1/meeting/${event.id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-
-        onClose();
-      } catch (error) {
-        console.error('Error deleting meeting:', error);
-      }
-    }
+  const handleSave = () => {
+    const updatedEvent = {
+      id: event.id,
+      title,
+      description,
+      meetingLink,
+      date: date.toISOString(),
+    };
+    onSave(updatedEvent);
   };
 
   return (
@@ -198,7 +204,7 @@ const TaskModal = ({ open, onClose, event, onSave }) => {
         </LocalizationProvider>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleDelete} color="secondary">Delete</Button>
+        <Button onClick={onDelete} color="secondary">Delete</Button>
         <Button onClick={onClose} color="secondary">Close</Button>
         <Button onClick={handleSave} color="primary">Save changes</Button>
       </DialogActions>
@@ -211,9 +217,10 @@ const CreateMeetingModal = ({ open, onClose, onCreate }) => {
   const [description, setDescription] = useState('');
   const [meetingLink, setMeetingLink] = useState('');
   const [date, setDate] = useState(moment());
-  const [time, setTime] = useState(moment().format('HH:mm'));
+  const [time, setTime] = useState(moment().format('HH:mm'));  // Capture the time
 
   const handleCreate = () => {
+    // Combine date and time
     const [hours, minutes] = time.split(':').map(Number);
     const meetingDate = date.clone().set({ hour: hours, minute: minutes }).toISOString();
 
@@ -222,6 +229,7 @@ const CreateMeetingModal = ({ open, onClose, onCreate }) => {
       description,
       meetingLink,
       date: meetingDate,
+      time,  // Send time separately if needed
     };
 
     onCreate(meeting);
@@ -270,7 +278,7 @@ const CreateMeetingModal = ({ open, onClose, onCreate }) => {
           type="time"
           fullWidth
           value={time}
-          onChange={e => setTime(e.target.value)}
+          onChange={e => setTime(e.target.value)}  // Update time state
         />
       </DialogContent>
       <DialogActions>
@@ -280,5 +288,6 @@ const CreateMeetingModal = ({ open, onClose, onCreate }) => {
     </Dialog>
   );
 };
+
 
 export default MyCalendar;
