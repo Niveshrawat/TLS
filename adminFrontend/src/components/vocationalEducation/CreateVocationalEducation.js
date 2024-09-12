@@ -145,11 +145,11 @@ const ProgramTable = () => {
                 <TableCell onClick={() => handleRowClick(row._id)}>{row.programName}</TableCell>
                 <TableCell onClick={() => handleRowClick(row._id)}>{row.durationOfProgram}</TableCell>
                 <TableCell onClick={() => handleRowClick(row._id)}>{row.programAndClassSchedule}</TableCell>
-                <TableCell>
+                {/* <TableCell>
                   <IconButton color="primary" onClick={() => navigate(`/edit-program/${row._id}`)} sx={{ color: 'blue' }}>
                     <EditIcon />
                   </IconButton>
-                </TableCell>
+                </TableCell> */}
                 <TableCell>
                   <IconButton color="secondary" onClick={() => handleDelete(row._id)} sx={{ color: 'red' }}>
                     <DeleteIcon />

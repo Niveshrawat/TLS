@@ -141,11 +141,11 @@ const UniversityPartnershipTable = () => {
             <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Name</TableCell>
             <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Email ID</TableCell>
             <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Phone Number</TableCell>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Comme</TableCell>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Organization</TableCell>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Designation</TableCell>
-            
             <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Comments</TableCell>
+            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Location</TableCell>
+            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Organization</TableCell>
+            
+            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Designation</TableCell>
             <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Actions</TableCell>
           </TableRow>
         </TableHead>
@@ -164,6 +164,7 @@ const UniversityPartnershipTable = () => {
               <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.location}</TableCell>
               <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.organization}</TableCell>
               <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.designation}</TableCell>
+              
              
 
               <TableCell>

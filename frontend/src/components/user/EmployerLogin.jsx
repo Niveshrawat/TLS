@@ -170,11 +170,11 @@ const Login = () => {
           >
             {loading ? 'Logging in...' : 'Login'}
           </Button>
-          <Typography sx={{ mt: 2 }}>
+          {/* <Typography sx={{ mt: 2 }}>
             <Link href="/changePassword" underline="hover">
               Change Password
             </Link>
-          </Typography>
+          </Typography> */}
           <Typography sx={{ mt: 2 }}>
             Don't have an account?{' '}
             <Link href="/register-employer" underline="hover">

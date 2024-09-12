@@ -223,7 +223,7 @@ const Navbar = ({ backgroundColor, color }) => {
                   <MenuItem onClick={() => handleMenuItemClick('/login-employer')}>Login as Employer</MenuItem>
                 </Menu>
 
-                <Button
+                {/* <Button
                   variant="outlined"
                   sx={{
                     bgcolor: 'white',
@@ -253,7 +253,7 @@ const Navbar = ({ backgroundColor, color }) => {
                 >
                   <MenuItem onClick={() => handleMenuItemClick('/register')}>Register as Student</MenuItem>
                   <MenuItem onClick={() => handleMenuItemClick('/register-employer')}>Register as Employer</MenuItem>
-                </Menu>
+                </Menu> */}
               </>
             )}
             <Drawer

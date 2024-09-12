@@ -6,6 +6,9 @@ import {
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useNavigate } from 'react-router-dom';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 // Function to generate a hash code from a string
 const hashCode = (str) => {
@@ -205,12 +208,14 @@ const UserTable = () => {
                 <TableCell sx={{ border: 'none' }}>{user.phone}</TableCell>
                 <TableCell sx={{ border: 'none' }}>{user.address}</TableCell>
                 <TableCell sx={{ border: 'none' }}>
-                  <ButtonGroup>
-                    <Button onClick={(e) => { e.stopPropagation(); handleDeleteUser(user._id); }} color="error">
-                      <Typography color="error" fontWeight="bold">Delete</Typography>
-                    </Button>
-                  </ButtonGroup>
-                </TableCell>
+  <IconButton 
+    onClick={(e) => { e.stopPropagation(); handleDeleteUser(user._id); }} 
+    sx={{ color: 'red' }} // Custom color
+  >
+    <DeleteIcon />
+  </IconButton>
+</TableCell>
+
               </TableRow>
             ))}
           </TableBody>

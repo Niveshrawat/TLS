@@ -4,6 +4,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useSpring, animated } from '@react-spring/web';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const JobPosterRegistrationForm = () => {
@@ -16,6 +18,8 @@ const JobPosterRegistrationForm = () => {
     mobileNumber: ''
   });
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,11 +43,14 @@ const JobPosterRegistrationForm = () => {
     try {
       const response = await axios.post('https://api.thelearnskills.com/api/v1/auth/job/register-job-poster', formValues);
       toast.success(response.data.message);
+      navigate('/login-employer');
+
     } catch (error) {
       toast.error('Failed to register. Please try again.');
     } finally {
       setLoading(false);
     }
+
   };
   const floatingAnimation1 = useSpring({
     loop: true,

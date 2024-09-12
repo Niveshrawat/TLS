@@ -2,15 +2,18 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/slice/userSlice';
-import { Box, Card, CardContent, Typography, TextField, Button, Link } from '@mui/material';
+import { Box, Card, CardContent, Typography, TextField, Button, Link, IconButton, InputAdornment } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useSpring, animated } from '@react-spring/web';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); 
 
   const { user, status, error } = useSelector((state) => state.user);
   console.log(user)
@@ -75,6 +78,14 @@ const LoginPage = () => {
   });
 
 
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   // Handle form submission
   const saveToken = (token) => {
     localStorage.setItem('token', token);
@@ -104,7 +115,7 @@ const LoginPage = () => {
                   alt="Logo"
                   style={{ height: '10rem', align:'center', marginLeft:'6rem', marginTop:'-3rem' }}
                 />
-            <Typography variant="h4" component="div" align='center' gutterBottom>
+            <Typography variant="h4" component="div" align='center' fontWeight="bold" gutterBottom>
               Login
             </Typography>
             <form onSubmit={handleLogin}>
@@ -117,14 +128,27 @@ const LoginPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
-                label="Password"
-                variant="outlined"
-                type="password"
-                fullWidth
-                margin="normal"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              label="Password"
+              variant="outlined"
+              type={showPassword ? 'text' : 'password'} // Toggle between text and password
+              fullWidth
+              margin="normal"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
               <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} type="submit">
                 Login
               </Button>

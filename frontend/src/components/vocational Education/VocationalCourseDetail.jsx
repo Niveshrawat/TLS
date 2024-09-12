@@ -5,6 +5,8 @@ import Navbar from '../header/Navbar';
 import VocationalForm from '../forms/VocationalForm';
 import Footer from '../footer/Footer';
 import { useCourses } from './CourseContent';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 const CourseDetail = () => {
@@ -12,8 +14,18 @@ const CourseDetail = () => {
   const courses = useCourses(); // Assuming this hook fetches your courses
   const course = courses.find((c) => c.id === parseInt(courseId));
   const [openForm, setOpenForm] = useState(false);
+  const isLoggedIn = useSelector((state) => state.user.user); // Check if user is logged in
+  const navigate = useNavigate(); // To navigate to the login page
 
-  const handleOpenForm = () => setOpenForm(true);
+
+  const handleOpenForm = () =>
+  {
+    if (isLoggedIn) {
+   setOpenForm(true);
+  } else {
+    navigate('/login'); // Redirect to the login page if not logged in
+  }
+  } 
   const handleCloseForm = () => setOpenForm(false);
 
   if (!course) {

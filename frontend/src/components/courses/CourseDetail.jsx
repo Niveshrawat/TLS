@@ -6,6 +6,8 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import Navbar from '../header/Navbar';
 import Footer from '../footer/Footer';
 import InquiryForm from '../forms/ShortCoursesForm';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 function getCourseDetails(id) {
@@ -29,6 +31,8 @@ function getCourseDetails(id) {
 function CourseDetails() {
   const { id } = useParams();
   const [course, setCourse] = useState({});
+  const isLoggedIn = useSelector((state) => state.user.user); // Check if user is logged in
+  const navigate = useNavigate(); // To navigate to the login page
 
   useEffect(() => {
     console.log("Course ID from params:", id); // Log the course ID for debugging
@@ -45,7 +49,11 @@ function CourseDetails() {
   };
 
   const handleOpenModal = () => {
+    if (isLoggedIn) {
     setModalOpen(true);
+  } else {
+    navigate('/login'); // Redirect to the login page if not logged in
+  }
   };
 
   const handleCloseModal = () => {

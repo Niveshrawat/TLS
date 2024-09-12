@@ -92,6 +92,7 @@ const InternshipPage = () => {
   };
 
   const handleExploreClick = () => {
+    
     formRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 

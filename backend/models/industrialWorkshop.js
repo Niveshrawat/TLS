@@ -26,6 +26,11 @@ const industrialWorkshopSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    required: true,
+    enum: ['Internship', 'Workshop'],  // Added field
+  },
   workshopType: {
     type: String,
     required: true,

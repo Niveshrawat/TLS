@@ -72,6 +72,7 @@ const IndustrialWorkshopTable = () => {
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Organization</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Designation</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Workshop Type</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Main Domain</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Workshop Date</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Comments</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Actions</TableCell>
@@ -88,6 +89,7 @@ const IndustrialWorkshopTable = () => {
                 <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.organization}</TableCell>
                 <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.designation}</TableCell>
                 <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.workshopType}</TableCell>
+                <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.type}</TableCell>
                 <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.workshopDate}</TableCell> {/* Display formatted date */}
                 <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{workshop.comments}</TableCell>
                 <TableCell>

@@ -1,40 +1,51 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Modal, Box, Typography, TextField, Button } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { submitUniversityPartnershipForm } from '../../redux/slice/universitySlice';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const InquiryForm = ({ open, handleClose }) => {
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.user.token); // Ensure correct path to token
-
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     companyName: '',
     name: '',
     emailId: '',
     phoneNumber: '',
-    comments: ''
-  });
+    comments: '',
+    location: '',
+    organization: '',
+    designation: '',
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { companyName, name, emailId, phoneNumber, comments } = formData;
-
-    if (!companyName || !name || !emailId || !phoneNumber || !comments) {
-      toast.error('Please complete all fields');
-    } else if (!token) {
-      toast.error('User not authenticated');
-    } else {
-      dispatch(submitUniversityPartnershipForm({ formData, token }));
-      handleClose();
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    try {
+      const token = localStorage.getItem('token'); // Retrieve token from localStorage
+      const response = await axios.post(
+        'https://api.thelearnskills.com/api/v1/university/submit-university-partnership',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // Include token in the headers
+          },
+        }
+      );
+      console.log('Form submitted successfully:', response.data);
+      toast.success('Form submitted successfully');
+      setFormData(initialFormData); // Reset form data
+      handleClose(); // Close the dialog
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast.error('Failed to submit application.');
     }
   };
 
@@ -88,6 +99,30 @@ const InquiryForm = ({ open, handleClose }) => {
               fullWidth
               margin="normal"
               value={formData.phoneNumber}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Location"
+              name="location"
+              fullWidth
+              margin="normal"
+              value={formData.location}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Designation"
+              name="designation"
+              fullWidth
+              margin="normal"
+              value={formData.designation}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Organization"
+              name="organization"
+              fullWidth
+              margin="normal"
+              value={formData.organization}
               onChange={handleChange}
             />
             <TextField
