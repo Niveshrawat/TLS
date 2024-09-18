@@ -42,6 +42,7 @@ import TermsAndCondition from './components/pages/TermsAndCondition';
 // import PrivateRoute from './components/user/PrivateRoute';
 import EnterpriseAndSkills from './components/enterpriseAndSkills/EnterpriseAndSkills';
 import MdcFdc from './components/mdc-fdc/mdcFdc';
+import ScrollToTop from './components/ScrollTop';
 
 const theme = createTheme({
   breakpoints: {
@@ -65,6 +66,7 @@ function App() {
       <CoursesProvider>
         <ToastContainer />
         <Router>
+          <ScrollToTop/>
           <Routes>
             <Route path="/" element={<MainLayout />} />
             <Route path="/underGraduate" element={<UnderGraduate />} />

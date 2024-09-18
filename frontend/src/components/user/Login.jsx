@@ -7,16 +7,15 @@ import { useNavigate } from 'react-router-dom';
 import { useSpring, animated } from '@react-spring/web';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+  const [identifier, setIdentifier] = useState(''); // Updated from email to identifier
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false); 
 
   const { user, status, error } = useSelector((state) => state.user);
-  console.log(user)
+  // console.log(user)
 
   const floatingAnimation1 = useSpring({
     loop: true,
@@ -86,20 +85,19 @@ const LoginPage = () => {
     event.preventDefault();
   };
 
-  // Handle form submission
+  // Save JWT token to localStorage
   const saveToken = (token) => {
     localStorage.setItem('token', token);
   };
 
-  // Handle form submission
+  // Handle login form submission
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(loginUser({ email, password })).then((result) => {
+    dispatch(loginUser({ identifier, password })).then((result) => {
       if (result.type === 'user/loginUser/fulfilled') {
-        const { token } = result.payload; // Assuming the JWT token is returned in the response payload
-        console.log('Token:', token)
-        saveToken(token); // Save token to local storage
-        navigate('/'); // Redirect to the main page
+        const { token } = result.payload;
+        saveToken(token);
+        navigate('/'); // Redirect to the main page after login
       }
     });
   };
@@ -108,29 +106,29 @@ const LoginPage = () => {
   return (
     
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: "#EEF7FF" }}>
-        <Card sx={{ maxWidth: 400, padding: 2 }}>
-          <CardContent>
+       <Card sx={{ maxWidth: 400, padding: 2 }}>
+        <CardContent>
           <img
-                  src="/images/TLS_20240723_132205_0000.png"
-                  alt="Logo"
-                  style={{ height: '10rem', align:'center', marginLeft:'6rem', marginTop:'-3rem' }}
-                />
-            <Typography variant="h4" component="div" align='center' fontWeight="bold" gutterBottom>
-              Login
-            </Typography>
-            <form onSubmit={handleLogin}>
-              <TextField
-                label="Email"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <TextField
+            src="/images/TLS_20240723_132205_0000.png"
+            alt="Logo"
+            style={{ height: '10rem', align: 'center', marginLeft: '6rem', marginTop: '-3rem' }}
+          />
+          <Typography variant="h4" component="div" align='center' fontWeight="bold" gutterBottom>
+            Login
+          </Typography>
+          <form onSubmit={handleLogin}>
+            <TextField
+              label="Email or Phone" // Updated label
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              value={identifier} // Updated from email to identifier
+              onChange={(e) => setIdentifier(e.target.value)} // Handle change for identifier
+            />
+            <TextField
               label="Password"
               variant="outlined"
-              type={showPassword ? 'text' : 'password'} // Toggle between text and password
+              type={showPassword ? 'text' : 'password'}
               fullWidth
               margin="normal"
               value={password}
@@ -149,12 +147,12 @@ const LoginPage = () => {
                 ),
               }}
             />
-              <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} type="submit">
-                Login
-              </Button>
-              {status === 'failed' && <Typography color="error" sx={{ mt: 2 }}>{error}</Typography>}
-            </form>
-            <Typography sx={{ mt: 2 }}>
+            <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }} type="submit">
+              Login
+            </Button>
+            {status === 'failed' && <Typography color="error" sx={{ mt: 2 }}>{error}</Typography>}
+          </form>
+          <Typography sx={{ mt: 2 }}>
             <Link href="/forgot-password" underline="hover">
               Forgot Password?
             </Link>
@@ -165,8 +163,8 @@ const LoginPage = () => {
               Register
             </Link>
           </Typography>
-          </CardContent>
-        </Card>
+        </CardContent>
+      </Card>
   
 
       <animated.div

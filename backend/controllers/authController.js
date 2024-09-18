@@ -87,28 +87,36 @@ export const registerController = async (req, res) => {
 // POST LOGIN
 export const loginController = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { identifier, password } = req.body; // 'identifier' can be email or phone
     
-    if (!email || !password) {
+    if (!identifier || !password) {
       return res.status(400).send({
         success: false,
-        message: "Email and password are required",
+        message: "Email/Phone and password are required",
       });
     }
 
-    // Convert email to lowercase
-    const normalizedEmail = email.toLowerCase();
-
-    // Check user
-    const user = await userModel.findOne({ email: normalizedEmail });
+    // Check if the identifier is an email or phone number
+    const isEmail = identifier.includes('@'); // Simple check for email
+    
+    let user;
+    if (isEmail) {
+      // Convert email to lowercase and check by email
+      const normalizedEmail = identifier.toLowerCase();
+      user = await userModel.findOne({ email: normalizedEmail });
+    } else {
+      // Check by phone number
+      user = await userModel.findOne({ phone: identifier });
+    }
     
     if (!user) {
       return res.status(404).send({
         success: false,
-        message: "Email is not registered",
+        message: "User is not registered",
       });
     }
 
+    // Compare password
     const match = await comparePassword(password, user.password);
     if (!match) {
       return res.status(400).send({
@@ -117,11 +125,12 @@ export const loginController = async (req, res) => {
       });
     }
 
-    // Token
+    // Token generation
     const token = JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
 
+    // Send successful response
     res.status(200).send({
       success: true,
       message: "Login successfully",
@@ -144,7 +153,6 @@ export const loginController = async (req, res) => {
     });
   }
 };
-
 
 // Forgot Password Controller
 export const forgotPasswordController = async (req, res) => {
