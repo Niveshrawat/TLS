@@ -21,7 +21,7 @@ const courses = [
     price: 'medium',
     duration: 'medium',
     topic: 'management',
-    image: '/public/images/SupplyChain.jpg',
+    image: '/images/SupplyChain.jpg',
     category: 'industrial' // Add category for filtering
   },
   // Add more courses with relevant properties

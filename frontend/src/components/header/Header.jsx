@@ -213,7 +213,7 @@ const BannerSlider = () => {
               >
                 <Box
                   component="img"
-                  src="/public/images/front-photo.png"
+                  src="/images/front-photo.png"
                   alt="Online Learning"
                   sx={{
                     width: '100%',
@@ -278,7 +278,7 @@ const BannerSlider = () => {
               >
                 <Box
                   component="img"
-                  src="/public/images/second-photo.png"
+                  src="/images/second-photo.png"
                   alt="Online Learning"
                   sx={{
                     width: '100%',
@@ -316,17 +316,17 @@ const BannerSlider = () => {
 
     <Box
       component="img"
-      src="/public/images/smiling-happy-indian-student-with-backpack-pointing-his-finger-wall.png"
+      src="/images/smiling-happy-indian-student-with-backpack-pointing-his-finger-wall.png"
       alt="Online Learning"
       sx={{ width: '100%', maxWidth: { xs: '300px', md: '1000px' }, height: '550px' }}
     />
     <div className="icons-container">
-        <img src="/public/images/learning.png" className="icon" alt="School Icon" />
-        <img src="/public/images/diploma.png" className="icon" alt="Diploma Icon" />
-        <img src="/public/images/online-course.png" className="icon" alt="Online Course Icon" />
-        <img src="/public/images/course.png" className="icon" alt="Course Icon" />
-        <img src="/public/images/mobile.png" className="icon" alt="Mobile Icon" />
-        <img src="/public/images/education.png" className="icon" alt="Education Icon" />
+        <img src="/images/learning.png" className="icon" alt="School Icon" />
+        <img src="/images/diploma.png" className="icon" alt="Diploma Icon" />
+        <img src="/images/online-course.png" className="icon" alt="Online Course Icon" />
+        <img src="/images/course.png" className="icon" alt="Course Icon" />
+        <img src="/images/mobile.png" className="icon" alt="Mobile Icon" />
+        <img src="/images/education.png" className="icon" alt="Education Icon" />
       </div>
     </div>
   </Grid>

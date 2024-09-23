@@ -65,6 +65,7 @@ const Partners = () => {
             className="fly-in"
             width="60%"
             maxWidth="1500px"
+            marginLeft={"5rem"}
             bgcolor="white"
             borderRadius="8px"
             boxShadow="0px 0px 10px rgba(0, 0, 0, 0.1)"
@@ -72,8 +73,8 @@ const Partners = () => {
             zIndex="10"
             mt={isMobile ? 2 : 0}
         >
-            <Grid container spacing={2}>
-                <Grid item xs={12} md={4} >
+            <Grid container spacing={2} >
+                <Grid item xs={12} md={4} marginLeft={"2rem"} >
                     <Typography variant="h4" fontWeight="bold"  className="header-title">TheLearnSkills</Typography>
                     <StarRating />
                     <Typography variant="body2" color="textSecondary" >4.5 Star Rating (20+ Review)</Typography>                </Grid>
@@ -81,7 +82,7 @@ const Partners = () => {
                     
                 </Grid>
             </Grid>
-            <Box mt={2}>
+            <Box mt={2} >
                 <Slider {...settings} style={{ height: '80px', marginTop: "2rem" }}>
                     {features.map((feature, index) => (
                         <Box key={index} className="tp-brand__item">

@@ -8,7 +8,7 @@ const courses = [
     title: 'Supply Chain Prodigy Certificate',
     description: 'The training approach will be highly interactive taking advantage of the technological benefits.',
     price: 12999,
-    image: '/public/images/SupplyChain.jpg',
+    image: '/images/SupplyChain.jpg',
     duration: '1 months',
     rating: '⭐⭐⭐⭐',
     applicationLastDate: '10th August 2024',

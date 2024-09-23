@@ -75,7 +75,7 @@ const BenefitSection = () => {
                 width: '40%',
                 height: 'auto',
                 position: 'absolute',
-                top: '10%',
+                top: '3%',
                 left: '35%',
                 zIndex: 2,
               }}
@@ -88,7 +88,7 @@ const BenefitSection = () => {
                 width: '20%',
                 height: 'auto',
                 position: 'absolute',
-                top: '60%',
+                top: '40%',
                 left: '65%',
                 zIndex: 3,
               }}
