@@ -22,7 +22,7 @@
 .fly-in {
     position: relative;
     top: -10vh;
-    left: 50%;
+    left: 45%;
     transform: translate(-50%, 0);
     /* animation: flyIn 1s ease-out forwards; */
 }
@@ -37,3 +37,37 @@
 } */
 
 /* Other styles... */
+
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.image {
+  width: 12rem; /* Adjust as needed */
+  display: block;
+  margin: auto;
+}
+
+.icons-container {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  width: 300px; /* Adjust based on your needs */
+  height: 300px; /* Adjust based on your needs */
+  transform: translate(-50%, -50%); /* Center the container */
+}
+
+.icon {
+  position: absolute;
+  width: 60px; /* Adjust as needed */
+  height: 60px; /* Adjust as needed */
+  transform: translate(-50%, -50%);
+}
+
+.icon:nth-child(1) { top: 30%; right: -90%; } /* Top center */
+.icon:nth-child(2) { top: -10%; right: -70%; } /* Right center */
+.icon:nth-child(3) { bottom: 120%; left: 120%; } /* Bottom center */
+.icon:nth-child(4) { top: -40%; left: 70%; } /* Left center */
+.icon:nth-child(5) { top: -10%; left: 30%; } /* Top right */
+.icon:nth-child(6) { top: 30%; left: 20%; } /* Bottom left */

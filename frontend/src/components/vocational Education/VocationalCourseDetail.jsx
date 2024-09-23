@@ -7,6 +7,8 @@ import Footer from '../footer/Footer';
 import { useCourses } from './CourseContent';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+
 
 
 const CourseDetail = () => {
@@ -135,7 +137,7 @@ const CourseDetail = () => {
                   What you'll learn
                 </Typography>
                 {course.programModules.map((module, index) => (
-                  <Typography key={index} sx={{ marginTop: '1.5rem', color: '#686D76' }}>
+                  <Typography key={index} sx={{ marginTop: '0.5rem', color: '#686D76' }}>
                     {module}
                   </Typography>
                 ))}
@@ -146,7 +148,7 @@ const CourseDetail = () => {
                   Eligibility
                 </Typography>
                 {course.eligibility.map((item, index) => (
-                  <Typography key={index} sx={{ marginTop: '1.5rem', color: '#686D76' }}>
+                  <Typography key={index} sx={{ marginTop: '0.5rem', color: '#686D76' }}>
                     → {item}
                   </Typography>
                 ))}
@@ -157,7 +159,7 @@ const CourseDetail = () => {
                   Admission Criteria
                 </Typography>
                 {course.admissionCriteria.map((item, index) => (
-                  <Typography key={index} sx={{ marginTop: '1.5rem', color: '#686D76' }}>
+                  <Typography key={index} sx={{ marginTop: '0.5rem', color: '#686D76' }}>
                     → {item}
                   </Typography>
                 ))}
@@ -168,31 +170,13 @@ const CourseDetail = () => {
                   Job Roles
                 </Typography>
                 {course.jobRoles.map((role, index) => (
-                  <Typography key={index} sx={{ marginTop: '1.5rem', color: '#686D76' }}>
+                  <Typography key={index} sx={{ marginTop: '0.5rem', color: '#686D76' }}>
                     → {role}
                   </Typography>
                 ))}
               </Box>
 
-              <Box id="age-limit" mb={4}>
-                <Typography variant="h5" sx={{ fontWeight: 'bold', fontSize: { xs: '1.5rem', md: '1.9rem' } }}>
-                  Age Limit
-                </Typography>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={6}>
-                    <Card sx={{ marginTop: '2rem' }}>
-                      <CardContent>
-                        <Typography sx={{ marginTop: '1.5rem', color: '#686D76' }}>
-                          Minimum Age Limit: {course.minAgeLimit}
-                        </Typography>
-                        <Typography sx={{ marginTop: '1.5rem', color: '#686D76' }}>
-                          Maximum Age Limit: {course.maxAgeLimit}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                </Grid>
-              </Box>
+              
             </Card>
           </Grid>
 
@@ -214,7 +198,8 @@ const CourseDetail = () => {
                 🕒 Duration: {course.duration}
               </Typography>
               <Typography variant="body1" sx={{ marginBottom: '1rem' }}>
-                💲Price: {course.price} + 18% GST
+              <CurrencyRupeeIcon sx={{ fontSize: 20, color: '#FFAF45' }} />
+              Price: {course.price} + 18% GST
               </Typography>
               <Typography variant="body1" sx={{ marginBottom: '1rem' }}>
                 ⌛ Time: {course.time}
@@ -236,6 +221,36 @@ const CourseDetail = () => {
           </Grid>
         </Grid>
       </Container>
+      <Box sx={{
+         marginTop: '2rem',
+         alignItems: 'center',
+         display: 'flex',
+         justifyContent: 'center',
+         marginBottom: '2rem',
+        }}>
+          <Box
+    component="img"
+    src="/public/images/Certificate.jpg"
+    sx={{
+      width: {
+        xs: '15rem', // Width for extra small screens (phones)
+        sm: '24rem', // Width for small screens (tablets)
+        md: '30rem', // Width for medium screens (small laptops)
+        lg: '40rem', // Width for large screens (desktops)
+      },
+      height: {
+        xs: '10rem', // Height for extra small screens (phones)
+        sm: '16rem', // Height for small screens (tablets)
+        md: '20rem', // Height for medium screens (small laptops)
+        lg: '30rem', // Height for large screens (desktops)
+      },
+      marginRight:{
+        xs: '3rem', // Height for extra small screens (phones)
+
+      }
+    }}
+  />
+        </Box>
 
       <VocationalForm open={openForm} handleClose={handleCloseForm} courseName={course.title} />
       <Footer />

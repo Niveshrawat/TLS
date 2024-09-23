@@ -124,7 +124,7 @@ const JobPosterRegistrationForm = () => {
         maxWidth={400}
       >
          <img
-            src="/images/TLS_20240723_132205_0000.png"
+            src="/images/TLS_LOGO.png"
             alt="Logo"
             style={{ height: '10rem', display: 'block', margin: 'auto', marginBottom: '-2rem', marginTop:'-3rem' }}
           />

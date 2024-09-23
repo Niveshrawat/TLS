@@ -1,149 +1,145 @@
 import React from 'react';
-import { styled } from '@mui/system';
-import { Box, Typography, Grid, useMediaQuery, useTheme, Link } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
-import {
-  School as UniversityIcon,
-  Assignment as CertificateIcon,
-  Build as ToolsIcon,
-  BusinessCenter as BuildingIcon,
-  SchoolOutlined as UserGraduateIcon,
-  HelpOutline as HandsHelpingIcon,
-  MenuBook as ChalkboardTeacherIcon,
-  Settings as CogIcon,
-} from '@mui/icons-material';
+import { Box, Typography, Card, CardContent } from '@mui/material';
+import { useSpring, animated } from '@react-spring/web';
+import Slider from 'react-slick';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import VerifiedOutlinedIcon from '@mui/icons-material/VerifiedOutlined';
+import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
+import BusinessIcon from '@mui/icons-material/Business';
+import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
+import HelpCenterOutlinedIcon from '@mui/icons-material/HelpCenterOutlined';
+import LocalLibraryOutlinedIcon from '@mui/icons-material/LocalLibraryOutlined';
+import DomainVerificationOutlinedIcon from '@mui/icons-material/DomainVerificationOutlined';
 
-const WaveBackground = styled('div')(({ theme }) => ({
-  position: 'relative',
-  height: '100vh',
-  overflow: 'hidden',
-  [theme.breakpoints.down('sm')]: {
-    height: '260vh', // Adjusted height for mobile view
-  },
-}));
+const categories = [
+  { title: 'University Admission', description: 'Guidance for university enrollment.', icon: <SchoolOutlinedIcon /> },
+  { title: 'Online Certification', description: 'Earn credentials online.', icon: <VerifiedOutlinedIcon /> },
+  { title: 'Vocational Education', description: 'Hands-on training for specific skills.', icon: <BuildOutlinedIcon /> },
+  { title: 'Corporate Connect', description: 'Networking with corporates.', icon: <BusinessIcon /> },
+  { title: 'Internship and Industrial Program', description: 'Practical industry experience.', icon: <WorkOutlineOutlinedIcon /> },
+  { title: 'Job Support', description: 'Career assistance and job placement.', icon: <HelpCenterOutlinedIcon /> },
+  { title: 'MDP/FDP', description: 'Management & Faculty Development Programs.', icon: <LocalLibraryOutlinedIcon /> },
+  { title: 'Enterprise Solution', description: 'Business solutions for companies.', icon: <DomainVerificationOutlinedIcon /> },
+];
 
-const Wave = styled('div')({
-  position: 'absolute',
-  bottom: '0',
-  width: '100%',
-  height: '150px',
-});
-
-const ContentContainer = styled('div')({
-  position: 'relative',
-  zIndex: 1,
-  padding: '50px 20px',
-  textAlign: 'center',
-  color: 'black',
-});
-
-const BoxContainer = styled(Grid)(({ theme }) => ({
-  marginTop: '50px',
-  animation: 'slideIn 1s ease-in-out',
-  [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-}));
-
-const StyledBox = styled(Box)(({ theme }) => ({
-  textAlign: 'center',
-  padding: '4px',
-  margin: '10px',
-  borderRadius: '10px',
-  width: '15rem',
-  boxShadow: '0px 0px 10px #F5DAD2',
-  height: '200px',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  backgroundColor: 'white',
-  color: 'black',
-  transition: 'transform 0.3s ease-in-out', // Added transition
-  '&:hover': {
-    transform: 'translateY(-10px)', // Move up on hover
-  },
-  [theme.breakpoints.down('sm')]: {
-    width: '15rem',
-    margin: '10px 0',
-    height: '200px',
-    boxSizing: 'border-box', // Ensure equal sizing
-  },
-}));
-
-const IconWrapper = styled(Box)({
-  marginTop: '30px',
-  width: '60px',
-  height: '60px',
-  borderRadius: '50%',
-  backgroundColor: '#088395',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  color: 'white',
-});
-
-const WhyJoinUs = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  const items = [
-    { icon: <UniversityIcon fontSize="large" />, label: 'University Admission', link: '/undergraduate' },
-    { icon: <CertificateIcon fontSize="large" />, label: 'Certification Programs', link: '/all-courses' },
-    { icon: <ToolsIcon fontSize="large" />, label: 'Vocational Education', link: '/vocational-education' },
-    { icon: <BuildingIcon fontSize="large" />, label: 'Corporate Connect', link: '/corporate-connect' },
-    { icon: <UserGraduateIcon fontSize="large" />, label: 'Internships and Industrial Programs', link: '/internship' },
-    { icon: <HandsHelpingIcon fontSize="large" />, label: 'Job Support', link: '/job-support' },
-    { icon: <ChalkboardTeacherIcon fontSize="large" />, label: 'MDP/FDP', link: '/mdp-fdp' },
-    { icon: <CogIcon fontSize="large" />, label: 'Skilling and Enterprise', link: '/skilling-enterprise' },
-  ];
+const CategoryBox = ({ title, description, icon }) => {
+  const [hovered, setHovered] = React.useState(false);
+  const iconAnimation = useSpring({
+    transform: hovered ? 'scale(1.5)' : 'scale(1)',
+    config: { tension: 300, friction: 10 },
+  });
 
   return (
-    <WaveBackground>
-      <Wave />
-      <ContentContainer>
-        <Typography variant="h4" gutterBottom fontWeight='bold'>
-          Why Join Us?
-        </Typography>
-        <Typography variant="h6" align="center" paragraph>
-          We offer a comprehensive suite of services to help you achieve your educational and career goals.
-        </Typography>
-        <BoxContainer container spacing={2} justifyContent="center">
-          {items.slice(0, 5).map((item, index) => (
-            <Grid item key={index} xs={12} sm={6} md={2}>
-              <Link component={RouterLink} to={item.link} underline="none">
-                <StyledBox>
-                  <IconWrapper>
-                    {item.icon}
-                  </IconWrapper>
-                  <Typography variant="h6" gutterBottom sx={{ marginTop: '1.2rem' }}>
-                    {item.label}
-                  </Typography>
-                </StyledBox>
-              </Link>
-            </Grid>
-          ))}
-        </BoxContainer>
-        <BoxContainer container spacing={2} justifyContent="center">
-          {items.slice(5).map((item, index) => (
-            <Grid item key={index} xs={12} sm={6} md={2}>
-              <Link component={RouterLink} to={item.link} underline="none">
-                <StyledBox>
-                  <IconWrapper>
-                    {item.icon}
-                  </IconWrapper>
-                  <Typography variant="h6" gutterBottom sx={{ marginTop: '1.2rem' }}>
-                    {item.label}
-                  </Typography>
-                </StyledBox>
-              </Link>
-            </Grid>
-          ))}
-        </BoxContainer>
-      </ContentContainer>
-    </WaveBackground>
+    <animated.div>
+      <Card
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        sx={{
+          textAlign: 'center',
+          height: '300px',
+          width: "12rem",
+          display: 'flex',
+          border: '1px solid #ccc',
+          color: hovered ? '#003285' : 'white', // Change text color to blue on hover
+          backgroundColor: '#003285', // Set background to white on hover
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          transition: 'color 0.3s ease', // Smooth transition for text color
+          position: 'relative', // Necessary for absolute positioning of the pseudo-element
+          overflow: 'hidden', // Ensures the gradient does not overflow
+        }}
+        elevation={hovered ? 3 : 1}
+      >
+        <CardContent sx={{ position: 'relative', zIndex: 2 }}> {/* Keep text above sliding box */}
+        <animated.div style={iconAnimation}>{icon}</animated.div>
+          <Typography variant="h6" fontWeight="bold">
+            {title}
+          </Typography>
+          <Typography variant="body2">
+            {description}
+          </Typography>
+        </CardContent>
+        {hovered && (
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: '-100%', // Start outside the left
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'white',
+              animation: 'slideIn 0.5s forwards', // Animation for the sliding effect
+              zIndex: 1, // Behind the text
+            }}
+          />
+        )}
+      </Card>
+      <style>
+        {`
+          @keyframes slideIn {
+            0% {
+              left: -100%;
+            }
+            100% {
+              left: 0;
+            }
+          }
+        `}
+      </style>
+    </animated.div>
   );
 };
 
-export default WhyJoinUs;
+
+
+
+
+const PopularCategory = () => {
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+        breakpoint: 960,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
+  return (
+    <Box sx={{ backgroundColor: '#003285', color: 'white', padding: 4, height:'600px' }}>
+      <Typography variant="h5" textAlign="center" gutterBottom marginTop='4rem' fontWeight="bold">
+        Popular Category
+      </Typography>
+      <Typography variant="subtitle1" textAlign="center" mb={4}>
+        We offer a comprehensive suite of services to help you achieve your educational and career goals.
+      </Typography>
+
+      <Box mx="auto" maxWidth="1000px" marginTop="5rem">
+        <Slider {...sliderSettings}>
+          {categories.map((category, index) => (
+            <Box key={index} px={2}>
+              <CategoryBox title={category.title} description={category.description} icon={category.icon} />
+            </Box>
+          ))}
+        </Slider>
+      </Box>
+    </Box>
+  );
+};
+
+export default PopularCategory;

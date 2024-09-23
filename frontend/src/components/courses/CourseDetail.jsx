@@ -145,6 +145,36 @@ function CourseDetails() {
           </TabPanel>
         </Box>
       </Container>
+      <Box sx={{
+         marginTop: '2rem',
+         alignItems: 'center',
+         display: 'flex',
+         justifyContent: 'center',
+         marginBottom: '2rem',
+        }}>
+          <Box
+    component="img"
+    src="/public/images/Certificate.jpg"
+    sx={{
+      width: {
+        xs: '15rem', // Width for extra small screens (phones)
+        sm: '24rem', // Width for small screens (tablets)
+        md: '30rem', // Width for medium screens (small laptops)
+        lg: '40rem', // Width for large screens (desktops)
+      },
+      height: {
+        xs: '10rem', // Height for extra small screens (phones)
+        sm: '16rem', // Height for small screens (tablets)
+        md: '20rem', // Height for medium screens (small laptops)
+        lg: '30rem', // Height for large screens (desktops)
+      },
+      marginRight:{
+        xs: '3rem', // Height for extra small screens (phones)
+
+      }
+    }}
+  />
+        </Box>
       <Footer />
       <InquiryForm open={modalOpen} handleClose={handleCloseModal} />
     </Box>

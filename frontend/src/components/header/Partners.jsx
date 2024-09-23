@@ -63,7 +63,7 @@ const Partners = () => {
     return (
         <Box
             className="fly-in"
-            width="70%"
+            width="60%"
             maxWidth="1500px"
             bgcolor="white"
             borderRadius="8px"
@@ -73,17 +73,16 @@ const Partners = () => {
             mt={isMobile ? 2 : 0}
         >
             <Grid container spacing={2}>
-                <Grid item xs={12} md={4}>
-                    <Typography variant="h4" className="header-title">The Learn Skill</Typography>
-                    <Typography>Join over 1490+ partners around the world</Typography>
-                </Grid>
-                <Grid item xs={12} md={4} container alignItems="center" justifyContent={isMobile ? "center" : "flex-start"}>
+                <Grid item xs={12} md={4} >
+                    <Typography variant="h4" fontWeight="bold"  className="header-title">TheLearnSkills</Typography>
                     <StarRating />
-                    <Typography variant="body2" color="textSecondary">4.5 Star Rating (20+ Review)</Typography>
+                    <Typography variant="body2" color="textSecondary" >4.5 Star Rating (20+ Review)</Typography>                </Grid>
+                <Grid item xs={12} md={4} container alignItems="center" justifyContent={isMobile ? "center" : "flex-start"}>
+                    
                 </Grid>
             </Grid>
             <Box mt={2}>
-                <Slider {...settings} style={{ height: '100px', marginTop: "2rem" }}>
+                <Slider {...settings} style={{ height: '80px', marginTop: "2rem" }}>
                     {features.map((feature, index) => (
                         <Box key={index} className="tp-brand__item">
                             <img src={feature.image} alt={feature.title} style={{ maxWidth: '100%', height: '100%' }} />
