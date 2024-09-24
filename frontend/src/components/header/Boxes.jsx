@@ -37,7 +37,7 @@ const CategoryBox = ({ title, description, icon }) => {
         sx={{
           textAlign: 'center',
           height: '300px',
-          width: "12rem",
+          width: { xs: '100%', sm: '12rem' },
           display: 'flex',
           border: '1px solid #ccc',
           color: hovered ? '#003285' : 'white', // Change text color to blue on hover
@@ -121,7 +121,7 @@ const PopularCategory = () => {
   };
 
   return (
-    <Box sx={{ backgroundColor: '#003285', color: 'white', padding: 4, height:'600px' }}>
+    <Box sx={{ backgroundColor: '#003285', color: 'white', padding: 4, height:'650px' }}>
       <Typography variant="h5" textAlign="center" gutterBottom marginTop='4rem' fontWeight="bold">
         Popular Category
       </Typography>

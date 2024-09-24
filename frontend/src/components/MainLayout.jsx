@@ -61,7 +61,7 @@ const MainLayout = () => {
         lg: '30rem', // Height for large screens (desktops)
       },
       marginRight:{
-        xs: '3rem', // Height for extra small screens (phones)
+        xs: '0rem', // Height for extra small screens (phones)
 
       }
     }}
