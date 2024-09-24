@@ -21,8 +21,8 @@ const courses = [
     price: 'medium',
     duration: 'medium',
     topic: 'management',
-    image: '/images/SupplyChain.jpg',
-    category: 'industrial' // Add category for filtering
+    image: 'images/SupplyChain.jpg',
+    category: 'industrial', // Add category for filtering
   },
   // Add more courses with relevant properties
 ];
@@ -31,13 +31,13 @@ const VocationalEducation = () => {
   const [filters, setFilters] = useState({
     price: '',
     duration: '',
-    topic: ''
+    topic: '',
   });
-  
+
   const [tabValue, setTabValue] = useState('all'); // State for tab selection
 
   // Filter courses based on the selected filters and tab
-  const filteredCourses = courses.filter(course => {
+  const filteredCourses = courses.filter((course) => {
     return (
       (tabValue === 'all' || course.category === tabValue) &&
       (filters.price === '' || course.price === filters.price) &&
@@ -54,8 +54,12 @@ const VocationalEducation = () => {
     <Box>
       <Navbar />
       <Banner marginBottom="3rem">
-        <Typography variant="h4" fontWeight="bold">Vocational Training and Programs</Typography>
-        <Typography variant="h5" fontWeight="bold">"Empowering Careers through industry-relevant Training Programs"</Typography>
+        <Typography variant="h4" fontWeight="bold">
+          Vocational Training and Programs
+        </Typography>
+        <Typography variant="h5" fontWeight="bold">
+          "Empowering Careers through industry-relevant Training Programs"
+        </Typography>
       </Banner>
       <Container>
         <Grid container spacing={3}>
@@ -63,57 +67,78 @@ const VocationalEducation = () => {
             <Filters filters={filters} setFilters={setFilters} marginTop="12rem" /> {/* Sidebar for filters */}
           </Grid>
           <Grid item xs={12} sm={8} md={9}>
-            <Box display={{ xs: 'flex', sm: 'none' }} justifyContent="center" mb={2}>
+            {/* Mobile View: Buttons stacked vertically */}
+            <Box
+              display={{ xs: 'flex', sm: 'none' }}
+              justifyContent="center"
+              flexDirection="column"
+              mb={2}
+            >
               <Button
                 variant={tabValue === 'all' ? 'contained' : 'outlined'}
+                size="large"
+                fullWidth
+                sx={{ mb: 2 }} // Margin between buttons
                 onClick={() => handleTabChange('all')}
-                sx={{ margin: 1, width:'5rem', height:'15rem' }}
               >
                 All Courses
               </Button>
               <Button
                 variant={tabValue === 'industrial' ? 'contained' : 'outlined'}
+                size="large"
+                fullWidth
+                sx={{ mb: 2 }}
                 onClick={() => handleTabChange('industrial')}
-                style={{ margin: 1, height:'4rem' }}
               >
                 Industrial Certificate Courses
               </Button>
               <Button
                 variant={tabValue === 'corporate' ? 'contained' : 'outlined'}
+                size="large"
+                fullWidth
+                sx={{ mb: 2 }}
                 onClick={() => handleTabChange('corporate')}
-                sx={{ margin: 1 }}
               >
                 Corporate Blend Certificate Courses
               </Button>
             </Box>
-            <Box display={{ xs: 'none', sm: 'flex' }} justifyContent="center" mb={{xs:'2', sm:'0'}} mt={{xs:'0', sm:-4}} ml={{xs:0, sm: -10}}>
+
+            {/* Tablet and Laptop View: Buttons aligned horizontally with spacing */}
+            <Box
+              display={{ xs: 'none', sm: 'flex' }}
+              justifyContent="center"
+              mb={3}
+              mt={{ xs: '0', sm: -4 }}
+            >
               <Button
                 variant={tabValue === 'all' ? 'contained' : 'outlined'}
-                color="error"
-                onClick={() => handleTabChange('all')}
-                style={{ margin: 2 }}
-              >
-                All Courses
-              </Button>
-              <Button
-                variant={tabValue === 'industrial' ? 'contained' : 'outlined'}
-                color="error"
-                margin="2rem"
-                onClick={() => handleTabChange('industrial')}
-                style={{ margin: 2,  }}
-              >
-                Industrial Certificate Courses
-              </Button>
-              <Button
-                variant={tabValue === 'corporate' ? 'contained' : 'outlined'}
-                color="error"
                 
+                size="large"
+                sx={{ mx: 2 }} // Horizontal margin between buttons
+                onClick={() => handleTabChange('all')}
+              >
+                All Courses
+              </Button>
+              <Button
+                variant={tabValue === 'industrial' ? 'contained' : 'outlined'}
+                
+                size="large"
+                sx={{ mx: 2 }}
+                onClick={() => handleTabChange('industrial')}
+              >
+                Industrial Certificate Courses
+              </Button>
+              <Button
+                variant={tabValue === 'corporate' ? 'contained' : 'outlined'}
+                
+                size="large"
+                sx={{ mx: 2 }}
                 onClick={() => handleTabChange('corporate')}
-                style={{ margin: 2,  }}
               >
                 Corporate Blend Certificate Courses
               </Button>
             </Box>
+
             <Grid container spacing={3}>
               {filteredCourses.map((course, index) => (
                 <Grid item xs={12} sm={6} md={5} key={index}>
