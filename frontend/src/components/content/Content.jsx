@@ -11,7 +11,7 @@ const BenefitSection = () => {
 
   const content = (
     <div className="tp-section__title-wrapper">
-      <Typography variant="h3" component="h3" className="tp-section__title mb-15" gutterBottom fontWeight='bold' marginTop="3rem">
+      <Typography variant="h4" component="h3" className="tp-section__title mb-15" gutterBottom fontWeight='bold' marginTop="3rem">
         Benefit From Our <br />
         Online Learning Expertise
         <br />

@@ -86,7 +86,7 @@ const TestimonialSlider = () => {
         textAlign: "center",
       }}
     >
-      <Typography variant="h3" fontWeight="bold" mb={4}>
+      <Typography variant="h4" fontWeight="bold" mb={4}>
         What our clients Say About us
       </Typography>
       <Slider {...settings}>

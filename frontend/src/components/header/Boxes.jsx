@@ -122,7 +122,7 @@ const PopularCategory = () => {
 
   return (
     <Box sx={{ backgroundColor: '#003285', color: 'white', padding: 4, height:'650px' }}>
-      <Typography variant="h5" textAlign="center" gutterBottom marginTop='4rem' fontWeight="bold">
+      <Typography variant="h4" textAlign="center" gutterBottom marginTop='4rem' fontWeight="bold">
         WHY JOIN US ?
       </Typography>
       <Typography variant="subtitle1" textAlign="center" mb={4}>
