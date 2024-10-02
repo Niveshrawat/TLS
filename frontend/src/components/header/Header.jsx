@@ -78,7 +78,7 @@ const BannerSlider = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 1500,  // animated time ==========================================================================
     nextArrow: <NextArrow />, // Add custom next arrow
     prevArrow: <PrevArrow />, // Add custom previous arrow
   };
@@ -169,7 +169,7 @@ const BannerSlider = () => {
         <animated.div style={floating1}>
           <Box
             sx={{
-              height: { xs: 'auto', md: '700px' },
+              height: { xs: 'auto', md: '550px' },
               backgroundColor: '#003285',
               color: 'white',
               display: 'flex',
@@ -231,7 +231,7 @@ const BannerSlider = () => {
         <animated.div style={floating2} sx={{ display: { xs: 'none', md: 'block' } }}>
           <Box
             sx={{
-              height: { xs: 'auto', md: '700px' },
+              height: { xs: 'auto', md: '550px' },
               backgroundColor: '#F5EFFF',
               color: 'black',
               display: { xs: 'none', md: 'flex' },
@@ -296,7 +296,7 @@ const BannerSlider = () => {
         <animated.div style={floating3} sx={{ display: { xs: 'none', md: 'block' } }}>
         <Box
     sx={{
-      height: { xs: 'auto', md: '700px' },
+      height: { xs: 'auto', md: '550px' },
       backgroundColor: '#003285',
       color: 'white',
       display: { xs: 'none', md: 'flex' }, // Hide this on mobile as well
@@ -319,7 +319,7 @@ const BannerSlider = () => {
       component="img"
       src="/images/smiling-happy-indian-student-with-backpack-pointing-his-finger-wall.png"
       alt="Online Learning"
-      sx={{ width: '100%', maxWidth: { xs: '300px', md: '1000px' }, height: '550px' }}
+      sx={{ width: '100%', maxWidth: { xs: '300px', md: '1000px' }, height: '550px',marginTop: "50px" }}
     />
     <div className="icons-container">
         <img src="/images/learning.png" className="icon" alt="School Icon" />

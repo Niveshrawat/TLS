@@ -6,7 +6,7 @@ import Footer from './footer/Footer';
 import CollegesSlider from './content/CollegeSlider';
 import BenefitSection from './content/Content';
 import Header from './header/Header';
-import Partners from './header/Partners';
+// import Partners from './header/Partners';
 import Boxes from './header/Boxes'
 import Testimonials from './content/Testimonial';
 
@@ -15,7 +15,7 @@ const MainLayout = () => {
     <main style={{ fontFamily: "'Noto Serif', serif" }}>
       <Navbar />
      <Header/>
-      <Partners/>
+      {/* <Partners/> */}
       
       <Box sx={{ width: '100%', backgroundColor: 'white', minHeight: '50vh', py: 8 }}>
         <CssBaseline />

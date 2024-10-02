@@ -33,36 +33,36 @@ const testimonials = [
     name: "Sunil Gupta",
     title: "CEO, Psdboss",
     image:
-      "https://www.wilsoncenter.org/sites/default/files/media/images/person/james-person-1.jpg",
+      "https://img.freepik.com/free-photo/cheerful-indian-businessman-smiling-closeup-portrait-jobs-career-campaign_53876-129417.jpg?t=st=1727865161~exp=1727868761~hmac=a5f5e74c550c839f9f42bc6039b4e731b5a1aa19ef90252cc01607a1e06cc977&w=996",
     review:
-      "I would also like to say thank you to all your staff. It's the perfect solution for our business. Education is the most valuable business resource we have EVER purchased.",
+      "As a business owner, this website has been an incredible resource for upskilling my team. The courses are top-notch, and we've seen a noticeable improvement in productivity. Highly recommend it!",
   },
   {
     id: 2,
     name: "Anjali Rawat",
     title: "Banker",
     image:
-      "https://experteditor.com.au/wp-content/uploads/2023/07/signs-youre-a-great-person.png",
+      "https://img.freepik.com/free-photo/portrait-beautiful-woman-isolated-yellow-studio-background_155003-25086.jpg?w=996&t=st=1727864751~exp=1727865351~hmac=8c100f0994561dfd37b233bebe2d2c372782b6e83f99ebf3ce78ae6170086ad5",
     review:
-      "Engage with our professional real estate agents to sell, buy, or rent your home. Get emails directly in your inbox. Quis ipsum suspendisse ultrices gravida.",
+      "This platform has completely transformed the way I learn. The courses are detailed and easy to follow, making complex topics much more understandable. I feel more confident in my studies, and the practical skills I’ve gained have been incredibly helpful.",
   },
   {
     id: 3,
     name: "Vishal",
     title: "Student",
     image:
-      "https://www.psychologs.com/wp-content/uploads/2024/01/8-tips-to-be-a-jolly-person.jpg",
+      "https://as2.ftcdn.net/v2/jpg/06/26/63/73/1000_F_626637387_XsQrkVTjAAF2UVo2ptQQhGFTOPJHW0Mq.jpg",
     review:
-      "Your company is truly upstanding and is behind its product 100%. I STRONGLY recommend education to EVERYONE interested in running a successful online business.",
+      "I’ve always struggled with certain subjects, but this website has changed that for me. The interactive lessons and real-world examples make learning engaging and effective. Thanks to this platform, I’ve improved my grades and built a strong foundation for the future",
   },
   {
     id: 4,
     name: "Rashmika",
     title: "Student",
     image:
-      "https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg",
+      "https://img.freepik.com/premium-photo/indian-female-college-student-with-book-andbag_714173-3149.jpg?w=740",
     review:
-      "Just what I was looking for. Best. Product. Ever! Education is great. Education is the most valuable business resource we have EVER purchased.",
+      "What I love most about this website is the flexibility it offers. I can learn at my own pace, and the expert instructors are always available to help with any doubts. The quality of the courses is top-notch, and it’s had a significant impact on my academic performance",
   },
 ];
 

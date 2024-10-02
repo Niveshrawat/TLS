@@ -46,7 +46,7 @@ const colleges = [
 const CollegesSlider = () => {
   return (
     <Container>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, mt:-5 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, mt:5 }}>
         <Typography variant="h4" fontWeight='bold'>Colleges</Typography>
         <Button variant="contained" component={Link} to="/underGraduate">View All Colleges</Button>
       </Box>
