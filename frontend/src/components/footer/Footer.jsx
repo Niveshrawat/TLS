@@ -17,7 +17,7 @@ const Footer = () => {
           <Grid item xs={12} sm={6} md={3}>
             <Box mb={2}>
               <img 
-                  src="/images/TLS_LOGO.png"
+                  src="/images/Tls_20240919_160938_0000.png"
                   alt="Logo" style={{ maxWidth: '200px' }} />
               
               <Typography variant="body2">Follow us on social media for regular updates, tips, and insights that can help you achieve your career goals! </Typography>
@@ -66,9 +66,15 @@ const Footer = () => {
             <Typography variant="h6" gutterBottom>
               Legal
             </Typography>
-            <Typography variant="body2" >Privacy Policy</Typography>
-            <Typography variant="body2">Terms of Service</Typography>
-            <Typography variant="body2">Cookie Policy</Typography>
+            <Typography component={Link} to="/privacy-policy" variant="body2" color="white" sx={{ textDecoration: 'none', display: 'block' }}>
+  Privacy Policy
+</Typography>  
+<Typography component={Link} to="/terms-and-conditions" variant="body2" color="white" sx={{ textDecoration: 'none', display: 'block' }}>
+  Terms and Condition
+</Typography>           
+<Typography component={Link} to="/refund-policy" variant="body2" color="white" sx={{ textDecoration: 'none', display: 'block' }}>
+  Refund Policy
+</Typography>
           </Grid>
         </Grid>
         <Typography variant="body2" color="textSecondary" align="center" style={{ marginTop:'2rem',  color:"white" }}>

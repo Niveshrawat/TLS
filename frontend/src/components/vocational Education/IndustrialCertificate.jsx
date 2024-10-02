@@ -21,7 +21,7 @@ const courses = [
     price: 'medium',
     duration: 'medium',
     topic: 'management',
-    image: 'images/SupplyChain.jpg',
+    image: '/images/SupplyChain.jpg',
     category: 'industrial', // Add category for filtering
   },
   // Add more courses with relevant properties
@@ -112,27 +112,24 @@ const VocationalEducation = () => {
             >
               <Button
                 variant={tabValue === 'all' ? 'contained' : 'outlined'}
-                
                 size="large"
-                sx={{ mx: 2 }} // Horizontal margin between buttons
+                sx={{ mx: 1.5, my:1 }} // Horizontal margin between buttons
                 onClick={() => handleTabChange('all')}
               >
                 All Courses
               </Button>
               <Button
                 variant={tabValue === 'industrial' ? 'contained' : 'outlined'}
-                
                 size="large"
-                sx={{ mx: 2 }}
+                sx={{ mx: 1.5, my:1 }}
                 onClick={() => handleTabChange('industrial')}
               >
                 Industrial Certificate Courses
               </Button>
               <Button
                 variant={tabValue === 'corporate' ? 'contained' : 'outlined'}
-                
                 size="large"
-                sx={{ mx: 2 }}
+                sx={{ mx: 1.5, my:1 }}
                 onClick={() => handleTabChange('corporate')}
               >
                 Corporate Blend Certificate Courses

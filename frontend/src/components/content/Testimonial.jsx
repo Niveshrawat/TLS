@@ -30,7 +30,7 @@ const SlickDots = styled("ul")({
 const testimonials = [
   {
     id: 1,
-    name: "Olive Yew",
+    name: "Sunil Gupta",
     title: "CEO, Psdboss",
     image:
       "https://www.wilsoncenter.org/sites/default/files/media/images/person/james-person-1.jpg",
@@ -39,8 +39,8 @@ const testimonials = [
   },
   {
     id: 2,
-    name: "Maria Zokatti",
-    title: "CEO, Psdboss",
+    name: "Anjali Rawat",
+    title: "Banker",
     image:
       "https://experteditor.com.au/wp-content/uploads/2023/07/signs-youre-a-great-person.png",
     review:
@@ -48,8 +48,8 @@ const testimonials = [
   },
   {
     id: 3,
-    name: "Judy N",
-    title: "CEO, Psdboss",
+    name: "Vishal",
+    title: "Student",
     image:
       "https://www.psychologs.com/wp-content/uploads/2024/01/8-tips-to-be-a-jolly-person.jpg",
     review:
@@ -57,8 +57,8 @@ const testimonials = [
   },
   {
     id: 4,
-    name: "Gabbey A.",
-    title: "CEO, Psdboss",
+    name: "Rashmika",
+    title: "Student",
     image:
       "https://images.healthshots.com/healthshots/en/uploads/2020/12/08182549/positive-person.jpg",
     review:

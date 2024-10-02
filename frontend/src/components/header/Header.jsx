@@ -32,7 +32,7 @@ const NextArrow = (props) => {
         top: '40%',
         right: '10px',
         transform: 'translateY(-50%)',
-        zIndex: 2,
+        zIndex:-1,
         color: 'white',
         backgroundColor: '#00000099', // Semi-transparent background
         '&:hover': { backgroundColor: '#003285' }, // Darker on hover
@@ -53,7 +53,7 @@ const PrevArrow = (props) => {
         top: '40%',
         left: '10px',
         transform: 'translateY(-50%)',
-        zIndex: 2,
+        zIndex: -1,
         color: 'white',
         backgroundColor: '#00000099', // Semi-transparent background
         '&:hover': { backgroundColor: '#003285' }, // Darker on hover
@@ -78,7 +78,7 @@ const BannerSlider = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2000,
     nextArrow: <NextArrow />, // Add custom next arrow
     prevArrow: <PrevArrow />, // Add custom previous arrow
   };
@@ -115,15 +115,15 @@ const BannerSlider = () => {
         >
           <animated.div >
             <Typography
-              variant="h2"
+              variant="h4"
               component="h1"
               fontWeight="bold"
-              sx={{ mt: { xs: 2, md: 2 }, ml: { xs: 2, md: 22 } }}
+              sx={{ mt: { xs:-2, md: 2 }, ml: { xs: 2, md: 22 } }}
             >
-              <span style={{ color: 'white' }}>Your success journey starts with us</span>
+              <span style={{ color: 'white' }}>Your <span style={{ color: '#F7C425' }}>Success</span> Journey Starts With Us</span>
             </Typography>
             <Typography
-              variant="h6"
+              variant="body1"
               component="h2"
               sx={{ mb: 4, mt: { xs: 2, md: 5 }, ml: { xs: 2, md: 22 } }}
             >
@@ -136,9 +136,10 @@ const BannerSlider = () => {
             >
               {/* Optional additional text can go here */}
             </Typography>
-            <Button variant="contained" href="/all-courses" sx={{ ml: { xs: 2, md: 22 } }}>
-              Explore Courses
-            </Button>
+            <Button variant="contained" href="/all-courses" sx={{ ml: { xs: 1, md: 18 } }}>
+  Explore Courses
+</Button>
+
           </animated.div>
         </Grid>
 
@@ -152,7 +153,7 @@ const BannerSlider = () => {
             component="img"
             src="https://data.themeim.com/html/tutorgo/assets/img/hero/hero-img-1.png"
             alt="Online Learning"
-            sx={{ width: '100%', maxWidth: { xs: '300px', md: '650px' }, height: 'auto', backgroundImage: "url(https://data.themeim.com/html/tutorgo/assets/img/icons/line-shape.png)" }}
+            sx={{ width: '100%', maxWidth: { xs: '250px', md: '650px' }, height: 'auto', backgroundImage: "url(https://data.themeim.com/html/tutorgo/assets/img/icons/line-shape.png)" }}
           />
         </Grid>
       </Grid>
@@ -188,18 +189,18 @@ const BannerSlider = () => {
                     variant="h2"
                     component="h1"
                     fontWeight="bold"
-                    sx={{ mt: { xs: 2, md: -10 }, ml: { xs: 2, md: 22 } }}
+                    sx={{ mt: { xs: 2, md: -10 }, ml: { xs: 2, md: 8 } }}
                   >
-                    <span style={{ color: 'white' }}>Your success journey starts with us</span>
+                    <span style={{ color: 'white' }}>Your <span style={{ color: '#F7C425' }}>Success</span> Journey Starts With Us</span>
                   </Typography>
                   <Typography
                     variant="h6"
                     component="h2"
-                    sx={{ mb: 4, mt: { xs: 2, md: 5 }, ml: { xs: 2, md: 22 } }}
+                    sx={{ mb: 4, mt: { xs: 2, md: 5 }, ml: { xs: 2, md: 8 } }}
                   >
                     Empowering career through skillful education journey
                   </Typography>
-                  <Button variant="contained" href="/all-courses" sx={{ ml: { xs: 2, md: 28 } }}>
+                  <Button variant="contained" href="/all-courses" sx={{ ml: { xs: 2, md: 8 } }}>
                     Explore Courses
                   </Button>
                 </animated.div>
@@ -260,7 +261,7 @@ const BannerSlider = () => {
                   <Typography
                     variant="h6"
                     component="h2"
-                    sx={{ mb: 4, mt: { xs: 2, md: 5 }, ml: { xs: 2, md: 24 }, color: 'black' }}
+                    sx={{ mb: 4, mt: { xs: 2, md: 5 }, ml: { xs: 2, md: 22 }, color: 'black' }}
                   >
                     Empowering career through skillful education journey
                   </Typography>

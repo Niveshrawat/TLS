@@ -38,11 +38,13 @@ import ChangePassword from './components/user/ChangePassword'
 import About from './components/pages/About'
 import Contact from './components/pages/Contact'
 import TermsAndCondition from './components/pages/TermsAndCondition';
-// import PrivacyPolicy from './components/pages/PrivacyPolicy';
+
 // import PrivateRoute from './components/user/PrivateRoute';
 import EnterpriseAndSkills from './components/enterpriseAndSkills/EnterpriseAndSkills';
 import MdcFdc from './components/mdc-fdc/mdcFdc';
 import ScrollToTop from './components/ScrollTop';
+import PrivacyPolicy from './components/pages/PrivacyPolicy';
+import RefundPolicy from './components/pages/RefundPolicy';
 
 const theme = createTheme({
   breakpoints: {
@@ -102,8 +104,8 @@ function App() {
 <Route path="/terms-and-conditions" element={<TermsAndCondition />} /> 
 <Route path="/skilling-enterprise-solution" element={<EnterpriseAndSkills/>} />
 <Route path="/mdc-fdc" element={<MdcFdc/>}/>
-
-{/* <Route path="/privacy-policy" element={<PrivacyPolicy />} /> */}
+<Route path="/privacy-policy" element={<PrivacyPolicy />} />
+<Route path="/refund-policy" element={<RefundPolicy/>} />
 
 
           </Routes>
