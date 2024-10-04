@@ -37,7 +37,7 @@ const PromotionalBox = () => {
         }}
       >
         <img
-          src="/images/TLS_LOGO.png" // Replace with the correct image path
+          src="/images/Tls.png" // Replace with the correct image path
           alt="Logo"
           style={{
             width: isMobile ? '150px' : '200px', // Adjust image size for mobile

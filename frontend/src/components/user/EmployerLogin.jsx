@@ -125,7 +125,7 @@ const Login = () => {
         maxWidth={400}
       >
         <img
-          src="/images/TLS_LOGO.png"
+          src="/images/Tls.png"
           alt="Logo"
           style={{ height: '10rem', align: 'center', marginTop: '-3rem', marginBottom: '-2rem' }}
         />

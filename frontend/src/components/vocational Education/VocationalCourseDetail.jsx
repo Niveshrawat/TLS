@@ -124,12 +124,12 @@ const CourseDetail = () => {
       <Container>
         <Grid container spacing={2}>
           <Grid item xs={12} md={8}>
-            <Card sx={{ padding: '2rem', marginBottom: '2rem' }}>
+            <Card sx={{ padding: '3rem', marginBottom: '2rem' }}>
               <Box id="overview" mb={4}>
                 <Typography variant="h5" sx={{ fontWeight: 'bold', fontSize: { xs: '1.5rem', md: '1.9rem' } }}>
                   About this course
                 </Typography>
-                <Typography sx={{ marginTop: '1.5rem', color: '#686D76' }}>{course.overview}</Typography>
+                <Typography sx={{ marginTop: '1.5rem', color: '#686D76', fontSize:"1.1rem" }}>{course.overview}</Typography>
               </Box>
 
               <Box id="program-module" mb={4}>
@@ -137,7 +137,7 @@ const CourseDetail = () => {
                   What you'll learn
                 </Typography>
                 {course.programModules.map((module, index) => (
-                  <Typography key={index} sx={{ marginTop: '0.5rem', color: '#686D76' }}>
+                  <Typography key={index} sx={{ marginTop: '0.5rem', color: '#686D76', fontSize:"1.1rem" }}>
                     {module}
                   </Typography>
                 ))}
@@ -148,7 +148,7 @@ const CourseDetail = () => {
                   Eligibility
                 </Typography>
                 {course.eligibility.map((item, index) => (
-                  <Typography key={index} sx={{ marginTop: '0.5rem', color: '#686D76' }}>
+                  <Typography key={index} sx={{ marginTop: '0.5rem', color: '#686D76', fontSize:"1.1rem" }}>
                     → {item}
                   </Typography>
                 ))}
@@ -159,18 +159,18 @@ const CourseDetail = () => {
                   Admission Criteria
                 </Typography>
                 {course.admissionCriteria.map((item, index) => (
-                  <Typography key={index} sx={{ marginTop: '0.5rem', color: '#686D76' }}>
+                  <Typography key={index} sx={{ marginTop: '0.5rem', color: '#686D76', fontSize:"1.1rem" }}>
                     → {item}
                   </Typography>
                 ))}
               </Box>
 
               <Box id="job-roles" mb={4}>
-                <Typography variant="h5" sx={{ fontWeight: 'bold', fontSize: { xs: '1.5rem', md: '1.9rem' } }}>
+                <Typography variant="h4" sx={{ fontWeight: 'bold', fontSize: { xs: '1.5rem', md: '1.9rem' } }}>
                   Job Roles
                 </Typography>
                 {course.jobRoles.map((role, index) => (
-                  <Typography key={index} sx={{ marginTop: '0.5rem', color: '#686D76' }}>
+                  <Typography  key={index} sx={{ marginTop: '0.5rem', color: '#686D76', fontSize:"1.1rem" }}>
                     → {role}
                   </Typography>
                 ))}
@@ -230,7 +230,7 @@ const CourseDetail = () => {
         }}>
           <Box
     component="img"
-    src="/images/Certificate.jpg"
+    src={course.imageCertificate}
     sx={{
       width: {
         xs: '15rem', // Width for extra small screens (phones)

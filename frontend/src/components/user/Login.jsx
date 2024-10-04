@@ -109,7 +109,7 @@ const LoginPage = () => {
        <Card sx={{ maxWidth: 400, padding: 2 }}>
         <CardContent>
           <img
-            src="/images/TLS_LOGO.png"
+            src="/images/Tls.png"
             alt="Logo"
             style={{ height: '10rem', align: 'center', marginLeft: '6rem', marginTop: '-3rem' }}
           />

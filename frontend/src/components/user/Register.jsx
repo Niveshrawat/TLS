@@ -151,7 +151,7 @@ const Register = () => {
       <StyledCard>
         <CardContent>
           <img
-            src="/images/TLS_LOGO.png"
+            src="/images/Tls.png"
             alt="Logo"
             style={{ height: '10rem', display: 'block', margin: 'auto', marginBottom: '-2rem', marginTop:'-3rem' }}
           />

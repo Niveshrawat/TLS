@@ -28,16 +28,17 @@ const courses = [
     totalPriceWithGst: 11800,
     minAgeLimit: '20 Years',
     maxAgeLimit: '28 Years',
-    programEndDate: '31st May, 2024'
+    programEndDate: '31st May, 2024',
+    imageCertificate:"/images/Certificate.jpg"
   },
   {
     id: 2,
     title: 'Certificate in Logistics & Warehousing Operations (CLWO)',
     description: 'This program is designed to provide comprehensive training in logistics and warehousing operations, equipping participants with the skills and knowledge needed to excel in the industry. Let me know if you need any further customization or additional details!',
-    price: "Rs.",
+    price: "Rs.3000",
     image: '/images/logic.jpg',
     duration: '21 Days + 1 Month OJT',
-    rating: '⭐⭐⭐⭐',
+    rating: '⭐⭐⭐⭐⭐',
     applicationLastDate: '10th August 2024',
     overview: 'The training approach will be highly interactive taking advantage of the technological benefits. The pedagogy followed for the programme will be a judicious blend of lectures, case studies and participants experience sharing.',
     programModules: ['Introduction to Logistics and Warehousing',
@@ -48,7 +49,7 @@ const courses = [
       'Advance Excel',
       'On-the-Job Training (OJT) - 1 Month'],
     eligibility: ['Graduate with min 40% Marks. ','Upto 28years', 'Undergraduates and Postgraduates can apply'],
-    admissionCriteria: ['Retail applications with credentials','Final selection of participants will be based on eligibility. ', 'PAN India'],
+    admissionCriteria: [' Telephonic Interview','Final interview with OM logistic ', 'PAN India'],
     jobRoles: ['Operation Executive',
 'Billing Executive',
 'Operation Coordinator'],
@@ -58,7 +59,9 @@ const courses = [
     totalPriceWithGst: 11800,
     minAgeLimit: '20 Years',
     maxAgeLimit: '28 Years',
-    programEndDate: '31st May, 2024'
+    programEndDate: '31st May, 2024',
+    imageCertificate:"/images/logicistics.png"
+
   },
   {
     id: 3,
@@ -102,7 +105,9 @@ const courses = [
     totalPriceWithGst: 11800,
     minAgeLimit: '20 Years',
     maxAgeLimit: '60 Years',
-    programEndDate: '5th March 2025'
+    programEndDate: '5th March 2025',
+    imageCertificate:"/images/Certificate.jpg"
+
   }
   
   // Add more courses as needed...

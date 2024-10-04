@@ -158,7 +158,7 @@ const Navbar = ({ backgroundColor, color }) => {
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
               <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <img
-                  src="/images/TLS_LOGO.png"
+                  src="/images/Tls.png"
                   alt="Logo"
                   style={{ textDecoration: 'none', color: 'inherit', height: '7rem', marginLeft: '5rem' }}
                 />
@@ -272,9 +272,9 @@ const Navbar = ({ backgroundColor, color }) => {
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
               <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <img
-                  src="/images/TLS_LOGO.png"
+                  src="/images/Tls.png"
                   alt="Logo"
-                  style={{ textDecoration: 'none', color: 'inherit', height: '10rem', marginLeft: '5rem' }}
+                  style={{ textDecoration: 'none', color: 'inherit', height: '8rem', marginLeft: '5rem' }}
                 />
               </Link>
             </Typography>
