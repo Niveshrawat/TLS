@@ -232,7 +232,7 @@ const BannerSlider = () => {
           <Box
             sx={{
               height: { xs: 'auto', md: '550px' },
-              backgroundColor: '#F5EFFF',
+              backgroundColor: '#B7E0FF',
               color: 'black',
               display: { xs: 'none', md: 'flex' },
               alignItems: 'center',
@@ -259,11 +259,11 @@ const BannerSlider = () => {
                     />
                   </Typography>
                   <Typography
-                    variant="h6"
+                    variant="h5"
                     component="h2"
-                    sx={{ mb: 4, mt: { xs: 2, md: 5 }, ml: { xs: 2, md: 22 }, color: 'black' }}
+                    sx={{ mb: 4,fontWeight: "bold", mt: { xs: 2, md: 5 }, ml: { xs: 2, md: 22 }, color: 'black' }}
                   >
-                    Empowering career through skillful education journey
+Seamless Solutions for Smarter Logistics.
                   </Typography>
                   <Button variant="contained" href="/all-courses" sx={{ ml: { xs: 2, md: 22 } }}>
                     Explore Courses
@@ -279,7 +279,7 @@ const BannerSlider = () => {
               >
                 <Box
                   component="img"
-                  src="/images/second-photo.png"
+                  src="/images/warehouse.png"
                   alt="Online Learning"
                   sx={{
                     width: '100%',

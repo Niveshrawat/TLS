@@ -18,12 +18,32 @@ const courses = [
     id: 1,
     title: 'Supply Chain Prodigy Certificate',
     description: 'The training approach will be highly interactive taking advantage of the technological benefits.',
-    price: 'medium',
     duration: 'medium',
     topic: 'management',
     image: '/images/SupplyChain.jpg',
     category: 'industrial', // Add category for filtering
   },
+  {
+    id: 2,
+    image: '/images/logic.jpg',
+    title: 'Certificate in Logistics & Warehousing Operations (CLWO)',
+    description: 'This program is designed to provide comprehensive training in logistics and warehousing operations, equipping...',
+    duration: 'medium',
+    topic: 'management',
+    category: 'industrial', // Add category for filtering
+  },
+
+  {
+    id: 3,
+    title: 'Professional English Communication Course',
+    description: 'The Professional English Communication for the Workplace course is designed to enhance your English speaking, listening, and writing skills, with a focus on real-world business scenarios. Improve your communication effectiveness and boost your career prospects.',
+    image: '/images/communication.jpg',
+    duration: 'medium',
+    topic: 'management',
+    category: 'industrial', // Add category for filtering
+  },
+
+  
   // Add more courses with relevant properties
 ];
 
@@ -138,7 +158,7 @@ const VocationalEducation = () => {
 
             <Grid container spacing={3}>
               {filteredCourses.map((course, index) => (
-                <Grid item xs={12} sm={6} md={5} key={index}>
+                <Grid item xs={12} sm={6} md={4} key={index}>
                   <CourseCard course={course} />
                 </Grid>
               ))}

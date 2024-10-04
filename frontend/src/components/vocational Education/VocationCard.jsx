@@ -10,30 +10,48 @@ const CourseCard = ({ course }) => {
   };
 
   return (
-    <Card style={{ maxWidth: 400, margin: '16px', marginBottom:'2rem' }}>
+    <Card 
+      sx={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'space-between', 
+        maxWidth: 400, 
+        height: '90%', // Ensures cards have equal height
+        margin: '10px',
+        marginBottom: '2rem' 
+      }}
+    >
       <CardMedia
         component="img"
         height="200"
         image={course.image}
         alt={course.title}
       />
-      <CardContent>
-        <Typography gutterBottom variant="h5" fontWeight="bold" component="div">
+      <CardContent sx={{ flexGrow: 1 }}> {/* FlexGrow allows the content to fill remaining space */}
+        <Typography gutterBottom variant="h6" fontWeight="bold" component="div">
           {course.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {readMore ? course.description : `${course.description.substring(0, 60)}......`}
-          <Button onClick={handleReadMore}>
+          {readMore ? course.description : `${course.description.substring(0, 60)}...`}
+          <Button onClick={handleReadMore} size="small">
             {readMore ? '' : ''}
           </Button>
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" sx={{ marginTop: '10px' }}>
           Duration: {course.duration}
         </Typography>
-        <Button variant="contained" color="primary" style={{ marginTop: '20px' }} component={Link} to={`/courses/${course.id}`}>
+      </CardContent>
+      <Box sx={{ p: 1 }}>
+        <Button 
+          variant="contained" 
+          color="primary" 
+          fullWidth
+          component={Link} 
+          to={`/courses/${course.id}`}
+        >
           View Details
         </Button>
-      </CardContent>
+      </Box>
     </Card>
   );
 };

@@ -91,7 +91,7 @@ const CourseDetail = () => {
               Rating: {course.rating}
             </Typography>
             <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-              Price: {course.price} + <Box component="span" sx={{ color: 'grey' }}>18% GST</Box>
+              Price: {course.price} 
             </Typography>
 
             <Button
@@ -199,7 +199,7 @@ const CourseDetail = () => {
               </Typography>
               <Typography variant="body1" sx={{ marginBottom: '1rem' }}>
               <CurrencyRupeeIcon sx={{ fontSize: 20, color: '#FFAF45' }} />
-              Price: {course.price} + 18% GST
+              Price: {course.price} 
               </Typography>
               <Typography variant="body1" sx={{ marginBottom: '1rem' }}>
                 ⌛ Time: {course.time}
@@ -245,7 +245,7 @@ const CourseDetail = () => {
         lg: '30rem', // Height for large screens (desktops)
       },
       marginRight:{
-        xs: '0rem', // Height for extra small screens (phones)
+        xs: '3rem', // Height for extra small screens (phones)
 
       }
     }}

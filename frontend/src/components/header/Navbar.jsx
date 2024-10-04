@@ -274,7 +274,7 @@ const Navbar = ({ backgroundColor, color }) => {
                 <img
                   src="/images/TLS_LOGO.png"
                   alt="Logo"
-                  style={{ textDecoration: 'none', color: 'inherit', height: '7rem', marginLeft: '5rem' }}
+                  style={{ textDecoration: 'none', color: 'inherit', height: '10rem', marginLeft: '5rem' }}
                 />
               </Link>
             </Typography>

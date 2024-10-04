@@ -31,11 +31,11 @@ const testimonials = [
   {
     id: 1,
     name: "Sunil Gupta",
-    title: "CEO, Psdboss",
+    title: "Warehouse Manager",
     image:
       "https://img.freepik.com/free-photo/cheerful-indian-businessman-smiling-closeup-portrait-jobs-career-campaign_53876-129417.jpg?t=st=1727865161~exp=1727868761~hmac=a5f5e74c550c839f9f42bc6039b4e731b5a1aa19ef90252cc01607a1e06cc977&w=996",
     review:
-      "As a business owner, this website has been an incredible resource for upskilling my team. The courses are top-notch, and we've seen a noticeable improvement in productivity. Highly recommend it!",
+      "I was struggling to advance my career as a Warehouse Manager until I discovered this platform. The wide range of courses offered helped me gain the specific skills required in the logistics and warehouse industry. The training I received was practical and relevant, and it gave me the confidence to apply for better positions. Thanks to this platform, I was able to secure my current job as a Warehouse Manager, and it has made a real difference in my career growth.",
   },
   {
     id: 2,
@@ -53,7 +53,7 @@ const testimonials = [
     image:
       "https://as2.ftcdn.net/v2/jpg/06/26/63/73/1000_F_626637387_XsQrkVTjAAF2UVo2ptQQhGFTOPJHW0Mq.jpg",
     review:
-      "I’ve always struggled with certain subjects, but this website has changed that for me. The interactive lessons and real-world examples make learning engaging and effective. Thanks to this platform, I’ve improved my grades and built a strong foundation for the future",
+      "I faced a lot of struggles in finding a job. Then I came across this platform, where I found numerous courses that helped me enhance my skills, especially those that are in demand by the industry. Thanks to these skills, I was able to land a job.",
   },
   {
     id: 4,

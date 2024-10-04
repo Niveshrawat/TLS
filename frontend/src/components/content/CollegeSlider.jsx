@@ -5,27 +5,28 @@ import { Link } from 'react-router-dom';
 import { Box, Typography, Button, Grid, Container } from '@mui/material';
 import CollegeCard from './CollegeCard';
 
-const colleges = [
+const courses = [
   {
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6iRHWeeWnBzH6iWXr4SrQ9Hlxal_nSOrdaA&s',
-    name: 'College 1',
-    description: 'Description of College 1',
-    courses: ['Course A', 'Course B', 'Course C'],
-    fees: '$1000/year',
+    id:'1',
+    image: '/images/SupplyChain.jpg',
+    name: 'Supply Chain Prodigy Certificate',
+    description: 'The training approach will be highly interactive taking advantage of the technological benefits.',
+    duration: '2months',
   },
   {
-    image: 'https://images.shiksha.com/mediadata/images/articles/1693247327php9Ixvyk.jpeg',
-    name: 'College 2',
-    description: 'Description of College 2',
-    courses: ['Course D', 'Course E', 'Course F'],
-    fees: '$2000/year',
+    id:'2',
+    image: '/images/logic.jpg',
+    name: 'Certificate in Logistics & Warehousing Operations (CLWO)',
+    description: 'This program is designed to provide comprehensive training in logistics and warehousing operations, equipping...',
+    duration: '21 Days + 1 Month OJT',
+
   },
   {
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz0KLXQCo48J77GbsxUGir3DkRV6tP_GxTNw&s',
-    name: 'College 3',
-    description: 'Description of College 3',
-    courses: ['Course G', 'Course H', 'Course I'],
-    fees: '$3000/year',
+    id:'3',
+    image: '/images/communication.jpg',
+    name: 'Professional English Communication Course',
+    description: 'The Professional English Communication for the Workplace course is designed to enhance your English speaking, listening, and writing skills,...',
+    duration: '1.5 Month',
   },
   // {
   //   image: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/201806/du-650_060114055506_0.jpeg?size=690:388',
@@ -46,14 +47,14 @@ const colleges = [
 const CollegesSlider = () => {
   return (
     <Container>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, mt:5 }}>
-        <Typography variant="h4" fontWeight='bold'>Colleges</Typography>
-        <Button variant="contained" component={Link} to="/underGraduate">View All Colleges</Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, mt:10 }}>
+        <Typography variant="h4" fontWeight='bold'>Courses</Typography>
+        <Button variant="contained" component={Link} to="/vocational-education">View All Courses</Button>
       </Box>
       <Grid container spacing={4}>
-        {colleges.map((college, index) => (
+        {courses.map((course, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
-            <CollegeCard {...college} />
+            <CollegeCard course={course} />
           </Grid>
         ))}
       </Grid>

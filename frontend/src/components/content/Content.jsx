@@ -4,7 +4,7 @@ import { Box, Grid, Typography, Button, List, ListItem, ListItemIcon, ListItemTe
 
 const BenefitSection = () => {
   const images = {
-    main: 'https://data.themeim.com/html/tutorgo/assets/img/about/about-1.jpg',
+    main: '/images/mainpicture.jpg',
     ring: 'https://data.themeim.com/html/tutorgo/assets/img/icons/ring-shape.png',
     secondary: 'https://data.themeim.com/html/tutorgo/assets/img/about/about-2.jpg',
   };
@@ -12,10 +12,7 @@ const BenefitSection = () => {
   const content = (
     <div className="tp-section__title-wrapper">
       <Typography variant="h4" component="h3" className="tp-section__title mb-15" gutterBottom fontWeight='bold' marginTop="3rem">
-        Benefit From Our <br />
-        Online Learning Expertise
-        <br />
-        Earn professional.
+      Beverages online learning <br/>expertise to enhance your professional skills
       </Typography>
       {/* <Typography className="mb-40" paragraph>
         Lorem ipsum dolor sit amet, consectetur aliqua adipiscing elit, sed do eiumod tempor.
@@ -37,7 +34,7 @@ const BenefitSection = () => {
           <ListItemIcon>
             <Checkbox checked={true} />
           </ListItemIcon>
-          <ListItemText primary="Access more than 1k videos" />
+          <ListItemText primary="Corporate Hiring" />
         </ListItem>
       </List>
       {/* <Box className="tp-hero__btn-wrapper">
@@ -72,7 +69,7 @@ const BenefitSection = () => {
               src={images.main}
               alt="Main Image"
               sx={{
-                width: '40%',
+                width:{xs:'45%', md:'35%'},
                 height: 'auto',
                 position: 'absolute',
                 top: '3%',

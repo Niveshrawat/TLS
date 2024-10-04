@@ -19,13 +19,13 @@ const Filters = ({ filters, setFilters }) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 2 }}>
-     <Accordion expanded={!priceCollapsed} onChange={() => setPriceCollapsed(!priceCollapsed)} sx={{ borderRadius: 4, marginBottom: 2 }}>
+     {/* <Accordion expanded={!priceCollapsed} onChange={() => setPriceCollapsed(!priceCollapsed)} sx={{ borderRadius: 4, marginBottom: 2 }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content">
           <Typography variant="subtitle1">Price</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <FormControl variant="outlined" sx={{ minWidth: 100 }}>
-            {/* <InputLabel>Price</InputLabel> */}
+           
             <Select
               name="price"
               value={filters.price}
@@ -39,7 +39,7 @@ const Filters = ({ filters, setFilters }) => {
             </Select>
           </FormControl>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
 
       <Accordion expanded={!durationCollapsed} onChange={() => setDurationCollapsed(!durationCollapsed)} sx={{ borderRadius: 4, marginBottom: 2 }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4a-content">
