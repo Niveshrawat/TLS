@@ -84,6 +84,7 @@ const TestimonialSlider = () => {
         backgroundColor: "#f5f5f5",
         padding: "60px 0",
         textAlign: "center",
+        marginTop: "4rem",
       }}
     >
       <Typography variant="h4" fontWeight="bold" mb={4}>
@@ -99,6 +100,7 @@ const TestimonialSlider = () => {
               maxWidth: 900,
               position: "relative",
               marginBottom: "2rem",
+              // marginTop:"2rem"
             }}
           >
            {/* <img
