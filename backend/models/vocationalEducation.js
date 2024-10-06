@@ -17,11 +17,15 @@ const vocationalEducationSchema = new mongoose.Schema({
     required: true,
   },
   whoShouldAttend: {
-    type: String,
+    type: [String],
     required: true,
   },
   programContents: {
     type: [programContentSchema],
+    required: true,
+  },
+  description: {
+    type: String,
     required: true,
   },
   aboutProgram: {
@@ -41,8 +45,13 @@ const vocationalEducationSchema = new mongoose.Schema({
     required: true,
   },
   admissionCriteria: {
-    type: String,
+    type: [String],
     required: true,
+  },
+  price: { 
+    type: Number,
+    required: true,
+    
   },
   minAgeLimit: {
     type: Number,
@@ -54,12 +63,17 @@ const vocationalEducationSchema = new mongoose.Schema({
     required: true,
     min: 0,
   },
-  attendanceCriteria: {
-    type: String,
-    required: true,
-  },
   photo: {
-    type: String, // Store the URL of the uploaded photo
+    type: String,
+    default: null, // Optional: Provide default values
+  },
+  certificateImage: {
+    type: String,
+    default: null, // Optional: Provide default values
+  },
+  rating: {
+    type: String,
+    default: null, // Optional: Provide default values
   }
 }, { timestamps: true });
 

@@ -199,7 +199,7 @@ const Sidebar = ({ open, handleDrawerToggle }) => {
       >
         
         <div style={{ textAlign: 'center', padding: '16px' }}>
-          <img src="/TLS_20240723_132205_0000.png" alt="Logo" style={{ height: '10rem', marginTop: '-2rem' }} />
+          <img src="/Tls.png" alt="Logo" style={{ height: '10rem', marginTop: '-2rem' }} />
           
         </div>
         <List sx={{ marginTop: '-2rem' }}>

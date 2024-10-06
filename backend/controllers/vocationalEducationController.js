@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: storage }).single('photo');
+const upload = multer({ storage: storage }).fields([{ name: 'photo' }, { name: 'certificateImage' }]);
 
 // Create a new vocational education record
 export const createVocationalEducation = async (req, res) => {
@@ -21,42 +21,52 @@ export const createVocationalEducation = async (req, res) => {
       if (err) {
         return res.status(400).send({ success: false, message: "Error uploading file" });
       }
+
       const {
         programName,
         whoShouldAttend,
         programContents,
         aboutProgram,
+        description, // Ensure 'description' is extracted
         durationOfProgram,
         programAndClassSchedule,
         jobRoles,
         admissionCriteria,
         minAgeLimit,
         maxAgeLimit,
-        attendanceCriteria
+        rating,
+        price // Extract 'price'
       } = req.body;
 
-      if (!programName || !whoShouldAttend || !programContents || !aboutProgram || !durationOfProgram ||
-        !programAndClassSchedule || !jobRoles || !admissionCriteria || minAgeLimit === undefined || maxAgeLimit === undefined ||
-        !attendanceCriteria) {
+      // Check if required fields are provided
+      if (!programName || !whoShouldAttend || !programContents || !aboutProgram || !description ||
+        !durationOfProgram || !programAndClassSchedule || !jobRoles || !admissionCriteria ||
+        minAgeLimit === undefined || maxAgeLimit === undefined ||
+        price === undefined || !rating) { // Include 'price' in the check
         return res.status(400).send({ success: false, message: "All fields are required" });
       }
 
       const parsedProgramContents = JSON.parse(programContents);
       const parsedJobRoles = JSON.parse(jobRoles);
+      const parsedAdmissionCriteria = JSON.parse(admissionCriteria);
+      const parsedWhoShouldAttend = JSON.parse(whoShouldAttend);
 
       const newProgram = new VocationalEducation({
         programName,
-        whoShouldAttend,
+        whoShouldAttend: parsedWhoShouldAttend,
         programContents: parsedProgramContents,
         aboutProgram,
+        description, // Set 'description'
         durationOfProgram,
         programAndClassSchedule,
         jobRoles: parsedJobRoles,
-        admissionCriteria,
+        admissionCriteria: parsedAdmissionCriteria,
         minAgeLimit,
         maxAgeLimit,
-        attendanceCriteria,
-        photo: req.file ? req.file.path : null
+        photo: req.files['photo'] ? req.files['photo'][0].path : null,
+        certificateImage: req.files['certificateImage'] ? req.files['certificateImage'][0].path : null,
+        rating,
+        price // Set 'price' and ensure it's a Number
       });
 
       await newProgram.save();
@@ -67,7 +77,7 @@ export const createVocationalEducation = async (req, res) => {
   }
 };
 
-// Get all vocational education programs
+// Get all vocational education program
 export const getVocationalEducation = async (req, res) => {
   try {
     const programs = await VocationalEducation.find({});
@@ -112,7 +122,7 @@ export const updateVocationalEducation = async (req, res) => {
         admissionCriteria,
         minAgeLimit,
         maxAgeLimit,
-        attendanceCriteria
+        rating
       } = req.body;
 
       const updateData = {
@@ -124,7 +134,7 @@ export const updateVocationalEducation = async (req, res) => {
         admissionCriteria,
         minAgeLimit,
         maxAgeLimit,
-        attendanceCriteria,
+        rating
       };
 
       if (programContents) {
@@ -134,9 +144,21 @@ export const updateVocationalEducation = async (req, res) => {
       if (jobRoles) {
         updateData.jobRoles = JSON.parse(jobRoles);
       }
+      if(admissionCriteria){
+        updateData.admissionCriteria = JSON.parse(admissionCriteria);
+      }
+      if(whoShouldAttend){
+        updateData.whoShouldAttend = JSON.parse(whoShouldAttend);
+      }
 
-      if (req.file) {
-        updateData.photo = req.file.path;
+      
+
+      if (req.files['photo']) {
+        updateData.photo = req.files['photo'][0].path;
+      }
+
+      if (req.files['certificateImage']) {
+        updateData.certificateImage = req.files['certificateImage'][0].path;
       }
 
       const program = await VocationalEducation.findByIdAndUpdate(id, updateData, { new: true });

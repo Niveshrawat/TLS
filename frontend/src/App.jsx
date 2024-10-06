@@ -82,7 +82,7 @@ function App() {
             <Route path="/university-partnership" element={<UniversityPartnerships />} />
             <Route path="/register" element={<Register />} />
             <Route path="/vocational-education" element={<VocationalEducation />} />
-            <Route path="/courses/:courseId" element={<VocationalCourseDetail />} />
+            <Route path="/courses/:_id" element={<VocationalCourseDetail />} />
             <Route path='/login' element={<Login />} />
             <Route path="/forgot-password" element={<ForgetPassword />} />
             <Route path='/profile' element={< StudentPage />} />
