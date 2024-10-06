@@ -102,13 +102,13 @@ export const approveJobPoster = async (req, res) => {
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'niveshrawat2002@gmail.com',
-        pass: 'ghby mwaz njgc gkvi',
+          user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
         },
       });
 
       const mailOptions = {
-        from: "niveshrawat2002@gmail.com",
+        from: process.env.EMAIL_USER,
         to: jobPoster.officialEmailId,
         subject: 'Your Job Portal Account Approved',
         text: `Your account has been approved. You can log in with the following credentials:\n\nEmail: ${jobPoster.officialEmailId}\nPassword: ${password}\n\nPlease change your password after logging in.`,
