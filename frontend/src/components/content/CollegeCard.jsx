@@ -1,4 +1,3 @@
-
 // CollegeCard.js
 import React from 'react';
 import { Card, CardMedia, CardContent, Typography, Box, Button } from '@mui/material';
@@ -9,19 +8,22 @@ const CollegeCard = ({  course }) => (
     <CardMedia
       component="img"
       height="200"
-      image={course.image}
+      image={`https://api.thelearnskills.com/${course.photo}`}
       alt={name}
     />
     <CardContent sx={{ flexGrow: 1 }}>
       <Typography gutterBottom variant="h6" fontWeight="bold" component="div">
-        {course.name}
+        {course.programName}
       </Typography>
       <Typography variant="body2" color="text.secondary">
-        {course.description}
+        Price:Rs{course.price}
       </Typography>
       <Box mt={1}>
         <Typography variant="body2" color="text.secondary">
-          {course.duration}
+          Duration:{course.durationOfProgram}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Rating:{course.rating}
         </Typography>
       </Box>
     </CardContent>
@@ -30,7 +32,7 @@ const CollegeCard = ({  course }) => (
         variant="contained" 
         fullWidth
         component={Link}
-        to={`/courses/${course.id}`}  // Navigate based on course ID
+        to={`/courses/${course._id}`}  // Navigate based on course ID
       >
         View Details
       </Button>
