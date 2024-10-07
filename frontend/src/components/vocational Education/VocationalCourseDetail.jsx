@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Button, Grid, Container, Card } from '@mui/material';
+import { Box, Typography, Button, Grid, Container, Card, Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper, } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../header/Navbar';
 import VocationalForm from '../forms/VocationalForm';
@@ -168,14 +174,51 @@ const CourseDetail = () => {
               </Box>
 
               <Box id="program-module" mb={4}>
-                <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: 'bold', marginBottom: '1rem' }}
+                >
                   What you'll learn
                 </Typography>
-                {course.programContents?.map((module, index) => (
-                  <Typography key={index} sx={{ marginTop: '0.5rem', color: '#686D76' }}>
-                    {module.ModuleName}
-                  </Typography>
-                ))}
+                <TableContainer
+                  component={Paper}
+                  sx={{
+                    '&::-webkit-scrollbar': { display: 'none' },
+                    borderRadius: '10px',
+                    border: '1px solid #ddd',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                  }}
+                >
+                  <Table
+                    aria-label="program contents table"
+                    sx={{
+                      '& thead th': {
+                        backgroundColor: '#1976d2',
+                        color: 'white',
+                        fontWeight: 'bold',
+                      },
+                      '& tbody tr:hover': {
+                        backgroundColor: '#f5f5f5',
+                        cursor: 'pointer',
+                      },
+                    }}
+                  >
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Module No</TableCell>
+                        <TableCell>Module Name</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {course.programContents?.map((module, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{index + 1}</TableCell>
+                          <TableCell>{module.ModuleName}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
               </Box>
 
               <Box id="eligibility" mb={4}>
@@ -184,7 +227,7 @@ const CourseDetail = () => {
                 </Typography>
                 {course.whoShouldAttend?.map((item, index) => (
                   <Typography key={index} sx={{ marginTop: '0.5rem', color: '#686D76' }}>
-                     → {item}
+                    → {item}
                   </Typography>
                 ))}
               </Box>
@@ -197,11 +240,6 @@ const CourseDetail = () => {
                   <Typography key={index} sx={{ marginTop: '0.5rem', color: '#686D76' }}>
                     → {item}
                   </Typography>
-                //   <ul>
-                //   {program.whoShouldAttend.map((attendee, index) => (
-                //     <li key={index}>{attendee}</li>
-                //   ))}
-                // </ul>
                 ))}
               </Box>
 
@@ -270,7 +308,7 @@ const CourseDetail = () => {
 >
   <Box
     component="img"
-    src={`https://api.thelearnskills.com/${course.certificateImage}`}
+    src={`http://localhost:8080/${course.certificateImage}`}
     sx={{
       width: {
         xs: '15rem', // Width for extra small screens (phones)
