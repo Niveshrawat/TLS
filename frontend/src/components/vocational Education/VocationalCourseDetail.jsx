@@ -308,7 +308,7 @@ const CourseDetail = () => {
 >
   <Box
     component="img"
-    src={`http://localhost:8080/${course.certificateImage}`}
+    src={`https://api.thelearnskills.com/${course.certificateImage}`}
     sx={{
       width: {
         xs: '15rem', // Width for extra small screens (phones)
