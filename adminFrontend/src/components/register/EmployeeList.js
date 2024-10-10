@@ -158,7 +158,7 @@ const EmployeeTable = () => {
       <TableContainer component={Paper}  sx={{ mt: 3, boxShadow: 3 }}>
         <Table>
           <TableHead>
-            <TableRow style={{ fontWeight: 'bold', backgroundColor: 'gray' }}>
+            <TableRow style={{ fontWeight: 'bold', backgroundColor: '#F5F7F8' }}>
               <TableCell style={{ fontWeight: 'bold', textTransform: 'uppercase', fontSize:'1rem' }}>SERIAL NO</TableCell>
               <TableCell style={{ fontWeight: 'bold', textTransform: 'uppercase', fontSize:'1rem' }}>NAME</TableCell>
               <TableCell style={{ fontWeight: 'bold', textTransform: 'uppercase', fontSize:'1rem' }}>EMAIL</TableCell>

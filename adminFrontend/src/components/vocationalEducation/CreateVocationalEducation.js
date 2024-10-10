@@ -129,7 +129,7 @@ const ProgramTable = () => {
       <TableContainer component={Paper}>
         <Table aria-label="program table">
           <TableHead>
-            <TableRow style={{ backgroundColor: 'gray' }}>
+            <TableRow style={{ backgroundColor: '#F5F7F8' }}>
               <TableCell style={{ fontWeight: 'bold', textTransform: 'uppercase', fontSize:'1rem' }}>Sr No</TableCell>
               <TableCell style={{ fontWeight: 'bold', textTransform: 'uppercase', fontSize:'1rem' }}>Program Name</TableCell>
               <TableCell style={{ fontWeight: 'bold', textTransform: 'uppercase', fontSize:'1rem' }}>Duration of Program</TableCell>

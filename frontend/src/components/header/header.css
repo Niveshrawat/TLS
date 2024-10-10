@@ -22,7 +22,7 @@
 .fly-in {
     position: relative;
     top: -10vh;
-    left: 50%;
+    left: 45%;
     transform: translate(-50%, 0);
     /* animation: flyIn 1s ease-out forwards; */
 }
@@ -47,7 +47,6 @@
   width: 12rem; /* Adjust as needed */
   display: block;
   margin: auto;
-  /* margin-top: 22px; */
 }
 
 .icons-container {
@@ -66,9 +65,29 @@
   transform: translate(-50%, -50%);
 }
 
-.icon:nth-child(1) { top: 40%; right: -90%; } /* Top center */
-.icon:nth-child(2) { top: 0%; right: -70%; } /* Right center */
-.icon:nth-child(3) { bottom: 110%; left: 120%; } /* Bottom center */
-.icon:nth-child(4) { top: -30%; left: 70%; } /* Left center */
-.icon:nth-child(5) { top: 0%; left: 30%; } /* Top right */
-.icon:nth-child(6) { top: 40%; left: 20%; } /* Bottom left */
+.icon:nth-child(1) { top: 50%; right: -90%; } /* Top center */
+.icon:nth-child(2) { top: 20%; right: -70%; } /* Right center */
+.icon:nth-child(3) { bottom: 100%; left: 120%; } /* Bottom center */
+.icon:nth-child(4) { top: -20%; left: 70%; } /* Left center */
+.icon:nth-child(5) { top: 20%; left: 30%; } /* Top right */
+.icon:nth-child(6) { top: 60%; left: 20%; } /* Bottom left */
+
+@media (max-width: 768px) {
+    .icons-container {
+      width: 200px; /* Smaller width for mobile */
+      height: 200px;
+    }
+  
+    .icon {
+      width: 40px; /* Smaller icons for mobile */
+      height: 40px;
+    }
+  
+    /* Adjusting icon positions for mobile */
+    .icon:nth-child(1) { top: 40%; right: -40%; }
+    .icon:nth-child(2) { top: 10%; right: -30%; }
+    .icon:nth-child(3) { top: -20%; left: 80%; }
+    .icon:nth-child(4) { top: -20%; left: 30%; }
+    .icon:nth-child(5) { top: 10%; left: 5%; }
+    .icon:nth-child(6) { top: 40%; left: -10%; }
+  }

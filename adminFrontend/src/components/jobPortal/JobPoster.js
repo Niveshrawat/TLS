@@ -66,7 +66,7 @@ const JobPoster = () => {
     <TableContainer component={Paper} sx={{ mt: 10, boxShadow: 3 }}>
       <Table>
         <TableHead>
-          <TableRow sx={{ backgroundColor: 'gray' }}>
+          <TableRow sx={{ backgroundColor: '#F5F7F8' }}>
             {['Sr. No', 'NAME', 'COMPANY NAME', 'INDUSTRY TYPE', 'DESIGNATION', 'OFFICIAL EMAIL ID', 'MOBILE NUMBER', 'STATUS', 'ACTIONS'].map(header => (
               <TableCell key={header} style={{ fontWeight: 'bold', fontSize: '1rem' }}>{header}</TableCell>
             ))}

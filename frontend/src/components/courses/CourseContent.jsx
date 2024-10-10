@@ -21,7 +21,7 @@ function CourseCard({ course }) {
       <CardContent>
         <Typography variant="h6">{course.title}</Typography>
         <Typography variant="body2" color="text.secondary">{course.description}</Typography>
-        <Typography variant="body2" color="text.secondary">Price: ${course.price}</Typography>
+        <Typography variant="body2" color="text.secondary">Price: Rs {course.price}</Typography>
         <Typography variant="body2" color="text.secondary">Duration: {course.duration}</Typography>
         <Box display="flex" alignItems="center">
           <StarIcon color="primary" />

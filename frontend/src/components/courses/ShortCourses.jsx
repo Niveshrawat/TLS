@@ -10,19 +10,15 @@ const convertToINR = (price) => price * exchangeRate;
 
 const shortTermCourses = {
   financial: [
-    { id: 1, title: 'Short Term Financial Course 1', image: 'https://images.pexels.com/photos/12425927/pexels-photo-12425927.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 1', price: convertToINR(100), duration: '1 month', rating: 4.5 },
-    { id: 2, title: 'Short Term Financial Course 2', image: 'https://images.pexels.com/photos/3182755/pexels-photo-3182755.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 2', price: convertToINR(150), duration: '1.5 months', rating: 4.0 },
-    { id: 3, title: 'Short Term Financial Course 3', image: 'https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 3', price: convertToINR(200), duration: '2 months', rating: 4.8 },
+    { id: 1, title: 'Short Term Financial Course 1', image: 'https://images.pexels.com/photos/12425927/pexels-photo-12425927.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 1', price: "10000", duration: '1 month', rating: 4.5 },
+    { id: 2, title: 'Short Term Financial Course 2', image: 'https://images.pexels.com/photos/3182755/pexels-photo-3182755.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 2', price: "7000", duration: '1.5 months', rating: 4.0 },
+    { id: 3, title: 'Short Term Financial Course 3', image: 'https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 3', price: "5000", duration: '2 months', rating: 4.8 },
   ],
   technology: [
-    { id: 4, title: 'Short Term Tech Course 1', image: 'https://images.pexels.com/photos/3861955/pexels-photo-3861955.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 4', price: convertToINR(250), duration: '2 months', rating: 4.2 },
-    { id: 5, title: 'Short Term Tech Course 2', image: 'https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 5', price: convertToINR(300), duration: '1 month', rating: 4.6 },
-    { id: 6, title: 'Short Term Tech Course 3', image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 6', price: convertToINR(400), duration: '1.5 months', rating: 4.3 },
+   
   ],
   management: [
-    { id: 7, title: 'Short Term Management Course 1', image: 'https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 7', price: convertToINR(500), duration: '2 months', rating: 4.7 },
-    { id: 8, title: 'Short Term Management Course 2', image: 'https://images.pexels.com/photos/3184460/pexels-photo-3184460.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 8', price: convertToINR(600), duration: '2 months', rating: 4.9 },
-    { id: 9, title: 'Short Term Management Course 3', image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 9', price: convertToINR(350), duration: '1 month', rating: 4.4 },
+   
   ],
 };
 
@@ -105,8 +101,8 @@ function CoursesPage({ type }) {
           ></dotlottie-player>
       </Box>
       <Container>
-        <Typography variant="h4" gutterBottom marginTop="2rem" marginRight="18rem" fontWeight="bold" textAlign="center">
-          {type === 'short' ? 'Short Term Courses' : 'Long Term Courses'}
+        <Typography variant="h4" gutterBottom marginTop="2rem" marginRight="25rem" fontWeight="bold" textAlign="center">
+          {type === 'short' ? 'All Courses' : 'Long Term Courses'}
         </Typography>
         <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} md={3}>
@@ -119,9 +115,9 @@ function CoursesPage({ type }) {
             />
           </Grid>
           <Grid item xs={12} md={9}>
-            <CourseCategory title="Financial Courses" courses={filteredCourses.financial} />
-            <CourseCategory title="Technology Courses" courses={filteredCourses.technology} />
-            <CourseCategory title="Management Courses" courses={filteredCourses.management} />
+            <CourseCategory  courses={filteredCourses.financial} />
+            {/* <CourseCategory title="Technology Courses" courses={filteredCourses.technology} />
+            <CourseCategory title="Management Courses" courses={filteredCourses.management} /> */}
           </Grid>
         </Grid>
       </Container>

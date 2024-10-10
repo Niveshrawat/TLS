@@ -151,11 +151,7 @@ const TestimonialSlider = () => {
                     {testimonial.title}
                   </Typography>
                   <Box>
-                    {[...Array(5)].map((_, index) => (
-                      index < testimonial.rating ? 
-                      <StarIcon key={index} sx={{ color: 'gold' }} /> : 
-                      <StarBorderIcon key={index} sx={{ color: 'gold' }} />
-                    ))}
+                  ⭐⭐⭐⭐⭐
                   </Box>
                 </CardContent>
               </Grid>

@@ -235,7 +235,7 @@ const CourseTable = () => {
         </Box>
         <Table aria-label="Course Table" sx={{ minWidth: 650, border: 'none' }}>
           <TableHead>
-            <TableRow style={{ backgroundColor: 'gray' }}>
+            <TableRow style={{ backgroundColor: '#F5F7F8' }}>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>SR. NO</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>COURSE NAME</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>DESCRIPTION</TableCell>

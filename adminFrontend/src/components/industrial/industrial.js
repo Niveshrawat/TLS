@@ -63,7 +63,7 @@ const IndustrialWorkshopTable = () => {
       <TableContainer sx={{ boxShadow: 3 , marginTop:'2rem'}}>
         <Table aria-label="Industrial Workshop Table" sx={{ minWidth: 650, border: 'none' }}>
           <TableHead>
-            <TableRow style={{ backgroundColor: 'gray' }}>
+            <TableRow style={{ backgroundColor: '#F5F7F8' }}>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Sr. No</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Name</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>Email ID</TableCell>

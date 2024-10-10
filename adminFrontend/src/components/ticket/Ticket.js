@@ -77,7 +77,7 @@ const TicketTable = () => {
     <TableContainer component={Paper} sx={{ mt: 10, boxShadow: 3,  }} >
       <Table aria-label="ticket table"marginTop="10rem">
         <TableHead>
-          <TableRow sx={{ backgroundColor: 'gray' }}>
+          <TableRow sx={{ backgroundColor: '#F5F7F8' }}>
             <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Sr. No</TableCell>
             <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Name</TableCell>
             <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', padding: '8px', textTransform: 'uppercase' }}>Email ID</TableCell>

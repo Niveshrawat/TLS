@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import {
   ThemeProvider,
   createTheme,
@@ -16,11 +16,14 @@ import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import TotalUsers from './TotalUsers';
+// import Chart from './Chart';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 
 const drawerWidth = 240;
 
 const theme = createTheme();
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -112,6 +115,12 @@ const [loadingVocationalLeads, setLoadingVocationalLeads] = useState(true);
       setOpen(!open);
     }
   };
+  const totalUsersRef = useRef(null);
+const scrollToTotalUsers = () => {
+  if (totalUsersRef.current) {
+    totalUsersRef.current.scrollIntoView({ behavior: 'smooth' });
+  }
+};
 
   useEffect(() => {
     const fetchRegisteredUsers = async () => {
@@ -300,63 +309,76 @@ const [loadingVocationalLeads, setLoadingVocationalLeads] = useState(true);
             Admin Dashboard
           </Typography>
           <Grid container spacing={2} justifyContent="center">
-            <Grid item xs={12} sm={6} md={4} lg={4}>
-              <Item
-                sx={{
-                  backgroundColor: '#9681EB',
-                  cursor: 'pointer',
-                  marginLeft:{xs:"15rem", sm:'0'},
-                  width:{xs: '18rem', sm:'auto'},
-                  padding: { xs: 2, sm: 4 }, // Smaller padding for xs (mobile) screens
-                  '& .MuiTypography-root': {
-                    fontSize: { xs: '1rem', sm: '1.25rem' }, // Smaller font size for mobile
-                  },
-                }}
-              >
-                <RotateAvatar
-                  sx={{
-                    bgcolor: 'white',
-                    color: '#9681EB',
-                    width: { xs: 40, sm: 56 }, // Smaller avatar on mobile
-                    height: { xs: 40, sm: 56 }, // Adjust height for mobile
-                  }}
-                >
-                  <PeopleAltOutlinedIcon sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}  />
-                </RotateAvatar>
-                <Typography variant="h6" color="white" fontWeight="bold">
-                  {registeredUsers > 0 ? `${registeredUsers} Registered Users` : 'No Registered Users'}
-                </Typography>
-              </Item>
-            </Grid>
+          <Grid item xs={12} sm={6} md={4} lg={4}>
+        <Item
+          onClick={scrollToTotalUsers} // Attach click handler to scroll
+          sx={{
+            backgroundColor: '#9681EB',
+            cursor: 'pointer',
+            marginLeft:{xs:"15rem", sm:'0'},
+            width:{xs: '18rem', sm:'auto'},
+            padding: { xs: 2, sm: 4 },
+            '& .MuiTypography-root': {
+              fontSize: { xs: '1rem', sm: '1.25rem' },
+            },
+          }}
+        >
+          <RotateAvatar
+            sx={{
+              bgcolor: 'white',
+              color: '#9681EB',
+             
+            }}
+          >
+            <PeopleAltOutlinedIcon sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }} />
+          </RotateAvatar>
+          <Typography variant="h6" color="white" fontWeight="bold">
+            {registeredUsers > 0 ? `${registeredUsers} Registered Users` : 'No Registered Users'}
+          </Typography>
+        </Item>
+      </Grid>
+
+
+      <Grid item xs={12} sm={6} md={4} lg={4}>
+      {/* Wrap the Item component with Link */}
+      <Link
+        to="/courses" // Specify the route you want to navigate to
+        style={{ textDecoration: 'none' }} // Remove underline from Link
+      >
+        <Item
+          sx={{
+            backgroundColor: '#7F27FF',
+            cursor: 'pointer',
+            marginLeft:{xs:"15rem", sm:'0'},
+            width:{xs: '18rem', sm:'auto'},
+            padding: { xs: 2, sm: 4 },
+            '& .MuiTypography-root': {
+              fontSize: { xs: '1rem', sm: '1.25rem' },
+            },
+          }}
+        >
+          <RotateAvatar
+            sx={{
+              bgcolor: 'white',
+              color: '#7F27FF',
+              
+            }}
+          >
+            <PersonOutlineOutlinedIcon />
+          </RotateAvatar>
+          <Typography variant="h6" color="white" fontWeight="bold">
+            {totalCourses > 0 ? `${totalCourses} Total Courses` : 'No Courses Available'}
+          </Typography>
+        </Item>
+      </Link>
+    </Grid>
 
             <Grid item xs={12} sm={6} md={4} lg={4}>
-              <Item
-                sx={{
-                  backgroundColor: '#7F27FF',
-                  cursor: 'pointer',
-                  marginLeft:{xs:"15rem", sm:'0'},
-                  width:{xs: '18rem', sm:'auto'},
-                  padding: { xs: 2, sm: 4 }, // Smaller padding for xs (mobile) screens
-                  '& .MuiTypography-root': {
-                    fontSize: { xs: '1rem', sm: '1.25rem' }, // Smaller font size for mobile
-                  },
-                }}
-              >
-                <RotateAvatar
-                  sx={{
-                    bgcolor: 'white',
-                    color: '#7F27FF',
-                  }}
-                >
-                  <PersonOutlineOutlinedIcon />
-                </RotateAvatar>
-                <Typography variant="h6" color="white" fontWeight="bold">
-                  {totalCourses > 0 ? `${totalCourses} Total Courses` : 'No Courses Available'}
-                </Typography>
-              </Item>
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={4} lg={4}>
+          
+            <Link
+        to="/colleges" // Specify the route you want to navigate to
+        style={{ textDecoration: 'none' }} // Remove underline from Link
+      >
               <Item
                 sx={{
                   backgroundColor: '#86B6F6',
@@ -381,9 +403,14 @@ const [loadingVocationalLeads, setLoadingVocationalLeads] = useState(true);
                   {totalUniversities > 0 ? `${totalUniversities} Total Universities` : 'No University Available'}
                 </Typography>
               </Item>
+              </Link>
             </Grid>
 
             <Grid item xs={12} sm={6} md={4} lg={4}>
+            <Link
+        to="/get-college" // Specify the route you want to navigate to
+        style={{ textDecoration: 'none' }} // Remove underline from Link
+      >
   <Item
     sx={{
       backgroundColor: '#F9A825',
@@ -408,9 +435,14 @@ const [loadingVocationalLeads, setLoadingVocationalLeads] = useState(true);
       {loadingLeads ? 'Loading...' : `${universityLeads} University Leads`}
     </Typography>
   </Item>
+  </Link>
 </Grid>
 
 <Grid item xs={12} sm={6} md={4} lg={4}>
+<Link
+        to="/short-term-lead" // Specify the route you want to navigate to
+        style={{ textDecoration: 'none' }} // Remove underline from Link
+      >
   <Item
     sx={{
       backgroundColor: '#FF8A80',
@@ -435,9 +467,14 @@ const [loadingVocationalLeads, setLoadingVocationalLeads] = useState(true);
       {loadingCoursesLeads ? 'Loading...' : `${coursesLeads} Courses Leads`}
     </Typography>
   </Item>
+  </Link>
 </Grid>
 
 <Grid item xs={12} sm={6} md={4} lg={4}>
+<Link
+        to="/vocational-leads" // Specify the route you want to navigate to
+        style={{ textDecoration: 'none' }} // Remove underline from Link
+      >
   <Item
     sx={{
       backgroundColor: '#FF6F61',
@@ -462,6 +499,7 @@ const [loadingVocationalLeads, setLoadingVocationalLeads] = useState(true);
       {loadingVocationalLeads ? 'Loading...' : `${vocationalLeads} Vocational Leads`}
     </Typography>
   </Item>
+  </Link>
 </Grid>
 
 
@@ -472,9 +510,12 @@ const [loadingVocationalLeads, setLoadingVocationalLeads] = useState(true);
 
       </Box>
       <Box sx={{ marginTop: '2rem', marginLeft: '2rem' }}>
+      <div ref={totalUsersRef}>
         {/* <Chart /> */}
         <TotalUsers />
+        </div>
       </Box>
+      
     </ThemeProvider>
   );
 };
