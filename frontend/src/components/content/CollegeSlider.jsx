@@ -49,7 +49,7 @@ const CollegesSlider = () => {
     <Container>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, mt: 10 }}>
         <Typography variant="h4" fontWeight="bold">Career Courses</Typography>
-        <Button variant="contained" component={Link} to="/underGraduate">View All Courses</Button>
+        <Button variant="contained" component={Link} to="/vocational-education">View All Courses</Button>
       </Box>
       <Grid container spacing={4}>
         {courses.map((course) => (

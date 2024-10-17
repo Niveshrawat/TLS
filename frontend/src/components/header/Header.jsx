@@ -158,21 +158,21 @@ const BannerSlider = () => {
             {/* sx={{ width: '100%', maxWidth: { xs: '250px', md: '650px' }, height: 'auto', backgroundImage: "url(https://data.themeim.com/html/tutorgo/assets/img/icons/line-shape.png)" }} */}
             <div style={{ position: 'relative', display: 'inline-block' }}>
 
-<Box
-  component="img"
-  src="/images/smiling-happy-indian-student-with-backpack-pointing-his-finger-wall.png"
-  alt="Online Learning"
-  sx={{ width: '120%', maxWidth: { xs: '650px', md: '1000px' }, height: '20rem', marginLeft:"-6rem", marginTop:"2rem" }}
-/>
-<div className="icons-container">
-  <img style={{ position: 'absolute', display: 'inline-block', width:"40px" ,height:"auto"}} src="/images/learning.png" className="icon" alt="School Icon" />
-  <img style={{ position: 'absolute', display: 'inline-block', width:"40px" ,height:"auto"}} src="/images/diploma.png" className="icon" alt="Diploma Icon" />
-  <img style={{ position: 'absolute', display: 'inline-block', width:"40px" ,height:"auto"}} src="/images/online-course.png" className="icon" alt="Online Course Icon" />
-  <img style={{ position: 'absolute', display: 'inline-block', width:"40px" ,height:"auto"}} src="/images/course.png" className="icon" alt="Course Icon" />
-  <img style={{ position: 'absolute', display: 'inline-block', width:"40px" ,height:"auto"}} src="/images/mobile.png" className="icon" alt="Mobile Icon" />
-  <img style={{ position: 'absolute', display: 'inline-block', width:"40px" ,height:"auto"}} src="/images/education.png" className="icon" alt="Education Icon" />
-</div>
-</div>
+              <Box
+                component="img"
+                src="/images/smiling-happy-indian-student-with-backpack-pointing-his-finger-wall.png"
+                alt="Online Learning"
+                sx={{ width: '120%', maxWidth: { xs: '650px', md: '1000px' }, height: '20rem', marginLeft: "-6rem", marginTop: "2rem" }}
+              />
+              <div className="icons-container">
+                <img style={{ position: 'absolute', display: 'inline-block', width: "40px", height: "auto" }} src="/images/learning.png" className="icon" alt="School Icon" />
+                <img style={{ position: 'absolute', display: 'inline-block', width: "40px", height: "auto" }} src="/images/diploma.png" className="icon" alt="Diploma Icon" />
+                <img style={{ position: 'absolute', display: 'inline-block', width: "40px", height: "auto" }} src="/images/online-course.png" className="icon" alt="Online Course Icon" />
+                <img style={{ position: 'absolute', display: 'inline-block', width: "40px", height: "auto" }} src="/images/course.png" className="icon" alt="Course Icon" />
+                <img style={{ position: 'absolute', display: 'inline-block', width: "40px", height: "auto" }} src="/images/mobile.png" className="icon" alt="Mobile Icon" />
+                <img style={{ position: 'absolute', display: 'inline-block', width: "40px", height: "auto" }} src="/images/education.png" className="icon" alt="Education Icon" />
+              </div>
+            </div>
           </Grid>
 
         </Grid>
@@ -230,7 +230,7 @@ const BannerSlider = () => {
                 item
                 xs={12}
                 md={6}
-                sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'center' } , marginLeft : "-5rem",marginTop:"3rem" }}
+                sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'center' }, marginLeft: "-5rem", marginTop: "3rem" }}
               >
                 <div style={{ position: 'relative', display: 'inline-block' }}>
 
@@ -238,7 +238,7 @@ const BannerSlider = () => {
                     component="img"
                     src="/images/smiling-happy-indian-student-with-backpack-pointing-his-finger-wall.png"
                     alt="Online Learning"
-                    sx={{ width: '100%', maxWidth: { xs: '300px', md: '1000px' }, height: '500px'}}
+                    sx={{ width: '100%', maxWidth: { xs: '300px', md: '1000px' }, height: '500px' }}
                   />
                   <div className="icons-container">
                     <img src="/images/learning.png" className="icon" alt="School Icon" />
@@ -294,7 +294,7 @@ const BannerSlider = () => {
                   >
                     Seamless Solutions for Smarter Logistics.
                   </Typography>
-                  <Button variant="contained" href="/all-courses" sx={{ ml: { xs: 2, md: 22 } }}>
+                  <Button variant="contained" href="/vocatinal-education" sx={{ ml: { xs: 2, md: 22 } }}>
                     Explore Courses
                   </Button>
                 </animated.div>
@@ -323,90 +323,90 @@ const BannerSlider = () => {
 
         {/* Third banner */}
         <animated.div style={floating3} sx={{ display: { xs: 'none', md: 'block' } }}>
-  <Box
-    sx={{
-      height: { xs: 'auto', md: '550px' },
-      backgroundColor: '#002B5B', // Darker shade of blue for better contrast
-      color: 'white',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '2rem',
-      boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)', // Adds shadow for depth
-      // borderRadius: '12px', // Slightly rounded corners
-    }}
-  >
-    <Grid container sx={{ width: '100%' }} alignItems="center">
-      <Grid
-        item
-        xs={12}
-        md={6}
-        sx={{ textAlign: { xs: 'center', md: 'left' }, px: { xs: 2, md: 3 } }}
-      >
-        <animated.div>
-          <Typography
-            variant="h4"
-            component="h1"
-            fontWeight="bold"
+          <Box
             sx={{
-              mt: { xs: 2, md: 8 },
-              ml: { xs: 2, md: 8 },
-              fontSize: { xs: '1.8rem', md: '2.5rem' }, // Adjust font size for responsiveness
-              lineHeight: '1.5',
+              height: { xs: 'auto', md: '550px' },
+              backgroundColor: '#002B5B', // Darker shade of blue for better contrast
               color: 'white',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '2rem',
+              boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)', // Adds shadow for depth
+              // borderRadius: '12px', // Slightly rounded corners
             }}
           >
-            <span>
-              The
-              <span style={{ color: '#F7C425' }}> Banking Expert</span> Program<br />
-              Helps You Start Your
-              <span style={{ color: '#F7C425' }}> Career</span><br />
-              with Top Banks
-            </span>
-          </Typography>
+            <Grid container sx={{ width: '100%' }} alignItems="center">
+              <Grid
+                item
+                xs={12}
+                md={6}
+                sx={{ textAlign: { xs: 'center', md: 'left' }, px: { xs: 2, md: 3 } }}
+              >
+                <animated.div>
+                  <Typography
+                    variant="h4"
+                    component="h1"
+                    fontWeight="bold"
+                    sx={{
+                      mt: { xs: 2, md: 8 },
+                      ml: { xs: 2, md: 8 },
+                      fontSize: { xs: '1.8rem', md: '2.5rem' }, // Adjust font size for responsiveness
+                      lineHeight: '1.5',
+                      color: 'white',
+                    }}
+                  >
+                    <span>
+                      The
+                      <span style={{ color: '#F7C425' }}> Banking Expert</span> Program<br />
+                      Helps You Start Your
+                      <span style={{ color: '#F7C425' }}> Career</span><br />
+                      with Top Banks
+                    </span>
+                  </Typography>
 
-          <Button
-            variant="contained"
-            href="/all-courses"
-            sx={{
-              ml: { xs: 2, md: 8 },
-              marginTop: '2rem',
-              backgroundColor: '#F7C425',
-              color: '#003285',
-              padding: '0.8rem 1.5rem',
-              borderRadius: '8px',
-              fontSize: '1rem',
-              fontWeight: 'bold',
-              '&:hover': {
-                backgroundColor: '#e6b21e',
-              },
-            }}
-          >
-            Explore Courses
-          </Button>
+                  <Button
+                    variant="contained"
+                    href="/all-courses"
+                    sx={{
+                      ml: { xs: 2, md: 8 },
+                      marginTop: '2rem',
+                      backgroundColor: '#F7C425',
+                      color: '#003285',
+                      padding: '0.8rem 1.5rem',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      '&:hover': {
+                        backgroundColor: '#e6b21e',
+                      },
+                    }}
+                  >
+                    Explore Courses
+                  </Button>
+                </animated.div>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                md={6}
+                sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-end' } }}
+              >
+                <Box
+                  component="img"
+                  src="/images/banker.png"
+                  alt="Online Learning"
+                  sx={{
+                    width: { xs: '80%', md: '100%' }, // Adjust for responsiveness
+                    maxWidth: { xs: '400px', md: '1000px' }, // Reduce the size on larger screens
+                    height: '550px',
+                    // Adds a soft shadow to the image
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </Box>
         </animated.div>
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        md={6}
-        sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-end' } }}
-      >
-        <Box
-          component="img"
-          src="/images/banker.png"
-          alt="Online Learning"
-          sx={{
-            width: { xs: '80%', md: '100%' }, // Adjust for responsiveness
-            maxWidth: { xs: '400px', md: '1000px' }, // Reduce the size on larger screens
-            height: '550px',
-            // Adds a soft shadow to the image
-          }}
-        />
-      </Grid>
-    </Grid>
-  </Box>
-</animated.div>
 
       </Slider>
     </Box>
