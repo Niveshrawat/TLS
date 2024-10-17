@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendResetPasswordEmail = async (email, token) => {
-  const resetLink = `https://api.thelearnskills.com/reset-password/${token}`;
+  const resetLink = `https://thelearnskills.com/reset-password/${token}`;
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
