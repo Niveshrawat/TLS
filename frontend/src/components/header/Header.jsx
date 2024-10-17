@@ -294,7 +294,7 @@ const BannerSlider = () => {
                   >
                     Seamless Solutions for Smarter Logistics.
                   </Typography>
-                  <Button variant="contained" href="/vocatinal-education" sx={{ ml: { xs: 2, md: 22 } }}>
+                  <Button variant="contained" href="/vocational-education" sx={{ ml: { xs: 2, md: 22 } }}>
                     Explore Courses
                   </Button>
                 </animated.div>
