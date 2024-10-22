@@ -116,25 +116,31 @@ export const updateVocationalEducation = async (req, res) => {
         whoShouldAttend,
         programContents,
         aboutProgram,
+        description, // Ensure 'description' is extracted
         durationOfProgram,
         programAndClassSchedule,
         jobRoles,
         admissionCriteria,
         minAgeLimit,
         maxAgeLimit,
-        rating
+        rating,
+        price 
       } = req.body;
 
       const updateData = {
         programName,
         whoShouldAttend,
+        programContents,
         aboutProgram,
+        description, // Ensure 'description' is extracted
         durationOfProgram,
         programAndClassSchedule,
+        jobRoles,
         admissionCriteria,
         minAgeLimit,
         maxAgeLimit,
-        rating
+        rating,
+        price 
       };
 
       if (programContents) {
