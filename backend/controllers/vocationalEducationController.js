@@ -124,7 +124,7 @@ export const updateVocationalEducation = async (req, res) => {
         minAgeLimit,
         maxAgeLimit,
         rating,
-        price 
+        price // Extract 'price'
       } = req.body;
 
       const updateData = {
@@ -140,7 +140,7 @@ export const updateVocationalEducation = async (req, res) => {
         minAgeLimit,
         maxAgeLimit,
         rating,
-        price 
+        price // Extract 'price'
       };
 
       if (programContents) {

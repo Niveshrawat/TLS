@@ -59,7 +59,7 @@ const ProgramDetailPage = () => {
     formData.append('programAndClassSchedule', editedProgram.programAndClassSchedule);
     formData.append('jobRoles', JSON.stringify(editedProgram.jobRoles));
     formData.append('admissionCriteria', JSON.stringify(editedProgram.admissionCriteria));
-    formData.append('Price', editedProgram.price);
+    formData.append('price', editedProgram.price);
     formData.append('minAgeLimit', editedProgram.minAgeLimit);
     formData.append('maxAgeLimit', editedProgram.maxAgeLimit);
     formData.append('rating', editedProgram.rating || '');
