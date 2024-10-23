@@ -93,7 +93,7 @@ const About = () => {
             Our Mission
           </Typography>
           <Typography variant="body1" sx={{ mt: 2, maxWidth: '600px', mx: { xs: 'auto', md: 0 } }}>
-            At TheLearnSkills, we are dedicated to empowering individuals and organizations through
+            At TheLearnSkills(Skyingskills Edutech Pvt. Ltd), we are dedicated to empowering individuals and organizations through
             exceptional educational and career opportunities. Our mission is to bridge the gap between
             education and career success by providing a range of services designed to help you achieve your goals. 
             Whether you are looking to enhance your skills, find the right college, secure a job, or connect with 

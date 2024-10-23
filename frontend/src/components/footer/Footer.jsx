@@ -102,7 +102,7 @@ const Footer = () => {
 
         </Grid>
         <Typography variant="body2" color="textSecondary" align="center" style={{ marginTop:'2rem',  color:"white" }}>
-         Copyright &copy; {new Date().getFullYear()} The Learn Skills. All rights reserved.
+         Copyright &copy; {new Date().getFullYear()} The Learn Skills(Skyingskills Edutech Pvt. Ltd). All rights reserved.
         </Typography>
         <Typography variant="body2" color="textSecondary" align="center" style={{ marginTop: '10px', color: "white" }}>
   Created By{' '}
