@@ -84,7 +84,7 @@ const Footer = () => {
       href="mailto:alliances@thelearnskills.com"
       sx={{ color: 'white', textDecoration: 'none' }} // Keeps the original color and removes hover effect
     >
-      alliances@thelearnskills.com
+      alliances@thelearnskills.in
     </Typography>
   </Box>
   <Box display="flex" alignItems="center">
