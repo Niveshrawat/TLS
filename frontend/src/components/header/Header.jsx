@@ -162,7 +162,7 @@ const BannerSlider = () => {
                 component="img"
                 src="/images/smiling-happy-indian-student-with-backpack-pointing-his-finger-wall.png"
                 alt="Online Learning"
-                sx={{ width: '120%', maxWidth: { xs: '650px', md: '1000px' }, height: '20rem', marginLeft: "-6rem", marginTop: "2rem" }}
+                sx={{ width: '120%', maxWidth: { xs: '700px', md: '1000px' }, height: '21rem', marginLeft: "-6rem", marginTop: "2rem" }}
               />
               <div className="icons-container">
                 <img style={{ position: 'absolute', display: 'inline-block', width: "40px", height: "auto" }} src="/images/learning.png" className="icon" alt="School Icon" />

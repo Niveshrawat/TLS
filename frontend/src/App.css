@@ -50,3 +50,11 @@
 .read-the-docs {
   color: #888;
 } */
+body, #root {
+  margin: 0;
+  padding: 0;
+  overflow-x: clip; /* Prevents scrolling without fully removing overflow */
+}
+html {
+  scroll-behavior: smooth;
+}
