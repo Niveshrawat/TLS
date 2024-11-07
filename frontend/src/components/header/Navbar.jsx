@@ -219,7 +219,7 @@ const Navbar = ({ backgroundColor, color }) => {
                     horizontal: 'right',
                   }}
                 >
-                  <MenuItem onClick={() => handleMenuItemClick('/login')}>Login as Student</MenuItem>
+                  <MenuItem onClick={() => handleMenuItemClick('/login')}>Login as Candidate</MenuItem>
                   <MenuItem onClick={() => handleMenuItemClick('/login-employer')}>Login as Employer</MenuItem>
                 </Menu>
 
@@ -372,7 +372,7 @@ const Navbar = ({ backgroundColor, color }) => {
                     horizontal: 'right',
                   }}
                 >
-                  <MenuItem onClick={() => handleMenuItemClick('/login')}>Login as Student</MenuItem>
+                  <MenuItem onClick={() => handleMenuItemClick('/login')}>Login as Candidate</MenuItem>
                   <MenuItem onClick={() => handleMenuItemClick('/login-employer')}>Login as Employer</MenuItem>
                 </Menu>
 
@@ -404,7 +404,7 @@ const Navbar = ({ backgroundColor, color }) => {
                     horizontal: 'right',
                   }}
                 >
-                  <MenuItem onClick={() => handleMenuItemClick('/register')}>Register as Student</MenuItem>
+                  <MenuItem onClick={() => handleMenuItemClick('/register')}>Register as Candidate</MenuItem>
                   <MenuItem onClick={() => handleMenuItemClick('/register-employer')}>Register as Employer</MenuItem>
                 </Menu>
               </>
