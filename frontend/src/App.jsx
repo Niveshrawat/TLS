@@ -37,14 +37,14 @@ import GoogleAuthCallback from './components/user/GoogleAuthCallback';
 import ChangePassword from './components/user/ChangePassword'
 import About from './components/pages/About'
 import Contact from './components/pages/Contact'
-import TermsAndCondition from './components/pages/TermsAndCondition';
+// import TermsAndCondition from './components/pages/TermsAndCondition';
 
 // import PrivateRoute from './components/user/PrivateRoute';
 import EnterpriseAndSkills from './components/enterpriseAndSkills/EnterpriseAndSkills';
 import MdcFdc from './components/mdc-fdc/mdcFdc';
 import ScrollToTop from './components/ScrollTop';
-import PrivacyPolicy from './components/pages/PrivacyPolicy';
-import RefundPolicy from './components/pages/RefundPolicy';
+// import PrivacyPolicy from './components/pages/PrivacyPolicy';
+// import RefundPolicy from './components/pages/RefundPolicy';
 
 const theme = createTheme({
   breakpoints: {
@@ -101,11 +101,11 @@ function App() {
 <Route path="/changePassword" element={<ChangePassword />} />
 <Route path="/about" element={<About />} />
 <Route path="/contact" element={<Contact />} />
-<Route path="/terms-and-conditions" element={<TermsAndCondition />} /> 
+{/* <Route path="/terms-and-conditions" element={<TermsAndCondition />} />  */}
 <Route path="/skilling-enterprise-solution" element={<EnterpriseAndSkills/>} />
 <Route path="/mdc-fdc" element={<MdcFdc/>}/>
-<Route path="/privacy-policy" element={<PrivacyPolicy />} />
-<Route path="/refund-policy" element={<RefundPolicy/>} />
+{/* <Route path="/privacy-policy" element={<PrivacyPolicy />} /> */}
+{/* <Route path="/refund-policy" element={<RefundPolicy/>} /> */}
 
 
           </Routes>
