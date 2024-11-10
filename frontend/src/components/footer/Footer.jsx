@@ -61,13 +61,13 @@ const Footer = () => {
             <Typography variant="h6" gutterBottom sx={{mb:'5px', fontWeight:'bold'}}>
               Legal
             </Typography>
-            <Typography component={Link} to="/privacy-policy" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block', mb:'3px' }}>
+            <Typography component={Link} to="" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block', mb:'3px' }}>
   Privacy Policy
 </Typography>  
-<Typography component={Link} to="/terms-and-conditions" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block',mb:'3px' }}>
+<Typography component={Link} to="/" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block',mb:'3px' }}>
   Terms and Condition
 </Typography>           
-<Typography component={Link} to="/refund-policy" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block' }}>
+<Typography component={Link} to="/" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block' }}>
   Refund Policy
 </Typography>
           </Grid>
