@@ -27,11 +27,11 @@ const WhatsAppFab = styled(Fab)(({ theme }) => ({
 
 const FloatingIcons = () => {
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/<your-phone-number>', '_blank');
+    window.open('https://wa.me/9899930067', '_blank');
   };
 
   const handleMessageClick = () => {
-    window.open('sms:<your-phone-number>', '_blank');
+    window.open('sms:9899930067', '_blank');
   };
 
   return (
