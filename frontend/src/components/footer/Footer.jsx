@@ -25,13 +25,13 @@ const Footer = () => {
               <Typography variant="body2">Follow us on social media for regular updates, tips, and insights that can help you achieve your career goals! </Typography>
             </Box>
             <Box display="flex" justifyContent="center" marginRight="6rem">
-              <IconButton href="https://www.instagram.com" target="_blank" aria-label="Instagram" sx={{ color: '#E4405F' }}>
+              <IconButton href="https://www.instagram.com/thelearnskills2024/" target="_blank" aria-label="Instagram" sx={{ color: '#E4405F' }}>
                 <InstagramIcon />
               </IconButton>
-              <IconButton href="https://www.facebook.com" target="_blank" aria-label="Facebook" sx={{ color: '#1877F2' }}>
+              <IconButton href="https://www.facebook.com/profile.php?id=61566534724653" target="_blank" aria-label="Facebook" sx={{ color: '#1877F2' }}>
                 <FacebookIcon />
               </IconButton>
-              <IconButton href="https://www.twitter.com" target="_blank" aria-label="Twitter" sx={{ color: 'black' }}>
+              <IconButton href="https://x.com/TheLearnSkills1" target="_blank" aria-label="Twitter" sx={{ color: 'black' }}>
                 < XIcon />
               </IconButton>
               <IconButton href="https://www.twitter.com" target="_blank" aria-label="Twitter" sx={{ color: 'blue' }}>
@@ -51,7 +51,6 @@ const Footer = () => {
             <Typography variant="body1" component={Link} to="/contact" color="white" sx={{ textDecoration: 'none', display: 'block' }}>Contact</Typography>            </Typography>
             
 
-            <Typography variant="body1" >Press</Typography>
             </Box> 
           </Grid>
 
@@ -61,15 +60,13 @@ const Footer = () => {
             <Typography variant="h6" gutterBottom sx={{mb:'5px', fontWeight:'bold'}}>
               Legal
             </Typography>
-            <Typography component={Link} to="" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block', mb:'3px' }}>
+            <Typography component={Link} to="/privacy-policy" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block', mb:'3px' }}>
   Privacy Policy
 </Typography>  
-<Typography component={Link} to="/" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block',mb:'3px' }}>
+<Typography component={Link} to="/terms-and-conditions" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block',mb:'3px' }}>
   Terms and Condition
 </Typography>           
-<Typography component={Link} to="/" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block' }}>
-  Refund Policy
-</Typography>
+
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
