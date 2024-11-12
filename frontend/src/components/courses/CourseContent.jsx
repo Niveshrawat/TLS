@@ -24,7 +24,7 @@ function CourseCard({ course }) {
       <CardMedia
         component="img"
         height="140"
-        image={`http://localhost:8080/${course.images}`}
+        image={`https://api.thelearnskills.com/${course.images}`}
         alt={course.title}
       />
       <CardContent sx={{ flexGrow: 1 }}>

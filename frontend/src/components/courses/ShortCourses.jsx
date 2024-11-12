@@ -19,7 +19,7 @@ function CoursesPage({ type }) {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/v1/shortTermcourse/short-term-courses', {
+        const response = await axios.get('https://api.thelearnskills.com/api/v1/shortTermcourse/short-term-courses', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },

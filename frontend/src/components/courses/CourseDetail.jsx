@@ -30,7 +30,7 @@ function CourseDetails() {
       }
   
       try {
-        const response = await fetch(`http://localhost:8080/api/v1/shortTermcourse/short-term-courses/${_id}`, {
+        const response = await fetch(`https://api.thelearnskills.com/api/v1/shortTermcourse/short-term-courses/${_id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ function CourseDetails() {
           <Grid item xs={12} sm={6}>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <img
-                src={`http://localhost:8080/${course.images}`}
+                src={`https://api.thelearnskills.com/${course.images}`}
                 alt={course.programName}
                 style={{
                   width: '100%',
