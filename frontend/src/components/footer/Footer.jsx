@@ -34,7 +34,7 @@ const Footer = () => {
               <IconButton href="https://x.com/TheLearnSkills1" target="_blank" aria-label="Twitter" sx={{ color: 'black' }}>
                 < XIcon />
               </IconButton>
-              <IconButton href="https://www.twitter.com" target="_blank" aria-label="Twitter" sx={{ color: 'blue' }}>
+              <IconButton href="https://www.linkedIn.com" target="_blank" aria-label="Twitter" sx={{ color: 'blue' }}>
                 < LinkedInIcon />
               </IconButton>
               
