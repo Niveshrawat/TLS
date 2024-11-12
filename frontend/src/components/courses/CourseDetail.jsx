@@ -237,7 +237,7 @@ function CourseDetails() {
       }}>
         <Box
           component="img"
-          src="/public/images/image.jpeg"
+          src="/images/Certificate.jpg"
           sx={{
             width: {
               xs: '15rem', // Width for extra small screens (phones)
