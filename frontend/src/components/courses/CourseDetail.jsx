@@ -1,51 +1,84 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react'; // Import useRef
 import { useParams } from 'react-router-dom';
-import { Typography, Container, Box, Card, CardContent, Button, Grid, Tab, Tabs,Avatar } from '@mui/material';
-import StarIcon from '@mui/icons-material/Star';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { Typography, Container, Box, Card, CardContent, Button, Grid, Tab, Tabs, Avatar } from '@mui/material';
 import Navbar from '../header/Navbar';
 import Footer from '../footer/Footer';
 import InquiryForm from '../forms/ShortCoursesForm';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
-
-function getCourseDetails(id) {
-  const courses = {
-    1: { id: 1, title: 'Short Term Financial Course 1', image: 'https://images.pexels.com/photos/12425927/pexels-photo-12425927.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 1', price: 100, duration: '1 month', rating: 4.5 },
-    2: { id: 2, title: 'Short Term Financial Course 2', image: 'https://images.pexels.com/photos/3182755/pexels-photo-3182755.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 2', price: 150, duration: '1.5 months', rating: 4.0 },
-    3: { id: 3, title: 'Short Term Financial Course 3', image: 'https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 3', price: 200, duration: '2 months', rating: 4.8 },
-    
-  };
-  return courses[id] || {};
-}
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 
 function CourseDetails() {
-  const { id } = useParams();
+  const { _id } = useParams();
+  const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState({});
-  const isLoggedIn = useSelector((state) => state.user.user); // Check if user is logged in
-  const navigate = useNavigate(); // To navigate to the login page
+  const isLoggedIn = useSelector((state) => state.user.user);
+  const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+  
+  // Create refs for each section
+  const overviewRef = useRef(null);
+  const highlightsRef = useRef(null);
+  const eligibilityRef = useRef(null);
 
   useEffect(() => {
-    console.log("Course ID from params:", id); // Log the course ID for debugging
-    const courseDetails = getCourseDetails(id);
-    setCourse(courseDetails);
-    console.log("Course Details after fetching:", courseDetails); // Log the course details for debugging
-  }, [id]);
+    const fetchCourseDetails = async () => {
+      if (!_id) {
+        console.error("No course ID found in params.");
+        setLoading(false);
+        return;
+      }
+  
+      try {
+        const response = await fetch(`http://localhost:8080/api/v1/shortTermcourse/short-term-courses/${_id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token ? `Bearer ${token}` : undefined,
+          },
+        });
+  
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setCourse(data);
+      } catch (error) {
+        console.error('Error fetching course:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchCourseDetails();
+  }, [_id, token]);
 
-  const [tabValue, setTabValue] = React.useState(0);
+  const [tabValue, setTabValue] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
+    switch (newValue) {
+      case 0:
+        overviewRef.current.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 1:
+        highlightsRef.current.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 2:
+        eligibilityRef.current.scrollIntoView({ behavior: 'smooth' });
+        break;
+      default:
+        break;
+    }
   };
 
   const handleOpenModal = () => {
     if (isLoggedIn) {
-    setModalOpen(true);
-  } else {
-    navigate('/login'); // Redirect to the login page if not logged in
-  }
+      setModalOpen(true);
+    } else {
+      navigate('/login');
+    }
   };
 
   const handleCloseModal = () => {
@@ -53,44 +86,137 @@ function CourseDetails() {
   };
 
   return (
-    <Box sx={{width:'100%', overflow:'hidden'}}>
+    <Box sx={{ width: '100%', overflow: 'hidden' }}>
       <Navbar />
+      <Box
+        sx={{
+          backgroundColor: '#f5f5f5',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: '2rem',
+          padding: { xs: '1rem', md: '2rem' },
+        }}
+      >
+        <Grid container spacing={4}>
+          <Grid item xs={12} sm={6}>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <img
+                src={`http://localhost:8080/${course.images}`}
+                alt={course.programName}
+                style={{
+                  width: '100%',
+                  maxWidth: '500px',
+                  borderRadius: '8px',
+                }}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={6} display="flex" flexDirection="column" justifyContent="center">
+            <Typography
+              variant="h4"
+              gutterBottom
+              sx={{
+                fontWeight: 'bold',
+                fontSize: { xs: '1.5rem', md: '2rem' },
+                textAlign: { xs: 'center', md: 'left' },
+              }}
+            >
+              {course.courseName}
+            </Typography>
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{
+                color: 'gray',
+                textAlign: { xs: 'center', md: 'left' },
+                marginBottom: '1rem',
+              }}
+            >
+              {course.description}
+            </Typography>
+            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+              Duration: {course.duration}
+            </Typography>
+            <Typography variant="body1" sx={{ fontWeight: 'bold', marginBottom: '1rem' }}>
+              Rating: {course.rating}
+            </Typography>
+            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+              Price: ₹{course.price}
+            </Typography>
+
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{ marginTop: '2rem', height: '3rem', width: '15rem', fontWeight: 'bold' }}
+              fullWidth
+              onClick={handleOpenModal}    
+                      >
+              Enroll Now
+            </Button>
+          
+          </Grid>
+        </Grid>
+      </Box>
       <Container>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={8}>
-              <Typography variant="h6" fontWeight="bold" marginTop="1rem" gutterBottom>{course.title}</Typography>
-            <Box display="flex" alignItems="center">
-              {course.image && (
-                <img src={course.image} alt={course.title} style={{ width: '400px', height: '300px', marginRight: '1rem', marginTop: '2rem' }} />
-              )}
-              <Box>
-                
-                
-                <Typography variant="subtitle1" gutterBottom >By The Learn Skill</Typography>
-                <Typography variant="body2" color="text.secondary" display="flex" alignItems="center">
-                  <StarIcon color="primary" />
-                  {course.rating}
-                </Typography>
-               
-              </Box>
+          <Box mt={4}>
+          <Tabs value={tabValue} onChange={handleTabChange} indicatorColor="primary" textColor="primary" centered>
+            <Tab label="Overview" />
+            <Tab label="Highlights" />
+            <Tab label="Eligibility Criteria" />
+          </Tabs>
+          <Box ref={overviewRef} mt={2}>
+          <Typography variant="h5" marginBottom="20px" fontWeight="bold">
+            Overview
+          </Typography>
+
+            <Typography variant="body1" paragraph>
+              {course.description}
+            </Typography>
+          </Box>
+          <Box ref={highlightsRef} mt={2}>
+          <Typography variant="h5"  fontWeight="bold" marginBottom="20px">
+            Highlights
+          </Typography>
+          <Box>
+            <Grid container spacing={2}>
+              {course.highlights?.map((highlight, index) => (
+                <Grid item xs={12} sm={4} key={index}>
+                  <Box display="flex" alignItems="center">
+                    {/* <Avatar sx={{ backgroundColor: 'white', color: 'navy' }}>{index + 1}</Avatar> */}
+                    <Typography variant="body1" ml={2}>{highlight}</Typography>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
             </Box>
+          </Box>
+          <Box ref={eligibilityRef} mt={2}>
+          <Typography variant="h5"  fontWeight="bold" marginBottom="20px">
+           Criteria
+          </Typography>
+            <Typography variant="body1" paragraph>
+            {course.criteria}
+            </Typography>
+          </Box>
+        </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Card sx={{ marginTop: "5rem", boxShadow:'0px 4px 12px navy' }}>
+            <Card sx={{ marginTop: "5rem", boxShadow: '0px 4px 12px navy', display:{xs:"none", md:'block'} }}>
               <CardContent>
-                <Typography variant="h6" fontWeight="bold" gutterBottom>Start Your Course</Typography>
-                <Typography variant="body2" color="text.secondary" display="flex" alignItems="center" gutterBottom>
-                  
-                🕝 {course.duration}
+                <Typography variant="h6" fontWeight="bold" gutterBottom marginBottom="1rem">{course.courseName}</Typography>
+                <Typography variant="body1" color="text.secondary" display="flex" alignItems="center" gutterBottom sx={{ marginBottom: '1rem' }}>
+                ⌛  Duration: {course.duration}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                  Learn from Industry Experts
+                <Typography variant="body1" color="text.secondary" gutterBottom sx={{ marginBottom: '1rem' }}>
+                <CurrencyRupeeIcon sx={{ fontSize: 20, color: '#FFAF45' }} />
+
+                Price: ₹{course.price}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                  Upskill for Career Growth
-                </Typography>
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                  Community Support
+                <Typography variant="body1" color="text.secondary" gutterBottom sx={{ marginBottom: '1rem' }}>
+                ⭐Rating: {course.rating}
                 </Typography>
                 <Button variant="contained" color="primary" fullWidth onClick={handleOpenModal}>
                   Enroll Now
@@ -99,97 +225,41 @@ function CourseDetails() {
             </Card>
           </Grid>
         </Grid>
-        
-        <Box mt={4}>
-          <Tabs value={tabValue} onChange={handleTabChange} indicatorColor="primary" textColor="primary" centered>
-            <Tab label="Overview" />
-            <Tab label="Highlights" />
-            <Tab label="Eligibility Criteria" />
-          </Tabs>
-          <TabPanel value={tabValue} index={0}>
-            <Typography variant="body1" paragraph>
-            A course covering a comprehensive stack like the MERN (MongoDB, Express.js, React, Node.js) stack typically offers a thorough exploration of each technology's fundamentals and their integration for full-stack web development. Starting with MongoDB, learners delve into NoSQL database concepts, schema design, and data manipulation through CRUD operations. Express.js instruction follows, focusing on setting up servers, routing, middleware, and interfacing with MongoDB via libraries like Mongoose. React.js is then introduced for building dynamic user interfaces, covering components, state management, event handling, and integration with backend APIs. Node.js serves as the foundation throughout, emphasizing its event-driven architecture, asynchronous programming capabilities, and server-side JavaScript execution.
 
-            </Typography>
-          </TabPanel>
-          <TabPanel value={tabValue} index={1}>
-            <Grid container spacing={2}>
-            {["Comprehensive Full-Stack Development", "MongoDB and NoSQL Fundamentals", "Express.js and API Development", "React.js for Dynamic UIs", "Node.js Server-Side Development"].map((highlight, index) => (
-                <Grid item xs={12} sm={4} key={index}>
-                  <Box display="flex" alignItems="center">
-                    <Avatar sx={{backgroundColor:'navy', color:'white'}}>{index + 1}</Avatar>
-                    <Typography variant="body1" ml={2}>{highlight}</Typography>
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
-          </TabPanel>
-          <TabPanel value={tabValue} index={2}>
-
-            <Typography variant="body1" paragraph>
-            Basic Programming<br></br>
-             HTML/CSS<br></br>
-              JavaScript Proficiency<br></br>
-               Database Understanding<br></br>
-                Node.js Fundamentals<br></br>
-                 Git & Version Control<br></br>
-                  Text Editor/IDE Proficiency            </Typography>
-          </TabPanel>
-        </Box>
+       
       </Container>
       <Box sx={{
-         marginTop: '2rem',
-         alignItems: 'center',
-         display: 'flex',
-         justifyContent: 'center',
-         marginBottom: '2rem',
-        }}>
-          <Box
-    component="img"
-    src="/images/Certificate.jpg"
-    sx={{
-      width: {
-        xs: '15rem', // Width for extra small screens (phones)
-        sm: '24rem', // Width for small screens (tablets)
-        md: '30rem', // Width for medium screens (small laptops)
-        lg: '40rem', // Width for large screens (desktops)
-      },
-      height: {
-        xs: '10rem', // Height for extra small screens (phones)
-        sm: '16rem', // Height for small screens (tablets)
-        md: '20rem', // Height for medium screens (small laptops)
-        lg: '30rem', // Height for large screens (desktops)
-      },
-      marginRight:{
-        xs: '3rem', // Height for extra small screens (phones)
-
-      }
-    }}
-  />
-        </Box>
+        marginTop: '2rem',
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+        marginBottom: '2rem',
+      }}>
+        <Box
+          component="img"
+          src="/public/images/image.jpeg"
+          sx={{
+            width: {
+              xs: '15rem', // Width for extra small screens (phones)
+              sm: '24rem', // Width for small screens (tablets)
+              md: '30rem', // Width for medium screens (small laptops)
+              lg: '40rem', // Width for large screens (desktops)
+            },
+            height: {
+              xs: '10rem', // Height for extra small screens (phones)
+              sm: '16rem', // Height for small screens (tablets)
+              md: '20rem', // Height for medium screens (small laptops)
+              lg: '30rem', // Height for large screens (desktops)
+            },
+            marginRight: {
+              xs: '3rem', // Height for extra small screens (phones)
+            }
+          }}
+        />
+      </Box>
       <Footer />
       <InquiryForm open={modalOpen} handleClose={handleCloseModal} />
     </Box>
-  );
-}
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`tabpanel-${index}`}
-      aria-labelledby={`tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          {children}
-        </Box>
-      )}
-    </div>
   );
 }
 

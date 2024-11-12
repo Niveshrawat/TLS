@@ -10,17 +10,19 @@ import CourseForm from './createCoursesForm'; // Import the CourseForm component
 
 const CourseTable = () => {
   const [courses, setCourses] = useState([]);
+
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [formData, setFormData] = useState({
     courseName: '',
     description: '',
-    images: [],
-    highlights: '',
+    highlights: [''], // Initial array with one highlight
     criteria: '',
     price: '',
-    duration: ''
+    duration: '',
+    rating: '',
+    images: [], // To store uploaded images
   });
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -40,7 +42,7 @@ const CourseTable = () => {
     })
   
       .then(response => {
-        if (!response.ok) {
+        if (!response.ok){
           return response.json().then((error) => {
             throw new Error(`HTTP error! status: ${response.status}, message: ${error.message}`);
           });
@@ -64,10 +66,11 @@ const CourseTable = () => {
       data.append('images', image);
       console.log(image)
     });
-    data.append('highlights', formData.highlights);
+    data.append('highlights',JSON.stringify(formData.highlights));
     data.append('criteria', formData.criteria);
     data.append('price', formData.price);
     data.append('duration', formData.duration);
+    data.append('rating', formData.rating);
 
     let url = '';
     let method = '';
@@ -109,12 +112,12 @@ const CourseTable = () => {
       highlights: course.highlights,
       criteria: course.criteria,
       price: course.price,
-      duration: course.duration
+      duration: course.duration,
+     rating: course.rating
     });
     setEditCourseId(course._id);
     setIsEdit(true);
     setOpenDialog(true);
-    console.log("image:",course.images);
   };
 
   const handleDelete = (id) => {
@@ -138,12 +141,13 @@ const CourseTable = () => {
   const handleCreateCourse = () => {
     setFormData({
       courseName: '',
-      description: '',
-      images: [],
-      highlights: '',
-      criteria: '',
-      price: '',
-      duration: ''
+    description: '',
+    highlights: [''], // Initial array with one highlight
+    criteria: '',
+    price: '',
+    duration: '',
+    rating: '',
+    images: [], // To store uploaded images
     });
     setIsEdit(false);
     setOpenDialog(true);
@@ -161,14 +165,37 @@ const CourseTable = () => {
     }));
   };
 
-  const handleImageChange = (event) => {
-    const files = Array.from(event.target.files);
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      images: files
-    }));
+  const handleHighlightChange = (e, index) => {
+    const newHighlights = [...formData.highlights];
+    newHighlights[index] = e.target.value;
+    setFormData({
+      ...formData,
+      highlights: newHighlights,
+    });
   };
 
+  const addHighlight = () => {
+    setFormData({
+      ...formData,
+      highlights: [...formData.highlights, ''], // Add an empty string for new highlight
+    });
+  };
+
+  const removeHighlight = (index) => {
+    const newHighlights = formData.highlights.filter((_, i) => i !== index);
+    setFormData({
+      ...formData,
+      highlights: newHighlights,
+    });
+  };
+
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    setFormData({
+      ...formData,
+      images: files,
+    });
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -218,8 +245,6 @@ const CourseTable = () => {
     setFilteredCourses(courses); // Reset to the full list of courses
     setFilterDrawerOpen(false); // Optionally close the drawer
   };
-  
-  
 
   return (
     <div className="container" style={{ marginTop: '10px' }}>
@@ -237,41 +262,50 @@ const CourseTable = () => {
           <TableHead>
             <TableRow style={{ backgroundColor: '#F5F7F8' }}>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>SR. NO</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>COURSE NAME</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>DESCRIPTION</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>IMAGES</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>HIGHLIGHTS</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>CRITERIA</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>PRICE</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>DURATION</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none', textTransform: 'uppercase' }}>ACTIONS</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>COURSE NAME</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>DESCRIPTION</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>IMAGE</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>HIGHLIGHTS</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>CRITERIA</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>PRICE</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>DURATION</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>RATING</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>ACTIONS</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredCourses.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((course, index) => (
               <TableRow key={course._id}>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold', border: 'none' }}>
-                  {page * rowsPerPage + index + 1}
-                </TableCell>
-                <TableCell sx={{ textTransform: 'uppercase', border: 'none', color: 'blue'}}>{course.courseName}</TableCell>
-                <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{course.description}</TableCell>
-                <TableCell sx={{ border: 'none' }}>
-                {course.images && course.images.map((image, idx) => (
-  <img
-    key={idx}
-    src={`https://api.thelearnskills.com/${image}`}
-    alt={`Course ${course.courseName}`}
-    style={{ width: '100px', height: '100px', marginRight: '5px' }}
-  />
-))}
+                <TableCell>{index + 1 + page * rowsPerPage}</TableCell>
+                <TableCell>{course.courseName}</TableCell>
+                <TableCell>{course.description}</TableCell>
+                <TableCell>
+  {course && course.images ? (
+    course.images.map((image, i) => (
+      <img key={i} src={`https://api.thelearnskills.com/${image}`} alt={course.courseName} width="50" />
+    ))
+  ) : (
+    <span>No images available</span>
+  )}
+</TableCell>
 
-                  
+                <TableCell>
+                <ul>
+        {course.highlights.length > 0 ? (
+          course.highlights.map((highlight, i) => (
+            <li key={i}>{highlight}</li>
+          ))
+        ) : (
+          <li>No highlights available</li>
+        )}
+      </ul>
+
                 </TableCell>
-                <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{course.highlights}</TableCell>
-                <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{course.criteria}</TableCell>
-                <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{course.price}</TableCell>
-                <TableCell sx={{ textTransform: 'uppercase', border: 'none' }}>{course.duration}</TableCell>
-                <TableCell sx={{ border: 'none' }}>
+                <TableCell>{course.criteria}</TableCell>
+                <TableCell>{course.price}</TableCell>
+                <TableCell>{course.duration}</TableCell>
+                <TableCell>{course.rating}</TableCell>
+                <TableCell>
                   <IconButton onClick={() => handleEdit(course)}>
                     <EditIcon sx={{ color: 'blue' }} />
                   </IconButton>
@@ -283,6 +317,7 @@ const CourseTable = () => {
             ))}
           </TableBody>
         </Table>
+
         <TablePagination
           rowsPerPageOptions={[10, 25, 50]}
           component="div"
@@ -294,13 +329,57 @@ const CourseTable = () => {
         />
       </TableContainer>
 
+      {/* Drawer for Filters */}
+      <Drawer
+        anchor="right"
+        open={filterDrawerOpen}
+        onClose={toggleFilterDrawer(false)}
+      >
+        <Box sx={{ width: 250, padding: 2 }}>
+          <Typography variant="h6">Filter Courses</Typography>
+          <FormControl fullWidth sx={{ marginTop: 2 }}>
+            <TextField
+              label="Course Name"
+              value={filterCourseName}
+              onChange={handleFilterCourseNameChange}
+              variant="outlined"
+            />
+          </FormControl>
+          <FormControl fullWidth sx={{ marginTop: 2 }}>
+            <InputLabel>Price Range</InputLabel>
+            <Select
+              value={filterPrice}
+              onChange={handleFilterPriceChange}
+            >
+              <MenuItem value="0-5000">0 - 5000</MenuItem>
+              <MenuItem value="5001-10000">5001 - 10000</MenuItem>
+              <MenuItem value="10001-20000">10001 - 20000</MenuItem>
+              <MenuItem value="20001-50000">20001 - 50000</MenuItem>
+            </Select>
+          </FormControl>
+          <Box mt={2} display="flex" justifyContent="space-between">
+            <Button variant="contained" color="primary" onClick={applyFilters}>
+              Apply
+            </Button>
+            <Button variant="outlined" onClick={clearFilters}>
+              Clear
+            </Button>
+          </Box>
+        </Box>
+      </Drawer>
+
+      {/* Dialog for Creating/Editing Courses */}
       <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth maxWidth="sm">
         <DialogTitle>{isEdit ? 'Edit Course' : 'Create Course'}</DialogTitle>
         <DialogContent>
           <CourseForm 
-            formData={formData} 
-            handleChange={handleChange} 
-            handleImageChange={handleImageChange} 
+            formData={formData}
+            handleChange={handleChange}
+            handleHighlightChange={handleHighlightChange}
+            addHighlight={addHighlight}
+            removeHighlight={removeHighlight}
+            handleImageChange={handleImageChange}
+            handleSubmit={handleSubmit} 
           />
         </DialogContent>
         <DialogActions>
@@ -308,42 +387,6 @@ const CourseTable = () => {
           <Button onClick={handleSubmit} color="primary">{isEdit ? 'Update' : 'Create'}</Button>
         </DialogActions>
       </Dialog>
-
-      <Drawer anchor="right" open={filterDrawerOpen} onClose={toggleFilterDrawer(false)}>
-  <Box sx={{ width: 300, p: 2 }}>
-    <Typography variant="h6" gutterBottom>Filters</Typography>
-    <TextField
-      label="Course Name"
-      value={filterCourseName}
-      onChange={handleFilterCourseNameChange}
-      fullWidth
-      margin="normal"
-    />
-    <FormControl fullWidth margin="normal">
-      <InputLabel id="filter-price-label">Price</InputLabel>
-      <Select
-        labelId="filter-price-label"
-        value={filterPrice}
-        onChange={handleFilterPriceChange}
-        label="Price"
-      >
-        <MenuItem value="">Any</MenuItem>
-        <MenuItem value="0-500">0-500 Rs</MenuItem>
-        <MenuItem value="500-1000">500-1000 Rs</MenuItem>
-        <MenuItem value="1000-2000">1000-2000 Rs</MenuItem>
-        <MenuItem value="2000-5000">2000-5000 Rs</MenuItem>
-        <MenuItem value="5000-10000">5000-10000 Rs</MenuItem>
-      </Select>
-    </FormControl>
-    <Button variant="contained" color="primary" onClick={applyFilters} fullWidth>
-      Apply Filters
-    </Button>
-    <Button variant="outlined" color="secondary" onClick={clearFilters} fullWidth sx={{ mt: 2 }}>
-      Clear Filters
-    </Button>
-  </Box>
-</Drawer>
-
     </div>
   );
 };

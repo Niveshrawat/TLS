@@ -1,69 +1,69 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import axios from 'axios'; // Import Axios
 import CourseCategory from './CourseCategory';
 import Filters from './CoursesFilter'; // Import Filters component
-import { Container, Typography, Box, Grid } from '@mui/material';
+import { Container, Typography, Box, Grid, CircularProgress } from '@mui/material';
 import Footer from '../footer/Footer';
 import Navbar from '../header/Navbar';
 
 const exchangeRate = 74; // Example exchange rate from USD to INR
 const convertToINR = (price) => price * exchangeRate;
 
-const shortTermCourses = {
-  financial: [
-    { id: 1, title: 'Short Term Financial Course 1', image: 'https://images.pexels.com/photos/12425927/pexels-photo-12425927.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 1', price: "10000", duration: '1 month', rating: 4.5 },
-    { id: 2, title: 'Short Term Financial Course 2', image: 'https://images.pexels.com/photos/3182755/pexels-photo-3182755.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 2', price: "7000", duration: '1.5 months', rating: 4.0 },
-    { id: 3, title: 'Short Term Financial Course 3', image: 'https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 3', price: "5000", duration: '2 months', rating: 4.8 },
-  ],
-  technology: [
-   
-  ],
-  management: [
-   
-  ],
-};
-
-const longTermCourses = {
-  financial: [
-    { id: 10, title: 'Long Term Financial Course 1', image: 'https://images.pexels.com/photos/3184290/pexels-photo-3184290.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 10', price: convertToINR(700), duration: '3 months', rating: 4.6 },
-    { id: 11, title: 'Long Term Financial Course 2', image: 'https://images.pexels.com/photos/3184289/pexels-photo-3184289.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 11', price: convertToINR(800), duration: '4 months', rating: 4.7 },
-    { id: 12, title: 'Long Term Financial Course 3', image: 'https://images.pexels.com/photos/3184288/pexels-photo-3184288.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 12', price: convertToINR(900), duration: '5 months', rating: 4.8 },
-  ],
-  technology: [
-    { id: 13, title: 'Long Term Tech Course 1', image: 'https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 13', price: convertToINR(1000), duration: '6 months', rating: 4.5 },
-    { id: 14, title: 'Long Term Tech Course 2', image: 'https://images.pexels.com/photos/3184286/pexels-photo-3184286.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 14', price: convertToINR(1100), duration: '5 months', rating: 4.6 },
-    { id: 15, title: 'Long Term Tech Course 3', image: 'https://images.pexels.com/photos/3184285/pexels-photo-3184285.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 15', price: convertToINR(1200), duration: '4 months', rating: 4.7 },
-  ],
-  management: [
-    { id: 16, title: 'Long Term Management Course 1', image: 'https://images.pexels.com/photos/3184284/pexels-photo-3184284.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 16', price: convertToINR(1300), duration: '6 months', rating: 4.8 },
-    { id: 17, title: 'Long Term Management Course 2', image: 'https://images.pexels.com/photos/3184283/pexels-photo-3184283.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 17', price: convertToINR(1400), duration: '5 months', rating: 4.9 },
-    { id: 18, title: 'Long Term Management Course 3', image: 'https://images.pexels.com/photos/3184282/pexels-photo-3184282.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Description of Course 18', price: convertToINR(1500), duration: '4 months', rating: 5.0 },
-  ],
-};
-
 function CoursesPage({ type }) {
+  const [courses, setCourses] = useState([]); // Single list for all courses
   const [priceRange, setPriceRange] = useState([0, 2000 * exchangeRate]);
-  const [durationRange, setDurationRange] = useState(type === 'short' ? [0, 2] : [2, 6]);
-  const courses = type === 'short' ? shortTermCourses : longTermCourses;
+  const [durationRange, setDurationRange] = useState([0, 2]); // Focus only on short-term courses
+  const [loading, setLoading] = useState(true); // State to handle loading
+  const [error, setError] = useState(null); // State to handle errors
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/v1/shortTermcourse/short-term-courses', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        console.log('Fetched Courses:', response.data);
+  
+        const fetchedCourses = response.data.map((course) => ({
+          ...course,
+          price: convertToINR(course.price), // Convert price to INR
+        }));
+  
+        setCourses(fetchedCourses); // Set all courses
+        console.log('Fetched Courses after conversion:', fetchedCourses); // Check values after conversion
+      } catch (err) {
+        setError('Failed to fetch courses');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCourses();
+  }, []);
+  
 
   const filteredCourses = useMemo(() => {
-    const filterCourses = (courses) =>
-      courses.filter(
-        (course) =>
-          course.price >= priceRange[0] &&
-          course.price <= priceRange[1] &&
-          parseFloat(course.duration) >= durationRange[0] &&
-          parseFloat(course.duration) <= durationRange[1]
-      );
+    return courses; // No filtering, just returning all courses
+  }, [courses]);
+  
+  console.log('All Courses:', filteredCourses);
+  
 
-    return {
-      financial: filterCourses(courses.financial),
-      technology: filterCourses(courses.technology),
-      management: filterCourses(courses.management),
-    };
-  }, [priceRange, durationRange, courses]);
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return <Typography variant="h6" color="error" align="center">{error}</Typography>;
+  }
 
   return (
-    <Box sx={{width: '100%', overflowX: 'hidden'}}>
+    <Box sx={{ width: '100%', overflowX: 'hidden' }}>
       <Navbar />
       <Box
         sx={{
@@ -80,15 +80,17 @@ function CoursesPage({ type }) {
           padding: 2,
         }}
       >
-        <Typography variant="h4" sx={{ 
+        <Typography
+          variant="h4"
+          sx={{
             color: 'white',
             fontWeight: 'bold',
             textAlign: { xs: 'center', sm: 'center' },
             fontSize: { xs: '1.5rem', sm: '2rem' },
-            
-            marginRight:{sm:'0',xs:'2rem' },
+            marginRight: { sm: '0', xs: '2rem' },
             marginBottom: { xs: 2, sm: 0 },
-           }}>
+          }}
+        >
           "Unlock Your Potential with Our Expert-Led Courses"
         </Typography>
         <dotlottie-player
@@ -97,12 +99,24 @@ function CoursesPage({ type }) {
           speed="1"
           loop
           autoplay
-          style={{ width: '300px', height: '300px', marginLeft: { xs: 0, sm: '15rem' }, display: { xs: 'none', sm: 'block' } }}
-          ></dotlottie-player>
+          style={{
+            width: '300px',
+            height: '300px',
+            marginLeft: { xs: 0, sm: '15rem' },
+            display: { xs: 'none', sm: 'block' },
+          }}
+        ></dotlottie-player>
       </Box>
       <Container>
-        <Typography variant="h4" gutterBottom marginTop="2rem" marginRight="25rem" fontWeight="bold" textAlign="center">
-          {type === 'short' ? 'All Courses' : 'Long Term Courses'}
+        <Typography
+          variant="h4"
+          gutterBottom
+          marginTop="2rem"
+          marginRight="25rem"
+          fontWeight="bold"
+          textAlign="center"
+        >
+          All Courses
         </Typography>
         <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} md={3}>
@@ -115,9 +129,7 @@ function CoursesPage({ type }) {
             />
           </Grid>
           <Grid item xs={12} md={9}>
-            <CourseCategory  courses={filteredCourses.financial} />
-            {/* <CourseCategory title="Technology Courses" courses={filteredCourses.technology} />
-            <CourseCategory title="Management Courses" courses={filteredCourses.management} /> */}
+            <CourseCategory courses={filteredCourses} /> {/* Display all filtered courses */}
           </Grid>
         </Grid>
       </Container>

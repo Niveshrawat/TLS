@@ -37,7 +37,7 @@ function Filters({ priceRange, setPriceRange, durationRange, setDurationRange, t
 
   return (
     <Box mb={4}>
-      {/* <Accordion>
+      <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <PriceCheckIcon style={{ marginRight: '8px' }} />
           <Typography variant="h6">Filter by Price</Typography>
@@ -61,11 +61,11 @@ function Filters({ priceRange, setPriceRange, durationRange, setDurationRange, t
             </FormGroup>
           </FormControl>
         </AccordionDetails>
-      </Accordion> */}
+      </Accordion>
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <AccessTimeIcon style={{ marginRight: '8px' }} />
-          <Typography variant="h6">Filter by Duration</Typography>
+          <Typography variant="h6">Filterr by Duration</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <FormControl component="fieldset">
