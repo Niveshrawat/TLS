@@ -44,7 +44,7 @@ import EnterpriseAndSkills from './components/enterpriseAndSkills/EnterpriseAndS
 import MdcFdc from './components/mdc-fdc/mdcFdc';
 import ScrollToTop from './components/ScrollTop';
 import PrivacyPolicy from './components/pages/PrivacyPolicy';
-// import RefundPolicy from './components/pages/RefundPolicy';
+import RefundPolicy from './components/pages/RefundPolicy';
 
 const theme = createTheme({
   breakpoints: {
@@ -105,7 +105,7 @@ function App() {
 <Route path="/skilling-enterprise-solution" element={<EnterpriseAndSkills/>} />
 <Route path="/mdc-fdc" element={<MdcFdc/>}/>
 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-{/* <Route path="/refund-policy" element={<RefundPolicy/>} /> */}
+<Route path="/refund-policy" element={<RefundPolicy/>} />
 
 
           </Routes>

@@ -6,12 +6,12 @@ import { Container, Typography, Box, Grid, CircularProgress } from '@mui/materia
 import Footer from '../footer/Footer';
 import Navbar from '../header/Navbar';
 
-const exchangeRate = 74; // Example exchange rate from USD to INR
+const exchangeRate = 1; // Example exchange rate from USD to INR
 const convertToINR = (price) => price * exchangeRate;
 
 function CoursesPage({ type }) {
   const [courses, setCourses] = useState([]); // Single list for all courses
-  const [priceRange, setPriceRange] = useState([0, 2000 * exchangeRate]);
+  const [priceRange, setPriceRange] = useState([0, exchangeRate]);
   const [durationRange, setDurationRange] = useState([0, 2]); // Focus only on short-term courses
   const [loading, setLoading] = useState(true); // State to handle loading
   const [error, setError] = useState(null); // State to handle errors

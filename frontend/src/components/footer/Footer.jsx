@@ -65,7 +65,10 @@ const Footer = () => {
 </Typography>  
 <Typography component={Link} to="/terms-and-conditions" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block',mb:'3px' }}>
   Terms and Condition
-</Typography>           
+</Typography>      
+<Typography component={Link} to="/refund-policy" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block',mb:'3px' }}>
+  Refund Policy
+</Typography>                
 
           </Grid>
 
