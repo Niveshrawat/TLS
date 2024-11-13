@@ -47,18 +47,18 @@ const CollegesSlider = () => {
 
   return (
     <Container>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, mt: 10 }}>
-        <Typography variant="h4" fontWeight="bold">Career Courses</Typography>
-        <Button variant="contained" component={Link} to="/vocational-education">View All Courses</Button>
-      </Box>
-      <Grid container spacing={4}>
-        {courses.map((course) => (
-          <Grid item xs={12} sm={6} md={4} key={course._id || course.name}> {/* Use course._id as the primary key */}
-            <CollegeCard course={course} />
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4, mt: 10 }}>
+      <Typography variant="h4" fontWeight="bold">Vocational Courses</Typography>
+      <Button variant="contained" component={Link} to="/vocational-education">View All Courses</Button>
+    </Box>
+    <Grid container spacing={4}>
+      {courses.slice(0, 3).map((course) => ( // Display only the first 3 courses
+        <Grid item xs={12} sm={6} md={4} key={course._id || course.name}>
+          <CollegeCard course={course} />
+        </Grid>
+      ))}
+    </Grid>
+  </Container>
   );
 };
 
