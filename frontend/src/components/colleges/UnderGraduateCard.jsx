@@ -3,16 +3,16 @@ import { Card, CardContent, CardMedia, Typography, Box, Button, Dialog, DialogCo
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CollegeForm from '../forms/UnderGraduateForm';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 const UnderGraduateCard = ({ college }) => {
   const [open, setOpen] = useState(false);
   
     const navigate = useNavigate();
-  
+  const {name= college.name, fees= college.fees, location=college.location, course= college.course, packages =college.package, _id } = college
     const handleViewDetails = () => {
-      navigate(`/underGraduate/${college.id}`);
+      navigate(`/underGraduate/${_id}`);
     };
 
   const handleClickOpen = () => {
@@ -29,42 +29,42 @@ const UnderGraduateCard = ({ college }) => {
         <CardMedia
           component="img"
           sx={{ height: 200 ,flexGrow: 1}}
-          image={college.image}
+          image={`https://api.thelearnskills.com/${college.photos}`}
           alt={college.name}
         />
         <CardContent sx={{ flexGrow: 1 }}>
-          <Typography gutterBottom variant="h5" component="div" onClick={handleViewDetails}>
+          <Typography gutterBottom variant="h6" component="div" onClick={handleViewDetails} fontWeight="bold">
             {college.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            <CurrencyRupeeIcon sx={{ fontSize: 16, color: '#FFAF45' }} />
-            {college.fees}
+          <Typography variant="body1" color="text.secondary">
+            {/* <CurrencyRupeeIcon sx={{ fontSize: 16, color: '#FFAF45' }} /> */}
+            ⭐ Rating: {college.rating}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body1" color="text.secondary">
             <LocationOnIcon sx={{ fontSize: 16, color: '#059212' }} />
-            {college.location}
+            Location: {college.location}
           </Typography>
-          <Typography variant="body2" color="textSecondary">
-            Course: {college.course}
+          <Typography variant="body1" color="textSecondary">
+          🏆 Rank: {college.nirfRank}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          {/* <Typography variant="body2" color="text.secondary">
             Package: {college.package}
-          </Typography>
+          </Typography> */}
         </CardContent>
         <Box sx={{ padding: 2 }}>
-          <Button variant="contained" color="primary" fullWidth onClick={handleClickOpen}>
+          <Button variant="contained" color="primary" fullWidth onClick={handleClickOpen} component={Link} to={`/underGraduate/${_id}`}>
             Apply Now
           </Button>
           
         </Box>
       </Card>
 
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+      {/* <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
         <DialogTitle>Register with us</DialogTitle>
         <DialogContent>
           <CollegeForm />
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </>
   );
 };

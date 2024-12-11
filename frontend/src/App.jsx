@@ -78,7 +78,7 @@ function App() {
             <Route path="/course/:_id" element={<CourseDetails />} />
             <Route path="/internship" element={<Internship />} />
             <Route path="/industrial-workshop" element={<IndustrialWorkshops />} />
-            <Route path="/underGraduate/:id" element={<CollegeDetails />} />
+            <Route path="/underGraduate/:_id" element={<CollegeDetails />} />
             <Route path="/university-partnership" element={<UniversityPartnerships />} />
             <Route path="/register" element={<Register />} />
             <Route path="/vocational-education" element={<VocationalEducation />} />

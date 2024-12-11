@@ -180,7 +180,7 @@ const EmployeeTable = () => {
                   <TableCell style={{ textTransform: 'uppercase' }}>{emp.phone}</TableCell>
                   <TableCell style={{ textTransform: 'uppercase' }}>{emp.address}</TableCell>
                   <TableCell style={{ textTransform: 'uppercase' }}>{emp.role}</TableCell>
-                  <TableCell style={{ textTransform: 'uppercase' }}>{emp.teamLeader ? emp.teamLeader.name : 'None'}</TableCell>
+                  <TableCell style={{ textTransform: 'uppercase' }}> {emp.teamLeader ? emp.teamLeader.name : 'None'}</TableCell>
                   <TableCell>
                     <IconButton color="primary">
                       <EditIcon />

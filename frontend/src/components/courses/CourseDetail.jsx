@@ -181,16 +181,17 @@ function CourseDetails() {
             Highlights
           </Typography>
           <Box>
-            <Grid container spacing={2}>
-              {course.highlights?.map((highlight, index) => (
-                <Grid item xs={12} sm={4} key={index}>
-                  <Box display="flex" alignItems="center">
-                    {/* <Avatar sx={{ backgroundColor: 'white', color: 'navy' }}>{index + 1}</Avatar> */}
-                    <Typography variant="body1" ml={2}>{highlight}</Typography>
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
+          <Grid container spacing={2}>
+  {course.highlights?.map((highlight, index) => (
+    <Grid item xs={12} key={index}>
+      <Box display="flex" alignItems="center">
+        {/* Uncomment the Avatar if needed */}
+        {/* <Avatar sx={{ backgroundColor: 'white', color: 'navy' }}>{index + 1}</Avatar> */}
+        <Typography variant="body1" ml={2}>{highlight}</Typography>
+      </Box>
+    </Grid>
+  ))}
+</Grid>
             </Box>
           </Box>
           <Box ref={eligibilityRef} mt={2}>

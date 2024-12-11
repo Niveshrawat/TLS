@@ -62,10 +62,12 @@ const CourseTable = () => {
     const data = new FormData();
     data.append('courseName', formData.courseName);
     data.append('description', formData.description);
-    formData.images.forEach((image) => {
-      data.append('images', image);
-      console.log(image)
-    });
+    if (Array.isArray(formData.images)) {
+      formData.images.forEach((image) => {
+        data.append('images', image);
+        console.log(image); // Debugging log
+      });
+    }
     data.append('highlights',JSON.stringify(formData.highlights));
     data.append('criteria', formData.criteria);
     data.append('price', formData.price);
@@ -105,20 +107,22 @@ const CourseTable = () => {
   };
 
   const handleEdit = (course) => {
+    const baseUrl = "https://api.thelearnskills.com/uploads/";
     setFormData({
       courseName: course.courseName,
       description: course.description,
-      images: course.images,
+      existingImages: course.images.map((img) => `${baseUrl}${img}`),
       highlights: course.highlights,
       criteria: course.criteria,
       price: course.price,
       duration: course.duration,
-     rating: course.rating
+      rating: course.rating,
     });
     setEditCourseId(course._id);
     setIsEdit(true);
     setOpenDialog(true);
   };
+  
 
   const handleDelete = (id) => {
     const token = localStorage.getItem('token');
@@ -238,7 +242,12 @@ const CourseTable = () => {
     setFilteredCourses(filtered);
     setFilterDrawerOpen(false);
   };
-
+  const removeExistingImage = (index) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      existingImages: prevData.existingImages.filter((_, i) => i !== index),
+    }));
+  };
   const clearFilters = () => {
     setFilterCourseName(''); // Clear course name filter
     setFilterPrice(''); // Clear price filter
@@ -372,15 +381,17 @@ const CourseTable = () => {
       <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth maxWidth="sm">
         <DialogTitle>{isEdit ? 'Edit Course' : 'Create Course'}</DialogTitle>
         <DialogContent>
-          <CourseForm 
-            formData={formData}
-            handleChange={handleChange}
-            handleHighlightChange={handleHighlightChange}
-            addHighlight={addHighlight}
-            removeHighlight={removeHighlight}
-            handleImageChange={handleImageChange}
-            handleSubmit={handleSubmit} 
-          />
+        <CourseForm
+  formData={formData}
+  handleChange={handleChange}
+  handleHighlightChange={handleHighlightChange}
+  addHighlight={addHighlight}
+  removeHighlight={removeHighlight}
+  handleImageChange={handleImageChange}
+  handleSubmit={handleSubmit}
+  removeExistingImage={removeExistingImage} // Ensure this is passed
+/>
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog} color="primary">Cancel</Button>

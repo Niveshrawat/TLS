@@ -27,11 +27,11 @@ const Dashboard = () => {
     const token = localStorage.getItem('token');
     const storedRole = localStorage.getItem('role');
     setRole(storedRole);
-
+  
     const apiEndpoint = storedRole === 'caller'
       ? 'https://api.thelearnskills.com/api/v1/sc/caller-leads'
       : 'https://api.thelearnskills.com/api/v1/sc/short-term-certificates';
-
+  
     fetch(apiEndpoint, {
       headers: {
         'Content-Type': 'application/json',
@@ -39,10 +39,14 @@ const Dashboard = () => {
       }
     })
       .then(response => response.json())
-      .then(data => setCourseLeads(data))
+      .then(data => {
+        console.log('Fetched data:', data); // Log the response
+        const leads = Array.isArray(data) ? data : data.leads || [];
+        setCourseLeads(leads);
+      })
       .catch(error => console.error('Error fetching data:', error));
   }, []);
-
+  
   const formatDate = (dateStr) => new Date(dateStr).toLocaleDateString('en-US');
 
   // Filter leads by date range

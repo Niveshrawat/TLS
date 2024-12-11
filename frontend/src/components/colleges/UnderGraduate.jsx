@@ -1,5 +1,4 @@
-// UnderGraduate.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Container, Typography, IconButton, useMediaQuery, Drawer, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import FilterSidebar from './FilterSidebar';
@@ -7,15 +6,10 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import CollegeCard from './UnderGraduateCard';
 import Navbar from '../header/Navbar';
 import Footer from '../footer/Footer';
-
-const collegesData = [
-  { id: 1, name: 'Demo 1', location: 'Lucknow', course: 'Course1', fees: '10000', package: '5 LPA', image: 'https://images.livemint.com/img/2021/07/29/600x338/b5af6ee0-ed4d-11eb-a043-f8aaa01a1d1e_1627242083337_1627556687642.jpg' },
-  { id: 2, name: 'Demo 2', location: 'Mumbai', course: 'Course2', fees: '15000', package: '6 LPA', image: 'https://images.shiksha.com/mediadata/images/articles/1663041749php0WJz5M.jpeg' },
-  { id: 3, name: 'Demo 3', location: 'Noida', course: 'Course2', fees: '15000', package: '6 LPA', image: 'https://images.shiksha.com/mediadata/images/articles/1663041749php0WJz5M.jpeg' },
-  // Add more colleges
-];
+import axios from 'axios';
 
 const UnderGraduate = () => {
+  const [colleges, setColleges] = useState([]);
   const [filters, setFilters] = useState({
     state: '',
     city: '',
@@ -26,6 +20,18 @@ const UnderGraduate = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
+  useEffect(() => {
+    const fetchColleges = async () => {
+      try {
+        const response = await axios.get('https://api.thelearnskills.com/api/v1/college/colleges');
+        setColleges(response.data); // Assuming the response contains the array of colleges directly
+      } catch (error) {
+        console.error("Error fetching college data", error);
+      }
+    };
+    fetchColleges();
+  }, []);
+
   const handleFilterChange = (filter, value) => {
     setFilters({
       ...filters,
@@ -33,7 +39,7 @@ const UnderGraduate = () => {
     });
   };
 
-  const filteredColleges = collegesData.filter((college) => {
+  const filteredColleges = colleges.filter((college) => {
     return (
       (!filters.state || college.location.includes(filters.state)) &&
       (!filters.city || college.location.includes(filters.city)) &&
@@ -78,14 +84,6 @@ const UnderGraduate = () => {
         >
           Universities - "Where Futures Begin"
         </Typography>
-        <dotlottie-player
-          src="https://lottie.host/b3680b00-4774-45ec-b6eb-32a6582867fe/8CRTLrjwSX.json"
-          background="transparent"
-          speed="1"
-          style={{ width: '200px', height: '200px', marginLeft: { xs: 0, sm: '15rem' }, display: { xs: 'none', sm: 'block' } }}
-          loop
-          autoplay
-        ></dotlottie-player>
       </Box>
       <Container sx={{ maxWidth: '100%' }}>
         {isMobile && (
@@ -96,17 +94,15 @@ const UnderGraduate = () => {
         <Box sx={{ display: 'flex', marginTop: 3, flexDirection: { xs: 'column', sm: 'row' } }}>
           {!isMobile && <FilterSidebar filters={filters} handleFilterChange={handleFilterChange} />}
           <Drawer anchor="left" open={mobileOpen} onClose={handleDrawerToggle}>
-        
-              <FilterSidebar filters={filters} handleFilterChange={handleFilterChange} />
-            
+            <FilterSidebar filters={filters} handleFilterChange={handleFilterChange} />
           </Drawer>
           <Box sx={{ flexGrow: 1, marginLeft: { xs: '3rem', sm: '3' } }}>
             <Grid container spacing={3} justifyContent={isMobile ? 'center' : 'flex-start'}>
               {filteredColleges.map((college) => (
-                <Grid item xs={12} sm={6} md={4} key={college.id}>
-                  <Link to={`/underGraduate/${college.id}`} style={{ textDecoration: 'none' }}>
+                <Grid item xs={12} sm={6} md={4} key={college._id}>
+                  {/* <Link to={`/underGraduate/${college._id}`} style={{ textDecoration: 'none' }}> */}
                     <CollegeCard college={college} />
-                  </Link>
+                  {/* </Link> */}
                 </Grid>
               ))}
             </Grid>

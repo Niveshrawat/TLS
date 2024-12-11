@@ -1,25 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Box, Typography, Button, Grid, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom'; // useParams for dynamic routing
 import CollegeForm from '../forms/UnderGraduateForm';
 
-const CollegeDetailsBanner = ({ college }) => {
+const CollegeDetailsBanner = () => {
+  const [college, setCollege] = useState(null);
   const [open, setOpen] = useState(false);
-  const isLoggedIn = useSelector((state) => state.user.user); // Check if user is logged in
-  const navigate = useNavigate(); // To navigate to the login page
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const navigate = useNavigate();
+  const { _id } = useParams(); // Assume the route is `/colleges/:id`
+
+  useEffect(() => {
+    // Fetch college details
+    const fetchCollegeDetails = async () => {
+      try {
+        const response = await axios.get(`https://api.thelearnskills.com/api/v1/college/colleges/${_id}`);
+        setCollege(response.data);
+      } catch (error) {
+        console.error('Error fetching college details:', error);
+      }
+    };
+
+    fetchCollegeDetails();
+  }, [_id]);
 
   const handleClickOpen = () => {
     if (isLoggedIn) {
       setOpen(true);
     } else {
-      navigate('/login'); // Redirect to the login page if not logged in
+      navigate('/login');
     }
   };
 
   const handleClose = () => {
     setOpen(false);
   };
+
+  if (!college) return <Typography>Loading...</Typography>;
 
   return (
     <>
@@ -36,23 +55,25 @@ const CollegeDetailsBanner = ({ college }) => {
         >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <img src={college.image} alt={college.name} style={{ width: '80%', borderRadius: '8px' }} />
+              <img
+                src={`https://api.thelearnskills.com/${college.photos}`} // Assuming the first photo is displayed
+                alt={college.name}
+                style={{ width: '80%', borderRadius: '8px' }}
+              />
             </Grid>
             <Grid item xs={12} sm={4} display="flex" flexDirection="column" justifyContent="center">
               <Typography variant="h4" fontWeight="bold" gutterBottom>
                 {college.name}
               </Typography>
-              <Typography variant="body1" gutterBottom>
-                {college.description}
-              </Typography>
+              
               <Typography variant="body1" gutterBottom>
                 {college.location}
               </Typography>
               <Typography variant="h6" gutterBottom>
-                {college.rating}
+                {college.rating} / 5
               </Typography>
               <Typography variant="body1" gutterBottom>
-                {college.nirfRank}
+                NIRF Rank: {college.nirfRank}
               </Typography>
               <Button variant="contained" color="primary" fullWidth onClick={handleClickOpen}>
                 Apply Now
@@ -65,7 +86,7 @@ const CollegeDetailsBanner = ({ college }) => {
                   marginTop: '1rem',
                   backgroundColor: 'orangered',
                   '&:hover': {
-                    backgroundColor: 'lightcoral', // or any lighter shade of orangered
+                    backgroundColor: 'lightcoral',
                   },
                 }}
               >

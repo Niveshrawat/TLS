@@ -88,40 +88,57 @@ const TicketTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tickets.map((ticket, index) => (
-            <TableRow key={ticket._id}>
-              <TableCell sx={{ fontWeight: 'bold', textTransform: 'uppercase', padding: '8px' }} >{index + 1}</TableCell>
-              <TableCell sx={{ textTransform: 'uppercase', padding: '8px',  color: 'blue' }}>{ticket.user.name}</TableCell>
-              <TableCell sx={{ textTransform: 'uppercase', padding: '8px' }}>{ticket.user.email}</TableCell>
-              <TableCell sx={{ textTransform: 'uppercase', padding: '8px' }}>{ticket.subject}</TableCell>
-              <TableCell sx={{ textTransform: 'uppercase', padding: '8px' }}>{ticket.description}</TableCell>
-              <TableCell sx={getStatusStyle(ticket.status)}>
-                {editingTicketId === ticket._id ? (
-                  <Select
-                    value={status}
-                    onChange={(e) => handleStatusChange(ticket._id, e.target.value)}
-                    onBlur={() => setEditingTicketId(null)} // Close the dropdown if focus is lost
-                  >
-                    <MenuItem value="open">Open</MenuItem>
-                    <MenuItem value="in progress">In Progress</MenuItem>
-                    <MenuItem value="closed">Closed</MenuItem>
-                  </Select>
-                ) : (
-                  <div onClick={() => {
-                    setEditingTicketId(ticket._id);
-                    setStatus(ticket.status);
-                  }}>
-                    {ticket.status}
-                  </div>
-                )}
-              </TableCell>
-              <TableCell>
-                <IconButton onClick={() => handleEdit(ticket)}><EditIcon color="primary" /></IconButton>
-                <IconButton onClick={() => handleDelete(ticket._id)}><DeleteIcon color="error" /></IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+  {tickets.map((ticket, index) => (
+    <TableRow key={ticket._id}>
+      <TableCell sx={{ fontWeight: 'bold', textTransform: 'uppercase', padding: '8px' }}>
+        {index + 1}
+      </TableCell>
+      <TableCell sx={{ textTransform: 'uppercase', padding: '8px', color: 'blue' }}>
+        {ticket.user ? ticket.user.name : 'N/A'}
+      </TableCell>
+      <TableCell sx={{ textTransform: 'uppercase', padding: '8px' }}>
+        {ticket.user ? ticket.user.email : 'N/A'}
+      </TableCell>
+      <TableCell sx={{ textTransform: 'uppercase', padding: '8px' }}>
+        {ticket.subject}
+      </TableCell>
+      <TableCell sx={{ textTransform: 'uppercase', padding: '8px' }}>
+        {ticket.description}
+      </TableCell>
+      <TableCell sx={getStatusStyle(ticket.status)}>
+        {editingTicketId === ticket._id ? (
+          <Select
+            value={status}
+            onChange={(e) => handleStatusChange(ticket._id, e.target.value)}
+            onBlur={() => setEditingTicketId(null)} // Close the dropdown if focus is lost
+          >
+            <MenuItem value="open">Open</MenuItem>
+            <MenuItem value="in progress">In Progress</MenuItem>
+            <MenuItem value="closed">Closed</MenuItem>
+          </Select>
+        ) : (
+          <div
+            onClick={() => {
+              setEditingTicketId(ticket._id);
+              setStatus(ticket.status);
+            }}
+          >
+            {ticket.status}
+          </div>
+        )}
+      </TableCell>
+      <TableCell>
+        <IconButton onClick={() => handleEdit(ticket)}>
+          <EditIcon color="primary" />
+        </IconButton>
+        <IconButton onClick={() => handleDelete(ticket._id)}>
+          <DeleteIcon color="error" />
+        </IconButton>
+      </TableCell>
+    </TableRow>
+  ))}
+</TableBody>
+
       </Table>
     </TableContainer>
     </div>

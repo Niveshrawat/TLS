@@ -2,6 +2,8 @@ import React from 'react';
 import { TextField, Button, Box, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 const CourseForm = ({
   formData,
@@ -11,6 +13,7 @@ const CourseForm = ({
   removeHighlight,
   handleImageChange,
   handleSubmit,
+  removeExistingImage,
 }) => {
   return (
     <form onSubmit={handleSubmit}>
@@ -109,7 +112,43 @@ const CourseForm = ({
         inputProps={{ min: 0, max: 5, step: 0.1 }}
       />
 
-      {/* Multiple Image Upload */}
+      {/* Existing Images Preview */}
+      {formData.existingImages && formData.existingImages.length > 0 && (
+        <Box mt={2} mb={2}>
+          <h4>Existing Images:</h4>
+          <Box display="flex" flexWrap="wrap" gap={2}>
+            {formData.existingImages.map((image, index) => (
+              <Box key={index} position="relative">
+                <img
+                  src={image} // Image URL
+                  alt={`Preview ${index + 1}`}
+                  style={{
+                    width: 100,
+                    height: 100,
+                    objectFit: 'cover',
+                    borderRadius: 4,
+                    border: '1px solid #ccc',
+                  }}
+                />
+                <IconButton
+                  size="small"
+                  style={{
+                    position: 'absolute',
+                    top: -10,
+                    right: -10,
+                    background: '#fff',
+                  }}
+                  onClick={() => removeExistingImage(index)}
+                >
+                  <DeleteIcon color="error" />
+                </IconButton>
+              </Box>
+            ))}
+          </Box>
+        </Box>
+      )}
+
+      {/* New Image Upload */}
       <input
         type="file"
         multiple
@@ -117,12 +156,12 @@ const CourseForm = ({
         accept="image/*"
         style={{ marginTop: '1rem' }}
       />
-      
+
       {/* Submit Button */}
       <Box mt={2}>
-        <Button type="submit" variant="contained" color="primary">
+        {/* <Button type="submit" variant="contained" color="primary">
           Submit
-        </Button>
+        </Button> */}
       </Box>
     </form>
   );

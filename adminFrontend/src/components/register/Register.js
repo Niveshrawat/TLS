@@ -64,9 +64,17 @@ const RegisterPage = ({ handleClose }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(registerUser(formData));
+    const payload = { ...formData };
+    
+    // Remove teamLeader field if no valid selection
+    if (!payload.teamLeader) {
+      delete payload.teamLeader;
+    }
+  
+    dispatch(registerUser(payload));
     handleClose(); // Close the dialog after submitting
   };
+  
 
   return (
     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -124,6 +132,7 @@ const RegisterPage = ({ handleClose }) => {
           value={formData.role}
           onChange={handleChange}
         >
+          <MenuItem value="admin">Admin</MenuItem>
           <MenuItem value="teamLeader">Team Leader</MenuItem>
           <MenuItem value="caller">Caller</MenuItem>
         </Select>
@@ -131,15 +140,16 @@ const RegisterPage = ({ handleClose }) => {
       <FormControl fullWidth margin="normal">
       <InputLabel>Team Leader</InputLabel>
       <Select
-        name="teamLeader"
-        value={formData.teamLeader}
-        onChange={handleChange}
-      >
-        <MenuItem value=""><em>None</em></MenuItem>
-        {teamLeaders.map((leader) => (
-          <MenuItem key={leader._id} value={leader._id}>{leader.name}</MenuItem>
-        ))}
-      </Select>
+  name="teamLeader"
+  value={formData.teamLeader || ''}
+  onChange={handleChange}
+>
+  <MenuItem value=""><em>None</em></MenuItem>
+  {teamLeaders.map((leader) => (
+    <MenuItem key={leader._id} value={leader._id}>{leader.name}</MenuItem>
+  ))}
+</Select>
+
     </FormControl>
       <Button
         type="submit"

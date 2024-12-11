@@ -324,7 +324,7 @@ const Sidebar = ({ open, handleDrawerToggle }) => {
               <ListItemIcon sx={{ color: 'white' }}>
                 <SchoolIcon />
               </ListItemIcon>
-              {!collapsed &&<ListItemText primary="Register" primaryTypographyProps={{ fontWeight: 'bold' }} /> }
+              {!collapsed &&<ListItemText primary="Employees" primaryTypographyProps={{ fontWeight: 'bold' }} /> }
             </ListItem>
 
             <ListItem button component={Link} to="/job-poster">
