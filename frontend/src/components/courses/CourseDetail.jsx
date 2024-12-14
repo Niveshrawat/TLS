@@ -187,13 +187,48 @@ function CourseDetails() {
       <Box display="flex" alignItems="center">
         {/* Uncomment the Avatar if needed */}
         {/* <Avatar sx={{ backgroundColor: 'white', color: 'navy' }}>{index + 1}</Avatar> */}
-        <Typography variant="body1" ml={2}>{highlight}</Typography>
+        <Typography variant="body1" ml={2}> {`${index + 1}. ${highlight}`}</Typography>
       </Box>
     </Grid>
   ))}
 </Grid>
+
             </Box>
           </Box>
+          <Box ref={eligibilityRef} mt={2}>
+  <Typography variant="h5" fontWeight="bold" marginBottom="20px">
+    Criteria
+  </Typography>
+  {Array.isArray(course.criteria) && course.criteria.length > 0 ? (
+    course.criteria.map((criterion, index) => (
+      <Typography key={index} variant="body1" paragraph>
+        {`${index + 1}. ${criterion}`}
+      </Typography>
+    ))
+  ) : (
+    <Typography variant="body1" paragraph>
+      No criteria available.
+    </Typography>
+  )}
+</Box>
+
+
+<Box ref={eligibilityRef} mt={2}>
+  <Typography variant="h5" fontWeight="bold" marginBottom="20px">
+    Admission Criteria
+  </Typography>
+  {Array.isArray(course.admissionCriteria) && course.admissionCriteria.length > 0 ? (
+    course.admissionCriteria.map((criterion, index) => (
+      <Typography key={index} variant="body1" paragraph>
+        {`${index + 1}. ${criterion}`}
+      </Typography>
+    ))
+  ) : (
+    <Typography variant="body1" paragraph>
+      No admission criteria available.
+    </Typography>
+  )}
+</Box>
           <Box ref={eligibilityRef} mt={2}>
           <Typography variant="h5"  fontWeight="bold" marginBottom="20px">
            Criteria

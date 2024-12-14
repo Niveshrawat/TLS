@@ -19,7 +19,11 @@ const shortTermCourseSchema = new mongoose.Schema({
     required: true,
   },
   criteria: {
-    type: String,
+    type: [String], // Updated to a list format
+    required: true,
+  },
+  admissionCriteria: {
+    type: [String], // New field added as a list
     required: true,
   },
   price: {
@@ -30,7 +34,7 @@ const shortTermCourseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  rating:{
+  rating: {
     type: String,
     required: true,
   }

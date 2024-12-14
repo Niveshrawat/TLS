@@ -56,23 +56,31 @@ const CourseTable = () => {
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    const formDataPayload = new FormData();
     const token = localStorage.getItem('token');
-    const data = new FormData();
-    data.append('courseName', formData.courseName);
-    data.append('description', formData.description);
-    if (Array.isArray(formData.images)) {
-      formData.images.forEach((image) => {
-        data.append('images', image);
-        console.log(image); // Debugging log
-      });
-    }
-    data.append('highlights',JSON.stringify(formData.highlights));
-    data.append('criteria', formData.criteria);
-    data.append('price', formData.price);
-    data.append('duration', formData.duration);
-    data.append('rating', formData.rating);
+
+  // Add existing images (URLs)
+  formDataPayload.append("existingImages", JSON.stringify(formData.existingImages));
+
+  // Add new images
+  if (formData.images && formData.images.length > 0) {
+    formData.images.forEach((image) => {
+      formDataPayload.append("images", image);
+    });
+  }
+
+  // Add other fields
+  formDataPayload.append("courseName", formData.courseName);
+  formDataPayload.append("description", formData.description);
+  formDataPayload.append("highlights", JSON.stringify(formData.highlights));
+  formDataPayload.append("criteria", JSON.stringify(formData.criteria));
+  formDataPayload.append("admissionCriteria", JSON.stringify(formData.admissionCriteria));
+  formDataPayload.append("price", formData.price);
+  formDataPayload.append("duration", formData.duration);
+  formDataPayload.append("rating", formData.rating);
 
     let url = '';
     let method = '';
@@ -90,7 +98,7 @@ const CourseTable = () => {
       headers: {
         'Authorization': `Bearer ${token}`
       },
-      body: data
+      body: formDataPayload
     })
       .then(response => response.ok ? response.json() : Promise.reject(`HTTP error! status: ${response.status}`))
       .then(data => {
@@ -107,21 +115,24 @@ const CourseTable = () => {
   };
 
   const handleEdit = (course) => {
-    const baseUrl = "https://api.thelearnskills.com/uploads/";
+    const baseUrl = "https://api.thelearnskills.com/";
     setFormData({
       courseName: course.courseName,
       description: course.description,
       existingImages: course.images.map((img) => `${baseUrl}${img}`),
       highlights: course.highlights,
-      criteria: course.criteria,
+      criteria: course.criteria || [],
+      admissionCriteria: course.admissionCriteria || [],
       price: course.price,
       duration: course.duration,
       rating: course.rating,
+      images: [], // Reset new images
     });
     setEditCourseId(course._id);
     setIsEdit(true);
     setOpenDialog(true);
   };
+  
   
 
   const handleDelete = (id) => {
@@ -147,7 +158,8 @@ const CourseTable = () => {
       courseName: '',
     description: '',
     highlights: [''], // Initial array with one highlight
-    criteria: '',
+criteria: [""],
+    admissionCriteria: [""],
     price: '',
     duration: '',
     rating: '',
@@ -193,13 +205,64 @@ const CourseTable = () => {
     });
   };
 
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
+  const handleCriteriaChange = (e, index) => {
+    const newCriteria = [...formData.criteria];
+    newCriteria[index] = e.target.value; // Update the value for the specific index
     setFormData({
       ...formData,
-      images: files,
+      criteria: newCriteria, // Set the updated criteria array in the state
     });
   };
+
+  const addCriteria = () => {
+    setFormData({
+      ...formData,
+      criteria: [...formData.criteria, ""], // Add a new empty string to criteria array
+    });
+  };
+
+  const removeCriteria = (index) => {
+    const newCriteria = formData.criteria.filter((_, i) => i !== index);
+    setFormData({
+      ...formData,
+      criteria: newCriteria, // Remove the specified index
+    });
+  };
+
+  const handleChangeAdmissionCriteria = (e, index) => {
+    const newCriteria = [...formData.admissionCriteria];
+    newCriteria[index] = e.target.value;
+    setFormData((prevState) => ({
+        ...prevState,
+        admissionCriteria: newCriteria,
+    }));
+};
+
+const addAdmissionCriteria = () => {
+    setFormData((prevState) => ({
+        ...prevState,
+        admissionCriteria: [...(prevState.admissionCriteria || []), ""], // Ensure it's an array
+    }));
+};
+
+const removeAdmissionCriteria = (index) => {
+    setFormData((prevState) => ({
+        ...prevState,
+        admissionCriteria: prevState.admissionCriteria.filter(
+            (_, i) => i !== index
+        ),
+    }));
+};
+
+const handleImageChange = (e) => {
+  const files = Array.from(e.target.files);
+  setFormData({
+    ...formData,
+    images: files,
+    existingImages: formData.existingImages || [],
+  });
+};
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -243,11 +306,13 @@ const CourseTable = () => {
     setFilterDrawerOpen(false);
   };
   const removeExistingImage = (index) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      existingImages: prevData.existingImages.filter((_, i) => i !== index),
-    }));
-  };
+    const updatedImages = formData.existingImages.filter((_, i) => i !== index);
+    console.log('Before Update:', formData.existingImages);
+    handleChange({ target: { name: 'existingImages', value: updatedImages } });
+    console.log('After Update:', updatedImages);
+};
+
+  
   const clearFilters = () => {
     setFilterCourseName(''); // Clear course name filter
     setFilterPrice(''); // Clear price filter
@@ -276,6 +341,7 @@ const CourseTable = () => {
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>IMAGE</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>HIGHLIGHTS</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>CRITERIA</TableCell>
+              <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>ADDMISSION CRITERIA</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>PRICE</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>DURATION</TableCell>
               <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>RATING</TableCell>
@@ -288,15 +354,23 @@ const CourseTable = () => {
                 <TableCell>{index + 1 + page * rowsPerPage}</TableCell>
                 <TableCell>{course.courseName}</TableCell>
                 <TableCell>{course.description}</TableCell>
-                <TableCell>
-  {course && course.images ? (
+             
+ <TableCell>
+  {course && course.images?.length > 0 ? (
     course.images.map((image, i) => (
-      <img key={i} src={`https://api.thelearnskills.com/${image}`} alt={course.courseName} width="50" />
+      <img
+        key={i}
+        src={`https://api.thelearnskills.com/${image}`}
+        alt={course.courseName}
+        width="50"
+      />
     ))
   ) : (
     <span>No images available</span>
   )}
 </TableCell>
+
+
 
                 <TableCell>
                 <ul>
@@ -310,7 +384,31 @@ const CourseTable = () => {
       </ul>
 
                 </TableCell>
-                <TableCell>{course.criteria}</TableCell>
+               
+                <TableCell>
+                  {course.criteria && course.criteria.length > 0 ? (
+  course.criteria.map((criterion, index) => (
+    <div key={index}>{criterion}</div>
+  ))
+) : (
+  <div>No criteria available</div>
+)}
+
+
+      </TableCell>
+
+                  <TableCell>
+                    <ul>
+                      {course.admissionCriteria &&
+                      course.admissionCriteria.length > 0 ? (
+                        course.admissionCriteria.map((point, i) => (
+                          <li key={i}>{point}</li>
+                        ))
+                      ) : (
+                        <li>No admission criteria available</li>
+                      )}
+                    </ul>
+                  </TableCell>
                 <TableCell>{course.price}</TableCell>
                 <TableCell>{course.duration}</TableCell>
                 <TableCell>{course.rating}</TableCell>
@@ -382,14 +480,20 @@ const CourseTable = () => {
         <DialogTitle>{isEdit ? 'Edit Course' : 'Create Course'}</DialogTitle>
         <DialogContent>
         <CourseForm
-  formData={formData}
-  handleChange={handleChange}
-  handleHighlightChange={handleHighlightChange}
-  addHighlight={addHighlight}
-  removeHighlight={removeHighlight}
-  handleImageChange={handleImageChange}
-  handleSubmit={handleSubmit}
-  removeExistingImage={removeExistingImage} // Ensure this is passed
+ formData={formData}
+ handleChange={handleChange}
+ handleHighlightChange={handleHighlightChange}
+ addHighlight={addHighlight}
+ removeHighlight={removeHighlight}
+ handleCriteriaChange={handleCriteriaChange}
+ addCriteria={addCriteria}
+ removeCriteria={removeCriteria}
+ handleChangeAdmissionCriteria={handleChangeAdmissionCriteria}
+ addAdmissionCriteria={addAdmissionCriteria}
+ removeAdmissionCriteria={removeAdmissionCriteria}
+ handleImageChange={handleImageChange}
+ handleSubmit={handleSubmit}
+ removeExistingImage={removeExistingImage} // Ensure this is passed
 />
 
         </DialogContent>

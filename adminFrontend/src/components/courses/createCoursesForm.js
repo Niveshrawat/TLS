@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Button, Box, IconButton } from '@mui/material';
+import { TextField, Button, Box, IconButton, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -11,6 +11,12 @@ const CourseForm = ({
   handleHighlightChange,
   addHighlight,
   removeHighlight,
+  handleCriteriaChange,
+  addCriteria,
+  removeCriteria,
+  handleChangeAdmissionCriteria,
+  addAdmissionCriteria,
+  removeAdmissionCriteria,
   handleImageChange,
   handleSubmit,
   removeExistingImage,
@@ -65,16 +71,65 @@ const CourseForm = ({
         Add Highlight
       </Button>
 
-      {/* Criteria */}
-      <TextField
-        label="Criteria"
-        name="criteria"
-        value={formData.criteria}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        required
-      />
+      <Box marginBottom={3}>
+        <Typography variant="h6">Criteria</Typography>
+        {formData.criteria.map((criteria, index) => (
+          <Box key={index} display="flex" alignItems="center" mb={2}>
+            <TextField
+              label={`Criteria ${index + 1}`}
+              value={criteria}
+              onChange={(e) => handleCriteriaChange(e, index)}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <IconButton
+              aria-label="Remove criteria"
+              onClick={() => removeCriteria(index)}
+            >
+              <RemoveIcon />
+            </IconButton>
+          </Box>
+        ))}
+        <Button
+          variant="contained"
+          onClick={addCriteria}
+          startIcon={<AddIcon />}
+        >
+          Add Criteria
+        </Button>
+      </Box>
+
+      {/* Admission Criteria */}
+      <Box marginBottom={3}>
+    <Typography variant="h6">Admission Criteria</Typography>
+    {formData.admissionCriteria?.map((admissionCriteria, index) => (
+        <Box key={index} display="flex" alignItems="center" mb={2}>
+            <TextField
+                label={`Admission Criteria ${index + 1}`}
+                value={admissionCriteria}
+                onChange={(e) => handleChangeAdmissionCriteria(e, index)}
+                fullWidth
+                margin="normal"
+                required
+            />
+            <IconButton
+                aria-label="Remove admission criteria"
+                onClick={() => removeAdmissionCriteria(index)}
+            >
+                <RemoveIcon />
+            </IconButton>
+        </Box>
+    ))}
+    <Button
+        variant="contained"
+        onClick={addAdmissionCriteria}
+        startIcon={<AddIcon />}
+    >
+        Add Admission Criteria
+    </Button>
+</Box>
+
 
       {/* Price */}
       <TextField
