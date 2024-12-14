@@ -229,14 +229,7 @@ function CourseDetails() {
     </Typography>
   )}
 </Box>
-          <Box ref={eligibilityRef} mt={2}>
-          <Typography variant="h5"  fontWeight="bold" marginBottom="20px">
-           Criteria
-          </Typography>
-            <Typography variant="body1" paragraph>
-            {course.criteria}
-            </Typography>
-          </Box>
+          
         </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
