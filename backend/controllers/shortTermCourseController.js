@@ -99,55 +99,52 @@ export const updateShortTermCourse = async (req, res) => {
       duration,
       rating,
     } = req.body;
-    const files = req.files;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).send({ success: false, message: "Invalid course ID format" });
     }
 
-    if (
-      !courseName ||
-      !description ||
-      !files ||
-      !highlights ||
-      !criteria ||
-      !admissionCriteria ||
-      price === undefined ||
-      !duration ||
-      !rating
-    ) {
-      return res.status(400).send({ success: false, message: "All fields are required" });
+    // Fetch the existing course
+    const existingCourse = await ShortTermCourse.findById(id);
+    if (!existingCourse) {
+      return res.status(404).send({ success: false, message: "Short-term course not found" });
     }
 
-    const parsedHighlights = JSON.parse(highlights);
-    const parsedCriteria = JSON.parse(criteria);
-    const parsedAdmissionCriteria = JSON.parse(admissionCriteria);
-    const images = files.map((file) => file.path);
+    // Update images: Preserve existing images and append new ones (if any)
+    const newImages = req.files ? req.files.map((file) => file.path) : [];
+    const updatedImages = [...existingCourse.images, ...newImages];
 
-    const course = await ShortTermCourse.findByIdAndUpdate(
+    // Remove duplicates (if needed)
+    const uniqueImages = Array.from(new Set(updatedImages));
+
+    // Parse JSON fields safely
+    const parsedHighlights = highlights ? JSON.parse(highlights) : existingCourse.highlights;
+    const parsedCriteria = criteria ? JSON.parse(criteria) : existingCourse.criteria;
+    const parsedAdmissionCriteria = admissionCriteria ? JSON.parse(admissionCriteria) : existingCourse.admissionCriteria;
+
+    // Update the course
+    const updatedCourse = await ShortTermCourse.findByIdAndUpdate(
       id,
       {
-        courseName,
-        description,
-        images,
+        courseName: courseName || existingCourse.courseName,
+        description: description || existingCourse.description,
+        images: uniqueImages,
         highlights: parsedHighlights,
         criteria: parsedCriteria,
         admissionCriteria: parsedAdmissionCriteria,
-        price,
-        duration,
-        rating,
+        price: price !== undefined ? price : existingCourse.price,
+        duration: duration || existingCourse.duration,
+        rating: rating !== undefined ? rating : existingCourse.rating,
       },
       { new: true, runValidators: true }
     );
 
-    if (!course) {
-      return res.status(404).send({ success: false, message: "Short-term course not found" });
-    }
-    res.send({ success: true, message: "Short-term course updated successfully" });
+    res.send({ success: true, message: "Short-term course updated successfully", data: updatedCourse });
   } catch (error) {
     res.status(500).send({ success: false, message: `Error updating short-term course: ${error.message}` });
   }
 };
+
 
 export const deleteShortTermCourse = async (req, res) => {
   try {

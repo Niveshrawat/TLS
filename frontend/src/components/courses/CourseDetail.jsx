@@ -102,7 +102,7 @@ function CourseDetails() {
           <Grid item xs={12} sm={6}>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <img
-                src={`https://api.thelearnskills.com/${course.images}`}
+                src={`https://api.thelearnskills.com/${course.images[0]}`}
                 alt={course.programName}
                 style={{
                   width: '100%',
