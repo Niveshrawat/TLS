@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'; // Import useRef
 import { useParams } from 'react-router-dom';
-import { Typography, Container, Box, Card, CardContent, Button, Grid, Tab, Tabs, Avatar } from '@mui/material';
+import { Typography, Container, Box, Card, CardContent, Button, Grid, Tab, Tabs, Avatar, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import Navbar from '../header/Navbar';
 import Footer from '../footer/Footer';
 import InquiryForm from '../forms/ShortCoursesForm';
@@ -15,7 +15,7 @@ function CourseDetails() {
   const isLoggedIn = useSelector((state) => state.user.user);
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
-  
+
   // Create refs for each section
   const overviewRef = useRef(null);
   const highlightsRef = useRef(null);
@@ -28,7 +28,7 @@ function CourseDetails() {
         setLoading(false);
         return;
       }
-  
+
       try {
         const response = await fetch(`https://api.thelearnskills.com/api/v1/shortTermcourse/short-term-courses/${_id}`, {
           method: 'GET',
@@ -37,7 +37,7 @@ function CourseDetails() {
             Authorization: token ? `Bearer ${token}` : undefined,
           },
         });
-  
+
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -49,7 +49,7 @@ function CourseDetails() {
         setLoading(false);
       }
     };
-  
+
     fetchCourseDetails();
   }, [_id, token]);
 
@@ -150,102 +150,147 @@ function CourseDetails() {
               color="primary"
               sx={{ marginTop: '2rem', height: '3rem', width: '15rem', fontWeight: 'bold' }}
               fullWidth
-              onClick={handleOpenModal}    
-                      >
+              onClick={handleOpenModal}
+            >
               Enroll Now
             </Button>
-          
+
           </Grid>
         </Grid>
       </Box>
       <Container>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={8}>
-          <Box mt={4}>
-          <Tabs value={tabValue} onChange={handleTabChange} indicatorColor="primary" textColor="primary" centered>
-            <Tab label="Overview" />
-            <Tab label="Highlights" />
-            <Tab label="Eligibility Criteria" />
-          </Tabs>
-          <Box ref={overviewRef} mt={2}>
-          <Typography variant="h5" marginBottom="20px" fontWeight="bold">
-            Overview
-          </Typography>
+            <Box mt={4}>
+              <Tabs value={tabValue} onChange={handleTabChange} indicatorColor="primary" textColor="primary" centered>
+                <Tab label="Overview" />
+                <Tab label="Highlights" />
+                <Tab label="Eligibility Criteria" />
+              </Tabs>
+              <Box ref={overviewRef} mt={2}>
+                <Typography variant="h5" marginBottom="20px" fontWeight="bold">
+                  Overview
+                </Typography>
 
-            <Typography variant="body1" paragraph>
-              {course.description}
-            </Typography>
-          </Box>
-          <Box ref={highlightsRef} mt={2}>
-          <Typography variant="h5"  fontWeight="bold" marginBottom="20px">
-            Highlights
-          </Typography>
-          <Box>
-          <Grid container spacing={2}>
-  {course.highlights?.map((highlight, index) => (
-    <Grid item xs={12} key={index}>
-      <Box display="flex" alignItems="center">
-        {/* Uncomment the Avatar if needed */}
-        {/* <Avatar sx={{ backgroundColor: 'white', color: 'navy' }}>{index + 1}</Avatar> */}
-        <Typography variant="body1" ml={2}> {`${index + 1}. ${highlight}`}</Typography>
-      </Box>
-    </Grid>
-  ))}
-</Grid>
+                <Typography variant="body1" paragraph>
+                  {course.description}
+                </Typography>
+              </Box>
+              <Box ref={highlightsRef} mt={2}>
+                <Typography variant="h5" fontWeight="bold" marginBottom="20px">
+                  Highlights
+                </Typography>
+                <Box>
+                  <Table
+                    aria-label="course highlights table"
+                    sx={{
+                      boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Shadow for the table
+                      border: '1px solid #ddd', // Border around the table
+                      borderRadius: '8px', // Rounded corners
+                      overflow: 'hidden', // Prevent content overflow on rounded corners
+                      '& thead th': {
+                        backgroundColor: '#1976d2',
+                        color: 'white',
+                        fontWeight: 'bold',
+                        borderBottom: '1px solid #ccc', // Add a border below the header
+                      },
+                      '& tbody tr': {
+                        borderBottom: '1px solid #eee', // Add row dividers
+                      },
+                      '& tbody tr:hover': {
+                        backgroundColor: '#f5f5f5',
+                        cursor: 'pointer',
+                      },
+                      '& tbody tr:last-child': {
+                        borderBottom: 'none', // Remove the border for the last row
+                      },
+                    }}
+                  >
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Highlight No</TableCell>
+                        <TableCell>Highlight</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {course.highlights?.map((highlight, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{index + 1}</TableCell>
+                          <TableCell>{highlight}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+
+
+
+                </Box>
+              </Box>
+              <Box ref={eligibilityRef} mt={2}>
+                <Typography variant="h5" fontWeight="bold" marginBottom="20px">
+                  Eligibility
+                </Typography>
+                {Array.isArray(course.criteria) && course.criteria.length > 0 ? (
+                  <Box component="ul" sx={{ paddingLeft: '20px', listStyleType: 'disc', margin: 0 }}>
+                    {course.criteria.map((criterion, index) => (
+                      <Typography
+                        key={index}
+                        component="li"
+                        variant="body1"
+                        sx={{ marginBottom: '10px' }}
+                      >
+                        {criterion}
+                      </Typography>
+                    ))}
+                  </Box>
+                ) : (
+                  <Typography variant="body1" paragraph>
+                    No criteria available.
+                  </Typography>
+                )}
+              </Box>
+
+              <Box ref={eligibilityRef} mt={2}>
+                <Typography variant="h5" fontWeight="bold" marginBottom="20px">
+                  Admission Criteria
+                </Typography>
+                {Array.isArray(course.admissionCriteria) && course.admissionCriteria.length > 0 ? (
+                  <Box component="ul" sx={{ paddingLeft: '20px', listStyleType: 'disc', margin: 0 }}>
+                    {course.admissionCriteria.map((criterion, index) => (
+                      <Typography
+                        key={index}
+                        component="li"
+                        variant="body1"
+                        sx={{ marginBottom: '10px' }}
+                      >
+                        {criterion}
+                      </Typography>
+                    ))}
+                  </Box>
+                ) : (
+                  <Typography variant="body1" paragraph>
+                    No admission criteria available.
+                  </Typography>
+                )}
+              </Box>
+
 
             </Box>
-          </Box>
-          <Box ref={eligibilityRef} mt={2}>
-  <Typography variant="h5" fontWeight="bold" marginBottom="20px">
-    Criteria
-  </Typography>
-  {Array.isArray(course.criteria) && course.criteria.length > 0 ? (
-    course.criteria.map((criterion, index) => (
-      <Typography key={index} variant="body1" paragraph>
-        {`${index + 1}. ${criterion}`}
-      </Typography>
-    ))
-  ) : (
-    <Typography variant="body1" paragraph>
-      No criteria available.
-    </Typography>
-  )}
-</Box>
-
-
-<Box ref={eligibilityRef} mt={2}>
-  <Typography variant="h5" fontWeight="bold" marginBottom="20px">
-    Admission Criteria
-  </Typography>
-  {Array.isArray(course.admissionCriteria) && course.admissionCriteria.length > 0 ? (
-    course.admissionCriteria.map((criterion, index) => (
-      <Typography key={index} variant="body1" paragraph>
-        {`${index + 1}. ${criterion}`}
-      </Typography>
-    ))
-  ) : (
-    <Typography variant="body1" paragraph>
-      No admission criteria available.
-    </Typography>
-  )}
-</Box>
-          
-        </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Card sx={{ marginTop: "5rem", boxShadow: '0px 4px 12px navy', display:{xs:"none", md:'block'} }}>
+            <Card sx={{ marginTop: "5rem", boxShadow: '0px 4px 12px navy', display: { xs: "none", md: 'block' } }}>
               <CardContent>
                 <Typography variant="h6" fontWeight="bold" gutterBottom marginBottom="1rem">{course.courseName}</Typography>
                 <Typography variant="body1" color="text.secondary" display="flex" alignItems="center" gutterBottom sx={{ marginBottom: '1rem' }}>
-                ⌛  Duration: {course.duration}
+                  ⌛  Duration: {course.duration}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" gutterBottom sx={{ marginBottom: '1rem' }}>
-                <CurrencyRupeeIcon sx={{ fontSize: 20, color: '#FFAF45' }} />
+                  <CurrencyRupeeIcon sx={{ fontSize: 20, color: '#FFAF45' }} />
 
-                Price: ₹{course.price}
+                  Price: ₹{course.price}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" gutterBottom sx={{ marginBottom: '1rem' }}>
-                ⭐Rating: {course.rating}
+                  ⭐Rating: {course.rating}
                 </Typography>
                 <Button variant="contained" color="primary" fullWidth onClick={handleOpenModal}>
                   Enroll Now
@@ -255,7 +300,7 @@ function CourseDetails() {
           </Grid>
         </Grid>
 
-       
+
       </Container>
       <Box sx={{
         marginTop: '2rem',
