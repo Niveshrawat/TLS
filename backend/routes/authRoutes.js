@@ -53,7 +53,7 @@ router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: 'http://localhost:5173/login' }), 
+  passport.authenticate('google', { failureRedirect: 'https://thelearnskills.com/login' }), 
   (req, res) => {
     // Successful authentication, generate a JWT token
     const token = JWT.sign({ _id: req.user._id }, process.env.JWT_SECRET, {
