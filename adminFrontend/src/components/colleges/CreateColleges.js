@@ -1,10 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
-  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog,
-  DialogActions, DialogContent, DialogTitle, TextField, IconButton, Grid, FormControl, Select, MenuItem, TablePagination
-} from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material';
-import axios from 'axios';
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  IconButton,
+  Grid,
+  FormControl,
+  Select,
+  MenuItem,
+  TablePagination,
+} from "@mui/material";
+import { Edit, Delete } from "@mui/icons-material";
+import axios from "axios";
 
 const CollegeTable = () => {
   const [colleges, setColleges] = useState([]);
@@ -15,56 +32,55 @@ const CollegeTable = () => {
   const [collegeId, setCollegeId] = useState(null); // State to store the newly created college ID
   // const [file, setFile] = useState();
   const [photos, setPhotos] = useState([]);
-  const[collegeUrl, setCollegeUrl] =useState();
+  const [collegeUrl, setCollegeUrl] = useState();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  
-  
-  
-
   const [formData, setFormData] = useState({
-    collegeId:'',
-    name: '',
-    aboutCollege: '',
-    location: '',
-    rating: '',
-    nirfRank: '',
+    collegeId: "",
+    name: "",
+    aboutCollege: "",
+    location: "",
+    rating: "",
+    nirfRank: "",
     photos: [],
-    aboutCourses: '',
+    aboutCourses: "",
     courses: [],
-    aboutAdmissionProcess: '',
-    programmesOffered: '',
-    admissionStatus: 'ongoing',
-    howToApply: '',
-    levelsOfProgrammesOffered: '',
-    popularProgrammes: '',
-    highestPackage: '',
-    averagePackage: '',
-    totalRecruiters: '',
-    totalOffers: '',
-    averagePackagesLastTwoYears: '',
-    topRecruitingCompanies: '',
+    aboutAdmissionProcess: "",
+    programmesOffered: "",
+    admissionStatus: "ongoing",
+    howToApply: "",
+    levelsOfProgrammesOffered: "",
+    popularProgrammes: "",
+    highestPackage: "",
+    averagePackage: "",
+    totalRecruiters: "",
+    totalOffers: "",
+    averagePackagesLastTwoYears: "",
+    topRecruitingCompanies: "",
     courseRankings: [],
   });
 
   useEffect(() => {
     const fetchColleges = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('https://api.thelearnskills.com/api/v1/college/colleges', {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+        const token = localStorage.getItem("token");
+        const response = await fetch(
+          "https://api.thelearnskills.com/api/v1/college/colleges",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
           }
-        });
+        );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
         setColleges(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
     fetchColleges();
@@ -73,27 +89,27 @@ const CollegeTable = () => {
   const handleClickOpen = () => {
     setEditMode(false);
     setFormData({
-      collegeId:'',
-      name: '',
-      aboutCollege: '',
-      location: '',
-      rating: '',
-      nirfRank: '',
+      collegeId: "",
+      name: "",
+      aboutCollege: "",
+      location: "",
+      rating: "",
+      nirfRank: "",
       photos: [],
-      aboutCourses: '',
+      aboutCourses: "",
       courses: [],
-      aboutAdmissionProcess: '',
-      programmesOffered: '',
-      admissionStatus: 'ongoing',
-      howToApply: '',
-      levelsOfProgrammesOffered: '',
-      popularProgrammes: '',
-      highestPackage: '',
-      averagePackage: '',
-      totalRecruiters: '',
-      totalOffers: '',
-      averagePackagesLastTwoYears: '',
-      topRecruitingCompanies: '',
+      aboutAdmissionProcess: "",
+      programmesOffered: "",
+      admissionStatus: "ongoing",
+      howToApply: "",
+      levelsOfProgrammesOffered: "",
+      popularProgrammes: "",
+      highestPackage: "",
+      averagePackage: "",
+      totalRecruiters: "",
+      totalOffers: "",
+      averagePackagesLastTwoYears: "",
+      topRecruitingCompanies: "",
       courseRankings: [],
     });
     setOpen(true);
@@ -109,14 +125,13 @@ const CollegeTable = () => {
   React.useEffect(() => {
     console.log(photos); // Log the photos state
   }, [photos]);
-  
+
   const handleChangePage = (event, newPage) => setPage(newPage);
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  
 
   const handleClose = () => {
     setOpen(false);
@@ -124,9 +139,9 @@ const CollegeTable = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: files ? files[0] : value
+      [name]: files ? files[0] : value,
     }));
   };
 
@@ -134,39 +149,45 @@ const CollegeTable = () => {
     const { name, value } = e.target;
     const newCourses = [...formData.courses];
     newCourses[index][name] = value;
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      courses: newCourses
+      courses: newCourses,
     }));
   };
   const handleRankChange = (e, index) => {
     const { name, value } = e.target;
     const newRanks = [...formData.courseRankings];
     newRanks[index][name] = value;
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      courseRankings: newRanks
+      courseRankings: newRanks,
     }));
   };
 
   const handleAddCourse = () => {
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      courses: [...prevFormData.courses, { courseName: '', tutionFee: '', eligibility: '' }]
+      courses: [
+        ...prevFormData.courses,
+        { courseName: "", tutionFee: "", eligibility: "" },
+      ],
     }));
   };
 
   const handleAddRank = () => {
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      courseRankings: [...prevFormData.courseRankings, { courseName: '', rank: '' }]
+      courseRankings: [
+        ...prevFormData.courseRankings,
+        { courseName: "", rank: "" },
+      ],
     }));
   };
 
   const handleEdit = (college) => {
     setEditMode(true);
     setSelectedCollegeId(college._id);
-    console.log(college._id, 'taruns')
+    console.log(college._id, "taruns");
     setFormData({
       collegeId: college._id,
       name: college.name,
@@ -189,122 +210,178 @@ const CollegeTable = () => {
       totalOffers: college.totalOffers,
       averagePackagesLastTwoYears: college.averagePackagesLastTwoYears,
       topRecruitingCompanies: college.topRecruitingCompanies,
-      courseRankings: college.courseRankings|| [],
-      
+      courseRankings: college.courseRankings || [],
     });
     setOpen(true);
     setStep(1);
   };
 
-  
-
   const handleDelete = async (collegeId) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.delete(`https://api.thelearnskills.com/api/v1/college/colleges/${collegeId}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+      const token = localStorage.getItem("token");
+      const response = await axios.delete(
+        `https://api.thelearnskills.com/api/v1/college/colleges/${collegeId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      setColleges(prevColleges => prevColleges.filter(college => college.id !== collegeId));
+      setColleges((prevColleges) =>
+        prevColleges.filter((college) => college.id !== collegeId)
+      );
     } catch (error) {
-      console.error('Error deleting data:', error);
+      console.error("Error deleting data:", error);
     }
   };
 
   const handleNext = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       };
 
-    
       const formDataToSend = new FormData();
-    for (const key in formData) {
-      if (key === 'photos') {
-        photos.forEach(photo => formDataToSend.append('photos', photo));
-      } else {
-        formDataToSend.append(key, formData[key]);
+      for (const key in formData) {
+        if (key === "photos") {
+          photos.forEach((photo) => formDataToSend.append("photos", photo));
+        } else {
+          formDataToSend.append(key, formData[key]);
+        }
       }
-    }
 
-      if(!editMode){
+      if (!editMode) {
         switch (step) {
           case 1:
-   const createCollegeResponse = await axios.post('https://api.thelearnskills.com/api/v1/college/create-colleges', formDataToSend, {
-            ...config,
-            headers: {
-              ...config.headers,
-              'Content-Type': 'multipart/form-data'
-            }
-          });
-                    setSelectedCollegeId(createCollegeResponse.data.id); // Assuming the API returns the created college's ID
-            setCollegeId(createCollegeResponse.data.id)
-            console.log("ss",createCollegeResponse,"qq",selectedCollegeId)
+            const createCollegeResponse = await axios.post(
+              "https://api.thelearnskills.com/api/v1/college/create-colleges",
+              formDataToSend,
+              {
+                ...config,
+                headers: {
+                  ...config.headers,
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            );
+            setSelectedCollegeId(createCollegeResponse.data.id); // Assuming the API returns the created college's ID
+            setCollegeId(createCollegeResponse.data.id);
+            console.log("ss", createCollegeResponse, "qq", selectedCollegeId);
             break;
           case 2:
-            if (!formData.aboutCourses || !formData.courses || !Array.isArray(formData.courses) || formData.courses.length === 0) {
-              alert("All fields are required and courses should be an array with at least one entry");
+            if (
+              !formData.aboutCourses ||
+              !formData.courses ||
+              !Array.isArray(formData.courses) ||
+              formData.courses.length === 0
+            ) {
+              alert(
+                "All fields are required and courses should be an array with at least one entry"
+              );
               return;
             }
-            await axios.post('https://api.thelearnskills.com/api/v1/college/create-coursesAndFees', { ...formData, collegeId }, config); // Pass collegeId from state
+            await axios.post(
+              "https://api.thelearnskills.com/api/v1/college/create-coursesAndFees",
+              { ...formData, collegeId },
+              config
+            ); // Pass collegeId from state
             setStep(step + 1);
             break;
           case 3:
-            await axios.post('https://api.thelearnskills.com/api/v1/college/create-admissions', { ...formData, collegeId: selectedCollegeId }, config);
+            await axios.post(
+              "https://api.thelearnskills.com/api/v1/college/create-admissions",
+              { ...formData, collegeId: selectedCollegeId },
+              config
+            );
             break;
           case 4:
-            await axios.post('https://api.thelearnskills.com/api/v1/college/create-placements', { ...formData, collegeId: selectedCollegeId }, config);
-            
+            await axios.post(
+              "https://api.thelearnskills.com/api/v1/college/create-placements",
+              { ...formData, collegeId: selectedCollegeId },
+              config
+            );
+
             break;
           case 5:
-            await axios.post('https://api.thelearnskills.com/api/v1/college/create-rankingHighlights', { ...formData, collegeId: selectedCollegeId }, config);
+            await axios.post(
+              "https://api.thelearnskills.com/api/v1/college/create-rankingHighlights",
+              { ...formData, collegeId: selectedCollegeId },
+              config
+            );
             handleClose();
             break;
           default:
             break;
         }
-      }else{
+      } else {
         switch (step) {
           case 1:
-            console.log(collegeId,'3333333')
-   const createCollegeResponse = await axios.put(`https://api.thelearnskills.com/api/v1/college/colleges/${collegeUrl}`, formDataToSend, {
-            ...config,
-            headers: {
-              ...config.headers,
-              'Content-Type': 'multipart/form-data'
-            }
-          });
-          
-                    setSelectedCollegeId(createCollegeResponse.data.id); // Assuming the API returns the created college's ID
-            setCollegeId(createCollegeResponse.data.id)
-            console.log("ss",createCollegeResponse,"qq",selectedCollegeId)
+            console.log(collegeId, "3333333");
+            const createCollegeResponse = await axios.put(
+              `https://api.thelearnskills.com/api/v1/college/colleges/${collegeUrl}`,
+              formDataToSend,
+              {
+                ...config,
+                headers: {
+                  ...config.headers,
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            );
+
+            setSelectedCollegeId(createCollegeResponse.data.id); // Assuming the API returns the created college's ID
+            setCollegeId(createCollegeResponse.data.id);
+            console.log("ss", createCollegeResponse, "qq", selectedCollegeId);
             break;
           case 2:
-            if (!formData.aboutCourses || !formData.courses || !Array.isArray(formData.courses) || formData.courses.length === 0) {
-              alert("All fields are required and courses should be an array with at least one entry");
+            console.log("vvvvvvv",courses.courseName)
+            if (
+              !formData.aboutCourses ||
+              !formData.courses ||
+              !Array.isArray(formData.courses) ||
+              formData.courses.length === 0
+            ) {
+              alert(
+                "All fields are required and courses should be an array with at least one entry"
+              );
               return;
             }
-            await axios.put(`https://api.thelearnskills.com/api/v1/college/courseAndFee/${collegeUrl}`, { ...formData, collegeId }, config); // Pass collegeId from state
+            await axios.put(
+              `https://api.thelearnskills.com/api/v1/college/courseAndFee/${collegeUrl}`,
+              { ...formData, collegeId },
+              config
+            ); // Pass collegeId from state
             setStep(step + 1);
             break;
           case 3:
-            await axios.put(`https://api.thelearnskills.com/api/v1/college/admission/${collegeUrl}`, { ...formData, collegeId: selectedCollegeId }, config);
+            await axios.put(
+              `https://api.thelearnskills.com/api/v1/college/admission/${collegeUrl}`,
+              { ...formData, collegeId: selectedCollegeId },
+              config
+            );
             break;
           case 4:
-            await axios.put(`https://api.thelearnskills.com/api/v1/college/placement/${collegeUrl}`, { ...formData, collegeId: selectedCollegeId }, config);
-            
+            await axios.put(
+              `https://api.thelearnskills.com/api/v1/college/placement/${collegeUrl}`,
+              { ...formData, collegeId: selectedCollegeId },
+              config
+            );
+
             break;
           case 5:
-            await axios.put(`https://api.thelearnskills.com/api/v1/college/rankingHighlight/${collegeUrl}`, { ...formData, collegeId: selectedCollegeId }, config);
+            await axios.put(
+              `https://api.thelearnskills.com/api/v1/college/rankingHighlight/${collegeUrl}`,
+              { ...formData, collegeId: selectedCollegeId },
+              config
+            );
             handleClose();
             break;
           default:
@@ -313,13 +390,11 @@ const CollegeTable = () => {
       }
       setStep(step + 1);
     } catch (error) {
-      console.error('Error saving data:', error);
+      console.error("Error saving data:", error);
     }
   };
 
-  // const handleBack = () => {
-  //   setStep(step - 1);
-  // };
+  
 
   const renderFormStep = () => {
     switch (step) {
@@ -375,11 +450,17 @@ const CollegeTable = () => {
               value={formData.nirfRank}
               onChange={handleChange}
             />
-           
-             <div>
+
+            <div>
               <Button variant="contained" component="label">
                 Upload Photo
-                <input type="file" hidden name="photos" onChange={handleImageChange} multiple />
+                <input
+                  type="file"
+                  hidden
+                  name="photos"
+                  onChange={handleImageChange}
+                  multiple
+                />
               </Button>
               <div>
                 {photos.map((photo, index) => (
@@ -501,7 +582,7 @@ const CollegeTable = () => {
                 value={formData.admissionStatus}
                 onChange={handleChange}
                 displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
+                inputProps={{ "aria-label": "Without label" }}
                 name="admissionStatus"
               >
                 <MenuItem value="ongoing">Ongoing</MenuItem>
@@ -540,7 +621,7 @@ const CollegeTable = () => {
             />
           </div>
         );
-      
+
       case 4:
         return (
           <div>
@@ -616,10 +697,10 @@ const CollegeTable = () => {
             />
           </div>
         );
-        case 5:
-          return(
-            <div>
-              <TextField
+      case 5:
+        return (
+          <div>
+            <TextField
               margin="dense"
               label="College Id"
               type="text"
@@ -655,29 +736,30 @@ const CollegeTable = () => {
                     required
                   />
                 </Grid>
-                
               </Grid>
             ))}
             <Button onClick={handleAddRank} color="primary">
               Add Rank
             </Button>
-            </div>
-          )
+          </div>
+        );
       default:
         return null;
     }
   };
 
   return (
-    <div style={{marginTop:'4rem'}}>
+    <div style={{ marginTop: "4rem" }}>
       <Button variant="contained" color="primary" onClick={handleClickOpen}>
         Create College
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title">Create College</DialogTitle>
-        <DialogContent>
-          {renderFormStep()}
-        </DialogContent>
+        <DialogContent>{renderFormStep()}</DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
@@ -701,43 +783,127 @@ const CollegeTable = () => {
       <TableContainer component={Paper} sx={{ mt: 3, boxShadow: 3 }}>
         <Table>
           <TableHead>
-            <TableRow sx={{ backgroundColor: '#F5F7F8' }}>
-              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none', textTransform: 'uppercase' }}>Sr No.</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none',  textTransform: 'uppercase' }}>College Name</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none',  textTransform: 'uppercase' }}>Location</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none',  textTransform: 'uppercase' }}>Rating</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none',  textTransform: 'uppercase' }}>NIRF Rank</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none',  textTransform: 'uppercase' }}>Photos</TableCell>
-              <TableCell sx={{ fontWeight: 'bold', fontSize:'1rem', border: 'none',  textTransform: 'uppercase' }}>Actions</TableCell>
+            <TableRow sx={{ backgroundColor: "#F5F7F8" }}>
+              <TableCell
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "1rem",
+                  border: "none",
+                  textTransform: "uppercase",
+                }}
+              >
+                Sr No.
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "1rem",
+                  border: "none",
+                  textTransform: "uppercase",
+                }}
+              >
+                College Name
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "1rem",
+                  border: "none",
+                  textTransform: "uppercase",
+                }}
+              >
+                Location
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "1rem",
+                  border: "none",
+                  textTransform: "uppercase",
+                }}
+              >
+                Rating
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "1rem",
+                  border: "none",
+                  textTransform: "uppercase",
+                }}
+              >
+                NIRF Rank
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "1rem",
+                  border: "none",
+                  textTransform: "uppercase",
+                }}
+              >
+                Photos
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "1rem",
+                  border: "none",
+                  textTransform: "uppercase",
+                }}
+              >
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {colleges.map((college,index) => (
+            {colleges.map((college, index) => (
               <TableRow key={college._id}>
-                <TableCell sx={{ fontWeight: 'bold'}}>{index + 1}</TableCell>
-                <TableCell sx={{ textTransform: 'uppercase',  color: 'blue'}}>{college.name}</TableCell>
-                <TableCell sx={{ textTransform: 'uppercase'}}>{college.location}</TableCell>
-                <TableCell sx={{ textTransform: 'uppercase'}}>{college.rating}</TableCell>
-                <TableCell sx={{ textTransform: 'uppercase'}}>{college.nirfRank}</TableCell>
-                <TableCell sx={{ border: 'none' }}>
-  {college.photos && college.photos.map((photo, idx) => (
-    <img
-      key={idx}
-      src={`https://api.thelearnskills.com/${photo}`}
-      alt={`College ${college.name}`}
-      style={{ width: '100px', height: '100px', marginRight: '5px' }}
-    />
-  ))}
-</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>{index + 1}</TableCell>
+                <TableCell sx={{ textTransform: "uppercase", color: "blue" }}>
+                  {college.name}
+                </TableCell>
+                <TableCell sx={{ textTransform: "uppercase" }}>
+                  {college.location}
+                </TableCell>
+                <TableCell sx={{ textTransform: "uppercase" }}>
+                  {college.rating}
+                </TableCell>
+                <TableCell sx={{ textTransform: "uppercase" }}>
+                  {college.nirfRank}
+                </TableCell>
+                <TableCell sx={{ border: "none" }}>
+                  {college.photos &&
+                    college.photos.map((photo, idx) => (
+                      <img
+                        key={idx}
+                        src={`https://api.thelearnskills.com/${photo}`}
+                        alt={`College ${college.name}`}
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          marginRight: "5px",
+                        }}
+                      />
+                    ))}
+                </TableCell>
 
-                       <TableCell sx={{ textTransform: 'uppercase'}}>
-                  <IconButton aria-label="edit" onClick={() => {
-                    handleEdit(college)
-                    setCollegeUrl(college._id)
-                    } } sx={{color:'blue'}}>
+                <TableCell sx={{ textTransform: "uppercase" }}>
+                  <IconButton
+                    aria-label="edit"
+                    onClick={() => {
+                      handleEdit(college);
+                      setCollegeUrl(college._id);
+                    }}
+                    sx={{ color: "blue" }}
+                  >
                     <Edit />
                   </IconButton>
-                  <IconButton aria-label="delete" onClick={() => handleDelete(college._id)} sx={{color:'red'}}>
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => handleDelete(college._id)}
+                    sx={{ color: "red" }}
+                  >
                     <Delete />
                   </IconButton>
                 </TableCell>
@@ -746,17 +912,17 @@ const CollegeTable = () => {
           </TableBody>
         </Table>
         <TablePagination
-        rowsPerPageOptions={[10, 25, 50]}
-        component="div"
-        count={colleges.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+          rowsPerPageOptions={[10, 25, 50]}
+          component="div"
+          count={colleges.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </TableContainer>
     </div>
   );
 };
 
-export default CollegeTable;
+export default CollegeTable;
