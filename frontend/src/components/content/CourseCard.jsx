@@ -1,37 +1,65 @@
-// CourseCard.js
 import React from 'react';
-import { Card, CardMedia, CardContent, CardActions, Typography, Button, Box } from '@mui/material';
+import { Card, CardMedia, CardContent, Typography, Box, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-const CourseCard = ({ image, title, description, price, audience }) => {
+const CourseCard = ({ course }) => {
   return (
-    <Card>
+    <Card 
+      sx={{ 
+        height: 400, // Set a consistent height for all cards
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between', 
+        border: "1px solid lightgray",
+        boxShadow: "0px 2px 8px rgba(0,0,0,0.1)",
+        borderRadius: "16px",
+        '&:hover': {
+          transform: 'scale(1.0)',
+          boxShadow: 6,
+        }
+        
+      }}
+    >
       <CardMedia
         component="img"
-        alt={title}
-        height="140"
-        image={image}
-        title={title}
+        height="200"
+        image={`https://api.thelearnskills.com/${course.images[0]}`}
+        alt={course.courseName}
+        
       />
-      <CardContent>
-        <Typography variant="h5" component="div">
-          {title}
+      <CardContent 
+        sx={{ 
+          flexGrow: 1, 
+         
+        }}
+      >
+        <Typography 
+          gutterBottom 
+          variant="h6" 
+          fontWeight="bold" 
+          component="div"
+        >
+          {course.courseName}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {description}
-        </Typography>
-        <Typography variant="body2" color="text.primary">
-          Audience: {audience}
-        </Typography>
-        <Typography variant="body2" color="text.primary">
-          Price: {price}
-        </Typography>
+        <Box mt={1}>
+          <Typography variant="body2" color="text.secondary">
+            Duration: {course.duration}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Rating: {course.rating}⭐
+          </Typography>
+        </Box>
       </CardContent>
-      <CardActions>
-        {/* <Box sx={{ flexGrow: -1.5 }} />
-        <Button size="small" variant="contained" color="primary">
-          Enroll Now
-        </Button> */}
-      </CardActions>
+      <Box sx={{  p: 1, width: '15rem' }}>
+        <Button 
+          variant="contained" 
+          fullWidth
+          component={Link}
+          to={`/course/${course._id}`} // Navigate based on course ID
+        >
+          View Details
+        </Button>
+      </Box>
     </Card>
   );
 };

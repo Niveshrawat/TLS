@@ -39,7 +39,8 @@
     "react-webcam": "^7.2.0",
     "redux": "^5.0.1",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "swiper": "^11.1.15"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

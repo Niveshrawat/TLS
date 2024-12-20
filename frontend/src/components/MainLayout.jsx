@@ -9,6 +9,8 @@ import Header from './header/Header';
 // import Partners from './header/Partners';
 import Boxes from './header/Boxes'
 import Testimonials from './content/Testimonial';
+import CoursesGrid from './content/CoursesGrid';
+import JobSlider from './content/JobSlider';
 
 const MainLayout = () => {
   return (
@@ -17,15 +19,16 @@ const MainLayout = () => {
      <Header/>
       {/* <Partners/> */}
       
-      <Box sx={{ width: '100%', backgroundColor: 'white', minHeight: '50vh', py: 8 }}>
+      <Box sx={{ width: '100%', backgroundColor: 'white', minHeight: '100vh', py: 8 }}>
         <CssBaseline />
-        {/* <CoursesGrid /> */}
         <CollegesSlider />
+        <CoursesGrid />
       </Box>
+      
       <Boxes/>
       <Box sx={{ marginTop:'3rem', width: '100%', minHeight: '50vh' }}>
         <CssBaseline />
-        <BenefitSection />
+        <JobSlider/>
       </Box>
       <Box>
       <CssBaseline />

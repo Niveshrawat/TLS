@@ -1,67 +1,133 @@
-// CoursesGrid.js
-import React from 'react';
-import { Grid, Box, Typography, Button, Container } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Slider from 'react-slick';
+import { Box, Typography, Button, Container, CircularProgress, Alert, IconButton } from '@mui/material';
 import CourseCard from './CourseCard';
-
-const courses = [
-  {
-    image: 'https://www.wemakescholars.com/uploads/blog/TopprofessionalITcoursetopursueincollege.jpg',
-    title: 'Course 1',
-    description: 'Description of Course 1',
-    price: '$100',
-    audience: 'Professionals',
-  },
-  {
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlnSRf5gTB_HVJwAyKmpoVW2ujh0yk6Xh82A&s',
-    title: 'Course 2',
-    description: 'Description of Course 2',
-    price: '$200',
-    audience: 'Students',
-  },
-  {
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6wLvUAam9_Tp4EeaEFZz6VMYYi607i1f2kA&s',
-    title: 'Course 3',
-    description: 'Description of Course 3',
-    price: '$300',
-    audience: 'Beginners',
-  },
-  // {
-  //   image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yUxotsxzZksPzUinHOtBE9CkscIVrY7g7A&s',
-  //   title: 'Course 4',
-  //   description: 'Description of Course 4',
-  //   price: '$400',
-  //   audience: 'Experts',
-  // },
-  // {
-  //   image: 'https://images.shiksha.com/mediadata/ugcDocuments/images/wordpressImages/2020_05_software-development-i1.jpg',
-  //   title: 'Course 5',
-  //   description: 'Description of Course 5',
-  //   price: '$500',
-  //   audience: 'Intermediate',
-  // },
-  // {
-  //   image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfuX-TF__YzOjG-FEt00-IOmEG0OnXSVHM-A&s',
-  //   title: 'Course 6',
-  //   description: 'Description of Course 6',
-  //   price: '$600',
-  //   audience: 'Advanced',
-  // },
-];
+import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const CoursesGrid = () => {
+  const [courses, setCourses] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await axios.get(`https://api.thelearnskills.com/api/v1/shortTermcourse/short-term-courses`);
+        console.log('Fetched Courses:', response.data);
+        setCourses(response.data);
+      } catch (err) {
+        console.error('Error fetching courses:', err);
+        setError(err.response ? `${err.response.status}: ${err.response.statusText}` : err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
+  if (loading) {
+    return (
+      <Container>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+          <CircularProgress />
+          <Typography variant="body1" sx={{ ml: 2 }}>Loading courses...</Typography>
+        </Box>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container>
+        <Alert severity="error">Failed to load courses: {error}</Alert>
+      </Container>
+    );
+  }
+
+  const CustomArrow = ({ direction, onClick }) => (
+    <IconButton
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: { xs: 30, sm: 40 },
+        height: { xs: 30, sm: 40 },
+        backgroundColor: 'white',
+        border: '1px solid lightgray',
+        borderRadius: '50%',
+        position: 'absolute',
+        zIndex: 2,
+        top: '50%',
+        transform: 'translateY(-50%)',
+        right: direction === 'next' ? { xs: -25, sm: -40 } : 'auto',
+        left: direction === 'prev' ? { xs: -25, sm: -40 } : 'auto',
+        cursor: 'pointer',
+        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+      }}
+      onClick={onClick}
+    >
+      {direction === 'next' ? <ArrowForwardIos fontSize="small" /> : <ArrowBackIos fontSize="small" />}
+    </IconButton>
+  );
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    nextArrow: <CustomArrow direction="next" />,
+    prevArrow: <CustomArrow direction="prev" />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
-    <Container>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-        <Typography variant="h4">Courses</Typography>
-        <Button variant="contained" href="/all-courses">View All Courses</Button>
+    <Container maxWidth="lg">
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: { xs: 'center', sm: 'space-between' },
+          alignItems: 'center',
+          mb: 4,
+          mt: 10,
+          flexDirection: { xs: 'column', sm: 'row' },
+          textAlign: { xs: 'center', sm: 'left' },
+        }}
+      >
+        <Typography variant="h4" fontWeight="bold" sx={{ mb: { xs: 2, sm: 0 } }}>
+          Short Term Courses
+        </Typography>
+        <Button variant="contained" component={Link} to="/all-courses">
+          View All Courses
+        </Button>
       </Box>
-      <Grid container spacing={4}>
-        {courses.map((course, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <CourseCard {...course} />
-          </Grid>
+      <Slider {...settings}>
+        {courses.map((course) => (
+          <Box key={course._id || course.name} sx={{ px: 2, height: '100%' }}>
+            <CourseCard course={course} />
+          </Box>
         ))}
-      </Grid>
+      </Slider>
     </Container>
   );
 };
