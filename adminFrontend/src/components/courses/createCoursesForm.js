@@ -167,43 +167,27 @@ const CourseForm = ({
         inputProps={{ min: 0, max: 5, step: 0.1 }}
       />
 
-      {/* Existing Images Preview */}
-      {formData.existingImages && formData.existingImages.length > 0 && (
-        <Box mt={2} mb={2}>
-          <h4>Existing Images:</h4>
-          <Box display="flex" flexWrap="wrap" gap={2}>
-            {formData.existingImages.map((image, index) => (
-              <Box key={index} position="relative">
-                <img
-                  src={image} // Image URL
-                  alt={`Preview ${index + 1}`}
-                  style={{
-                    width: 100,
-                    height: 100,
-                    objectFit: 'cover',
-                    borderRadius: 4,
-                    border: '1px solid #ccc',
-                  }}
-                />
-                <IconButton
-                  size="small"
-                  style={{
-                    position: 'absolute',
-                    top: -10,
-                    right: -10,
-                    background: '#fff',
-                  }}
-                  onClick={() => removeExistingImage(index)}
-                >
-                  <DeleteIcon color="error" />
-                </IconButton>
-              </Box>
-            ))}
-          </Box>
-        </Box>
-      )}
+      {/* Existing Image Preview */}
+{formData.existingImages && formData.existingImages.length > 0 && (
+  <Box mt={2}>
+    <Typography variant="h6">Existing Image</Typography>
+    {formData.existingImages.map((img, index) => (
+      <Box key={index} display="flex" alignItems="center" mt={1}>
+        <img
+          src={img}
+          alt={`Course Image ${index + 1}`}
+          style={{ width: 100, height: 100, objectFit: 'cover', marginRight: 8 }}
+        />
+        <IconButton onClick={() => removeExistingImage(index)}>
+          <DeleteIcon color="error" />
+        </IconButton>
+      </Box>
+    ))}
+  </Box>
+)}
 
-      {/* New Image Upload */}
+
+      {/* Existing Images Preview */}
       <input
         type="file"
         multiple

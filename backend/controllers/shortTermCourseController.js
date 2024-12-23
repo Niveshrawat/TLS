@@ -2,7 +2,6 @@ import ShortTermCourse from "../models/shortTermCourse.js";
 import mongoose from "mongoose";
 import fs from "fs";
 import path from "path";
-
 export const createShortTermCourse = async (req, res) => {
   try {
     const {
@@ -15,12 +14,12 @@ export const createShortTermCourse = async (req, res) => {
       duration,
       rating,
     } = req.body;
-    const files = req.files;
+    const file = req.file; // Handle a  single file
 
     if (
       !courseName ||
       !description ||
-      !files ||
+      !file ||
       !highlights ||
       !criteria ||
       !admissionCriteria ||
@@ -35,12 +34,12 @@ export const createShortTermCourse = async (req, res) => {
     const parsedCriteria = JSON.parse(criteria);
     const parsedAdmissionCriteria = JSON.parse(admissionCriteria);
 
-    const images = files.map((file) => file.path);
+    const image = file.path;
 
     const newCourse = new ShortTermCourse({
       courseName,
       description,
-      images,
+      image,
       highlights: parsedHighlights,
       criteria: parsedCriteria,
       admissionCriteria: parsedAdmissionCriteria,
@@ -55,6 +54,7 @@ export const createShortTermCourse = async (req, res) => {
     res.status(500).send({ success: false, message: `Error creating short-term course: ${error.message}` });
   }
 };
+
 
 export const getShortTermCourses = async (req, res) => {
   try {
@@ -104,31 +104,23 @@ export const updateShortTermCourse = async (req, res) => {
       return res.status(400).send({ success: false, message: "Invalid course ID format" });
     }
 
-    // Fetch the existing course
     const existingCourse = await ShortTermCourse.findById(id);
     if (!existingCourse) {
       return res.status(404).send({ success: false, message: "Short-term course not found" });
     }
 
-    // Update images: Preserve existing images and append new ones (if any)
-    const newImages = req.files ? req.files.map((file) => file.path) : [];
-    const updatedImages = [...existingCourse.images, ...newImages];
+    const newImage = req.file ? req.file.path : existingCourse.image;
 
-    // Remove duplicates (if needed)
-    const uniqueImages = Array.from(new Set(updatedImages));
-
-    // Parse JSON fields safely
     const parsedHighlights = highlights ? JSON.parse(highlights) : existingCourse.highlights;
     const parsedCriteria = criteria ? JSON.parse(criteria) : existingCourse.criteria;
     const parsedAdmissionCriteria = admissionCriteria ? JSON.parse(admissionCriteria) : existingCourse.admissionCriteria;
 
-    // Update the course
     const updatedCourse = await ShortTermCourse.findByIdAndUpdate(
       id,
       {
         courseName: courseName || existingCourse.courseName,
         description: description || existingCourse.description,
-        images: uniqueImages,
+        image: newImage,
         highlights: parsedHighlights,
         criteria: parsedCriteria,
         admissionCriteria: parsedAdmissionCriteria,
@@ -146,6 +138,7 @@ export const updateShortTermCourse = async (req, res) => {
 };
 
 
+
 export const deleteShortTermCourse = async (req, res) => {
   try {
     const { id } = req.params;
@@ -159,11 +152,9 @@ export const deleteShortTermCourse = async (req, res) => {
       return res.status(404).send({ success: false, message: "Short-term course not found" });
     }
 
-    // Remove images from the filesystem if they exist
-    if (course.images) {
-      course.images.forEach((image) => {
-        fs.unlinkSync(path.join(__dirname, "..", image));
-      });
+    // Remove the image from the filesystem if it exists
+    if (course.image) {
+      fs.unlinkSync(path.join(__dirname, "..", course.image));
     }
 
     res.send({ success: true, message: "Short-term course deleted successfully" });
@@ -171,3 +162,4 @@ export const deleteShortTermCourse = async (req, res) => {
     res.status(500).send({ success: false, message: `Error deleting short-term course: ${error.message}` });
   }
 };
+

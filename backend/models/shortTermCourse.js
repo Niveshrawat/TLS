@@ -1,6 +1,5 @@
 // models/shortTermCourse.js
 import mongoose from "mongoose";
-
 const shortTermCourseSchema = new mongoose.Schema({
   courseName: {
     type: String,
@@ -10,8 +9,8 @@ const shortTermCourseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  images: {
-    type: [String],
+  image: { // Updated field for a single image
+    type: String,
     required: true,
   },
   highlights: {
@@ -19,11 +18,11 @@ const shortTermCourseSchema = new mongoose.Schema({
     required: true,
   },
   criteria: {
-    type: [String], // Updated to a list format
+    type: [String],
     required: true,
   },
   admissionCriteria: {
-    type: [String], // New field added as a list
+    type: [String],
     required: true,
   },
   price: {
@@ -37,7 +36,7 @@ const shortTermCourseSchema = new mongoose.Schema({
   rating: {
     type: String,
     required: true,
-  }
+  },
 });
 
 export default mongoose.model('ShortTermCourse', shortTermCourseSchema);
