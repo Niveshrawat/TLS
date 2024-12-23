@@ -23,7 +23,7 @@ const CourseCard = ({ course }) => {
       <CardMedia
         component="img"
         height="200"
-        image={`https://api.thelearnskills.com/${course.images[0]}`}
+        image={`https://api.thelearnskills.com/${course.image}`}
         alt={course.courseName}
         
       />

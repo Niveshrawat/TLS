@@ -22,7 +22,7 @@ const CourseTable = () => {
     price: '',
     duration: '',
     rating: '',
-    images: [], // To store uploaded images
+    images: '', // To store uploaded images
   });
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -64,13 +64,10 @@ const CourseTable = () => {
 
   // Add existing images (URLs)
   formDataPayload.append("existingImages", JSON.stringify(formData.existingImages));
-
-  // Add new images
-  if (formData.images && formData.images.length > 0) {
-    formData.images.forEach((image) => {
-      formDataPayload.append("images", image);
-    });
+  if (formData.image) {
+    formDataPayload.append("image", formData.image); // Only one image
   }
+
 
   // Add other fields
   formDataPayload.append("courseName", formData.courseName);
@@ -81,6 +78,7 @@ const CourseTable = () => {
   formDataPayload.append("price", formData.price);
   formDataPayload.append("duration", formData.duration);
   formDataPayload.append("rating", formData.rating);
+  formDataPayload.append("images",formData.images)
 
     let url = '';
     let method = '';
@@ -113,25 +111,29 @@ const CourseTable = () => {
       })
       .catch(error => console.error('Error submitting data:', error));
   };
-
   const handleEdit = (course) => {
-    const baseUrl = "https://api.thelearnskills.com/";
+    const baseUrl = "https://api.thelearnskills.com/upload";
+  
     setFormData({
-      courseName: course.courseName,
-      description: course.description,
-      existingImages: course.images.map((img) => `${baseUrl}${img}`),
-      highlights: course.highlights,
+      courseName: course.courseName || '',
+      description: course.description || '',
+      existingImages: course.image 
+      ? [`${baseUrl}/${course.image}`] 
+      : [], // Wrap the single image in an array for compatibility with previews
+      highlights: course.highlights || [''], // Ensure highlights is at least an empty array
       criteria: course.criteria || [],
       admissionCriteria: course.admissionCriteria || [],
-      price: course.price,
-      duration: course.duration,
-      rating: course.rating,
-      images: [], // Reset new images
+      price: course.price || '',
+      duration: course.duration || '',
+      rating: course.rating || '',
+      images: course.image || '', // Ensure single image fallback
     });
+  
     setEditCourseId(course._id);
     setIsEdit(true);
     setOpenDialog(true);
   };
+  
   
   
 
@@ -163,7 +165,7 @@ criteria: [""],
     price: '',
     duration: '',
     rating: '',
-    images: [], // To store uploaded images
+    images: '', // To store uploaded images
     });
     setIsEdit(false);
     setOpenDialog(true);
@@ -254,14 +256,14 @@ const removeAdmissionCriteria = (index) => {
     }));
 };
 
-const handleImageChange = (e) => {
-  const files = Array.from(e.target.files);
-  setFormData({
-    ...formData,
-    images: files,
-    existingImages: formData.existingImages || [],
-  });
+const handleImageChange = (event) => {
+  const file = event.target.files[0]; // Get the first selected file
+  setFormData((prevFormData) => ({
+    ...prevFormData,
+    image: file, // Store a single file
+  }));
 };
+
 
 
   const handleChangePage = (event, newPage) => {
@@ -305,12 +307,15 @@ const handleImageChange = (e) => {
     setFilteredCourses(filtered);
     setFilterDrawerOpen(false);
   };
+
   const removeExistingImage = (index) => {
-    const updatedImages = formData.existingImages.filter((_, i) => i !== index);
-    console.log('Before Update:', formData.existingImages);
-    handleChange({ target: { name: 'existingImages', value: updatedImages } });
-    console.log('After Update:', updatedImages);
-};
+    setFormData((prev) => {
+      const updatedImages = [...prev.existingImages];
+      updatedImages.splice(index, 1);
+      return { ...prev, existingImages: updatedImages };
+    });
+  };
+  
 
   
   const clearFilters = () => {
@@ -356,34 +361,29 @@ const handleImageChange = (e) => {
                 <TableCell>{course.description}</TableCell>
              
  <TableCell>
-  {course && course.images?.length > 0 ? (
-    course.images.map((image, i) => (
+ 
       <img
-        key={i}
-        src={`https://api.thelearnskills.com/${image}`}
+        src={`https://api.thelearnskills.com/${course.image}`}
         alt={course.courseName}
         width="50"
       />
-    ))
-  ) : (
-    <span>No images available</span>
-  )}
+    
 </TableCell>
 
 
 
-                <TableCell>
-                <ul>
-        {course.highlights.length > 0 ? (
-          course.highlights.map((highlight, i) => (
-            <li key={i}>{highlight}</li>
-          ))
-        ) : (
-          <li>No highlights available</li>
-        )}
-      </ul>
+<TableCell>
+  <ul>
+    {(course.highlights || []).length > 0 ? (
+      (course.highlights || []).map((highlight, i) => (
+        <li key={i}>{highlight}</li>
+      ))
+    ) : (
+      <li>No highlights available</li>
+    )}
+  </ul>
+</TableCell>
 
-                </TableCell>
                
                 <TableCell>
                   {course.criteria && course.criteria.length > 0 ? (

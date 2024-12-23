@@ -342,7 +342,6 @@ const CollegeTable = () => {
             console.log("ss", createCollegeResponse, "qq", selectedCollegeId);
             break;
           case 2:
-            console.log("vvvvvvv",courses.courseName)
             if (
               !formData.aboutCourses ||
               !formData.courses ||
