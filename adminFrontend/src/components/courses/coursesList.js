@@ -22,7 +22,7 @@ const CourseTable = () => {
     price: '',
     duration: '',
     rating: '',
-    images: '', // To store uploaded images
+    image: '', // To store uploaded images
   });
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -78,7 +78,6 @@ const CourseTable = () => {
   formDataPayload.append("price", formData.price);
   formDataPayload.append("duration", formData.duration);
   formDataPayload.append("rating", formData.rating);
-  formDataPayload.append("images",formData.images)
 
     let url = '';
     let method = '';
