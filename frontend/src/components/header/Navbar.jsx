@@ -156,13 +156,21 @@ const Navbar = ({ backgroundColor, color }) => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <img
-                  src="/images/Tls.png"
-                  alt="Logo"
-                  style={{ textDecoration: 'none', color: 'inherit', height: '7rem', marginLeft: '5rem' }}
-                />
-              </Link>
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+  <div
+    style={{
+      textDecoration: 'none',
+      color: 'inherit',
+      height: '7rem',
+      marginLeft: '2rem',
+      backgroundImage: 'url(/images/Tls.png)', // Use your image as a background
+      backgroundSize: 'contain', // Make sure the background image fits
+      backgroundPosition: 'center', // Center the background image
+      backgroundRepeat: 'no-repeat', // Ensure the image doesn't repeat
+    }}
+  />
+</Link>
+
             </Typography>
             {(user || employer) ? (
               <>
@@ -269,14 +277,22 @@ const Navbar = ({ backgroundColor, color }) => {
           </>
         ) : (
           <>
-            <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <img
-                  src="/images/Tls.png"
-                  alt="Logo"
-                  style={{ textDecoration: 'none', color: 'inherit', height: '8rem', marginLeft: '5rem' }}
-                />
-              </Link>
+              <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+  <div
+    style={{
+      textDecoration: 'none',
+      color: 'inherit',
+      height: '8rem',
+      marginLeft: '-14rem',
+      backgroundImage: 'url(/images/Tls.png)', // Use your image as a background
+      backgroundSize: 'contain', // Make sure the background image fits
+      backgroundPosition: 'center', // Center the background image
+      backgroundRepeat: 'no-repeat', // Ensure the image doesn't repeat
+    }}
+  />
+</Link>
+
             </Typography>
             <div>
               <Button color="inherit" onClick={handleClick}>Education</Button>

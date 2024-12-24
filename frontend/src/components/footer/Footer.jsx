@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid, Typography, IconButton, Box} from '@mui/material';
+import { Container, Grid, Typography, IconButton, Box } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import { Link } from 'react-router-dom';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -13,15 +13,25 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Footer = () => {
   return (
-    <footer style={{ backgroundColor: '#003285', padding: '30px 0',marginTop:'1rem',color:'white' }}>
+    <footer style={{ backgroundColor: '#003285', padding: '30px 0', marginTop: '1rem', color: 'white' }}>
       <Container maxWidth="lg">
         <Grid container spacing={5}>
           <Grid item xs={12} sm={6} md={3}>
             <Box mb={2}>
-              <img 
-                  src="/images/Tls.png"
-                  alt="Logo" style={{ maxWidth: '150px' }} />
-              
+              <div style={{
+                position: 'relative',
+                width: '150px', // Adjust width as needed
+                height: '150px', // Adjust height as needed
+                backgroundImage: 'url("/images/Tls.png")', // Path to your background image
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                borderRadius: '10px', // Optional: Add rounded corners
+                overflow: 'hidden', // Ensures the image stays within the container
+                boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' // Optional: Adds a shadow effect
+              }}>
+                
+              </div>
+
               <Typography variant="body2">Follow us on social media for regular updates, tips, and insights that can help you achieve your career goals! </Typography>
             </Box>
             <Box display="flex" justifyContent="center" marginRight="6rem">
@@ -37,79 +47,79 @@ const Footer = () => {
               <IconButton href="https://www.linkedIn.com" target="_blank" aria-label="Twitter" sx={{ color: 'blue' }}>
                 < LinkedInIcon />
               </IconButton>
-              
+
             </Box>
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
             <Box>
-            <Typography variant="h6" gutterBottom sx={{mb:'5px', fontWeight:'bold'}}>
-              Company
-<Typography component={Link} to="/about" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block', mb:'3px' }}>
-  About Us
-</Typography>
-            <Typography variant="body1" component={Link} to="/contact" color="white" sx={{ textDecoration: 'none', display: 'block' }}>Contact</Typography>            </Typography>
-            
+              <Typography variant="h6" gutterBottom sx={{ mb: '5px', fontWeight: 'bold' }}>
+                Company
+                <Typography component={Link} to="/about" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block', mb: '3px' }}>
+                  About Us
+                </Typography>
+                <Typography variant="body1" component={Link} to="/contact" color="white" sx={{ textDecoration: 'none', display: 'block' }}>Contact</Typography>            </Typography>
 
-            </Box> 
+
+            </Box>
           </Grid>
 
-          
+
 
           <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="h6" gutterBottom sx={{mb:'5px', fontWeight:'bold'}}>
+            <Typography variant="h6" gutterBottom sx={{ mb: '5px', fontWeight: 'bold' }}>
               Legal
             </Typography>
-            <Typography component={Link} to="/privacy-policy" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block', mb:'3px' }}>
-  Privacy Policy
-</Typography>  
-<Typography component={Link} to="/terms-and-conditions" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block',mb:'3px' }}>
-  Terms and Condition
-</Typography>      
-<Typography component={Link} to="/refund-policy" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block',mb:'3px' }}>
-  Refund Policy
-</Typography>                
+            <Typography component={Link} to="/privacy-policy" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block', mb: '3px' }}>
+              Privacy Policy
+            </Typography>
+            <Typography component={Link} to="/terms-and-conditions" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block', mb: '3px' }}>
+              Terms and Condition
+            </Typography>
+            <Typography component={Link} to="/refund-policy" variant="body1" color="white" sx={{ textDecoration: 'none', display: 'block', mb: '3px' }}>
+              Refund Policy
+            </Typography>
 
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-  <Typography variant="h6" gutterBottom>
-    Contact Us
-  </Typography>
-  <Box display="flex" alignItems="center" mb={1}>
-    <EmailIcon sx={{ mr: 1, color: '#FFA27F', fontSize:'2rem' }} /> {/* Google Mail red color */}
-    <Typography
-      variant="body1"
-      component="a"
-      href="mailto:alliances@thelearnskills.com"
-      sx={{ color: 'white', textDecoration: 'none' }} // Keeps the original color and removes hover effect
-    >
-      alliances@thelearnskills.in
-    </Typography>
-  </Box>
-  <Box display="flex" alignItems="center">
-    <CallIcon sx={{ mr: 1, color: 'green', fontSize:'2rem' }} /> {/* Green color for call icon */}
-    <Typography
-      variant="body1"
-      component="a"
-      href="tel:9899930067"
-      sx={{ color: 'white', textDecoration: 'none' }} // Keeps the original color and removes hover effect
-    >
-      9899930067
-    </Typography>
-  </Box>
-</Grid>
+            <Typography variant="h6" gutterBottom>
+              Contact Us
+            </Typography>
+            <Box display="flex" alignItems="center" mb={1}>
+              <EmailIcon sx={{ mr: 1, color: '#FFA27F', fontSize: '2rem' }} /> {/* Google Mail red color */}
+              <Typography
+                variant="body1"
+                component="a"
+                href="mailto:alliances@thelearnskills.com"
+                sx={{ color: 'white', textDecoration: 'none' }} // Keeps the original color and removes hover effect
+              >
+                alliances@thelearnskills.in
+              </Typography>
+            </Box>
+            <Box display="flex" alignItems="center">
+              <CallIcon sx={{ mr: 1, color: 'green', fontSize: '2rem' }} /> {/* Green color for call icon */}
+              <Typography
+                variant="body1"
+                component="a"
+                href="tel:9899930067"
+                sx={{ color: 'white', textDecoration: 'none' }} // Keeps the original color and removes hover effect
+              >
+                9899930067
+              </Typography>
+            </Box>
+          </Grid>
 
         </Grid>
-        <Typography variant="body2" color="textSecondary" align="center" style={{ marginTop:'2rem',  color:"white" }}>
-         Copyright &copy; {new Date().getFullYear()} The Learn Skills(Skyingskills Edutech Pvt. Ltd). All rights reserved.
+        <Typography variant="body2" color="textSecondary" align="center" style={{ marginTop: '2rem', color: "white" }}>
+          Copyright &copy; {new Date().getFullYear()} The Learn Skills(Skyingskills Edutech Pvt. Ltd). All rights reserved.
         </Typography>
         <Typography variant="body2" color="textSecondary" align="center" style={{ marginTop: '10px', color: "white" }}>
-  Created By{' '}
-  <a href="https://ovsinnovation.in" target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: 'none' }}>
-    OVS Innovation
-  </a>
-</Typography>
+          Created By{' '}
+          <a href="https://ovsinnovation.in" target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: 'none' }}>
+            OVS Innovation
+          </a>
+        </Typography>
 
       </Container>
     </footer>

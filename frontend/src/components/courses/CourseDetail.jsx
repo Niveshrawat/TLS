@@ -310,24 +310,22 @@ function CourseDetails() {
         marginBottom: '2rem',
       }}>
         <Box
-          component="img"
-          src="/images/Certificate.jpg"
           sx={{
             width: {
-              xs: '15rem', // Width for extra small screens (phones)
-              sm: '24rem', // Width for small screens (tablets)
-              md: '30rem', // Width for medium screens (small laptops)
-              lg: '40rem', // Width for large screens (desktops)
+              xs: '15rem',
+              sm: '24rem',
+              md: '30rem',
+              lg: '40rem',
             },
             height: {
-              xs: '10rem', // Height for extra small screens (phones)
-              sm: '16rem', // Height for small screens (tablets)
-              md: '20rem', // Height for medium screens (small laptops)
-              lg: '30rem', // Height for large screens (desktops)
+              xs: '10rem',
+              sm: '16rem',
+              md: '20rem',
+              lg: '30rem',
             },
-            marginRight: {
-              xs: '3rem', // Height for extra small screens (phones)
-            }
+            backgroundImage: `url(/images/Certificate.jpg)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
           }}
         />
       </Box>

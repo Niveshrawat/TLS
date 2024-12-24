@@ -306,28 +306,25 @@ const CourseDetail = () => {
     marginBottom: '2rem',
   }}
 >
-  <Box
-    component="img"
-    src={`https://api.thelearnskills.com/${course.certificateImage}`}
-    sx={{
-      width: {
-        xs: '15rem', // Width for extra small screens (phones)
-        sm: '24rem', // Width for small screens (tablets)
-        md: '30rem', // Width for medium screens (small laptops)
-        lg: '40rem', // Width for large screens (desktops)
-      },
-      height: {
-        xs: '10rem', // Height for extra small screens (phones)
-        sm: '16rem', // Height for small screens (tablets)
-        md: '20rem', // Height for medium screens (small laptops)
-        lg: '30rem', // Height for large screens (desktops)
-      },
-      marginRight:{
-        xs: '3rem', // Height for extra small screens (phones)
-
-      }
-    }}
-  />
+<Box
+  sx={{
+    width: {
+      xs: '15rem',
+      sm: '24rem',
+      md: '30rem',
+      lg: '40rem',
+    },
+    height: {
+      xs: '10rem',
+      sm: '16rem',
+      md: '20rem',
+      lg: '30rem',
+    },
+    backgroundImage: `url(https://api.thelearnskills.com/${course.certificateImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }}
+/>
 </Box>
 
       <VocationalForm open={openForm} handleClose={handleCloseForm} courseName={course.programName} />
